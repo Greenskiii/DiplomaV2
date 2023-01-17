@@ -1,1 +1,1 @@
-# DiplomaV2
+# Diploma
