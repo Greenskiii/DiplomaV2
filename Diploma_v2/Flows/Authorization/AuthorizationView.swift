@@ -6,38 +6,54 @@
 //
 
 import SwiftUI
-import CryptoKit
-import FirebaseAuth
-import AuthenticationServices
+import GoogleSignIn
+import _AuthenticationServices_SwiftUI
+import Combine
 
 struct AuthorizationView: View {
-    @ObservedObject var viewModel: AuthorizationViewModel = AuthorizationViewModel()
-    @EnvironmentObject var coordinator: Coordinator<AuthorizationRouter>
+    @ObservedObject var viewModel: AuthorizationViewModel
     
     var body: some View {
-        VStack {
-            Spacer()
-                .frame(height: 100)
-            createLogo()
-            createTextFields()
-            createButtonsView()
-
-            HStack {
-                Rectangle()
-                    .frame(height: 1)
-                Text("Or")
-                Rectangle()
-                    .frame(height: 1)
+        GeometryReader { geometry in
+            ZStack {
+                VStack {
+                    Spacer()
+                        .frame(maxHeight: 100)
+                    createLogo()
+                    createTextFields()
+                    createButtonsView()
+                    
+                    HStack {
+                        Rectangle()
+                            .frame(height: 1)
+                        Text("Or")
+                        Rectangle()
+                            .frame(height: 1)
+                    }
+                    .foregroundColor(Color("Royalblue"))
+                    .padding(.top, 10)
+                    .padding(.horizontal, 40)
+                    
+                    createAlternativeAuthorizationView()
+                    
+                    Spacer()
+                }
+                .textFieldStyle(RoundedBorderTextFieldStyle())
+                
+                if viewModel.showError {
+                    ErrorView()
+                        .frame(width: 225, height: 255)
+                        .foregroundColor(.black)
+                }
+                
+                BottomSheetView(
+                    maxHeight: geometry.size.height * 0.95,
+                    isOpen: $viewModel.forgotPasswordIsOpen) {
+                    ForgotPasswordView(viewModel: viewModel.forgotPasswordViewModel)
+                }
+                    .offset(y: 100)
             }
-            .foregroundColor(Color("Royalblue"))
-            .padding(.top, 10)
-            .padding(.horizontal, 40)
-
-            createAlternativeAuthorizationView()
-
-            Spacer()
         }
-        .textFieldStyle(RoundedBorderTextFieldStyle())
     }
 
     private func createLogo() -> some View {
@@ -68,16 +84,14 @@ struct AuthorizationView: View {
                 .padding(.vertical, 10)
                 .shadow(color: .gray, radius: 3, x: 2, y: 2)
 
-            TextField("Password", text: $viewModel.password)
+            SecureTextField("Password", text: $viewModel.password)
                 .padding(.horizontal, 40)
                 .padding(.bottom, 10)
-                .shadow(color: .gray, radius: 3, x: 2, y: 2)
 
             if viewModel.selection == 1 {
-                TextField("Confirm password", text: $viewModel.password)
+                SecureTextField("Confirm password", text: $viewModel.passwordDuplicate)
                     .padding(.horizontal, 40)
-                    .shadow(color: .gray, radius: 3, x: 2, y: 2)
-                    .animation(.easeInOut(duration: 0.5))
+                    .animation(.easeInOut(duration: 0.3))
                     .transition(.move(edge: .leading))
             }
         }
@@ -87,7 +101,7 @@ struct AuthorizationView: View {
         VStack {
             if viewModel.selection == 0 {
                 Button {
-                    
+                    viewModel.forgotPasswordIsOpen = true
                 } label: {
                     HStack {
                         Text("Forgot Password?")
@@ -100,12 +114,19 @@ struct AuthorizationView: View {
                     .padding(.bottom, 16)
                     
                 }
-                .animation(.easeInOut(duration: 0.5))
+                .animation(.easeInOut(duration: 0.3))
                 .transition(.move(edge: .trailing))
             }
 
             Button {
-                
+                switch viewModel.selection {
+                case 0:
+                    viewModel.loginWithEmail()
+                case 1:
+                    viewModel.signUpWithEmail()
+                default:
+                    break
+                }
             } label: {
                 ZStack {
                     RoundedRectangle(cornerRadius: 4)
@@ -127,32 +148,36 @@ struct AuthorizationView: View {
 
     private func createAlternativeAuthorizationView() -> some View {
         HStack {
-            ZStack{
-                RoundedRectangle(cornerRadius: 4)
-                    .foregroundColor(.white)
-                    .shadow(color: .gray, radius: 3, x: 2, y: 2)
-                    .frame(width: 45, height: 45)
-                Image("googleLogo")
-                    .resizable()
-                    .frame(width: 30, height: 30)
+            Button {
+                viewModel.loginWithGoogle()
+            } label: {
+                ZStack{
+                    RoundedRectangle(cornerRadius: 4)
+                        .foregroundColor(.white)
+                        .shadow(color: .gray, radius: 3, x: 2, y: 2)
+                        .frame(width: 45, height: 45)
+                    Image("googleLogo")
+                        .resizable()
+                        .frame(width: 30, height: 30)
+                }
             }
 
-            ZStack{
-                RoundedRectangle(cornerRadius: 4)
-                    .foregroundColor(.white)
-                    .shadow(color: .gray, radius: 3, x: 2, y: 2)
-                    .frame(width: 45, height: 45)
-                Image("appleLogo")
-                    .resizable()
-                    .frame(width: 30, height: 30)
+
+            
+            Button {
+                viewModel.loginWithApple()
+            } label: {
+                ZStack{
+                    RoundedRectangle(cornerRadius: 4)
+                        .frame(width: 45, height: 45)
+                        .foregroundColor(.white)
+                        .shadow(color: .gray, radius: 3, x: 2, y: 2)
+                    Image("appleLogo")
+                        .resizable()
+                        .frame(width: 30, height: 30)
+            }
             }
         }
         .padding(.top, 10)
-    }
-}
-
-struct AuthorizationView_Previews: PreviewProvider {
-    static var previews: some View {
-        AuthorizationView()
     }
 }
