@@ -12,11 +12,18 @@
 		B834A9352976EF4F00AC8F09 /* BackgroundGeometryReader.swift in Sources */ = {isa = PBXBuildFile; fileRef = B834A9342976EF4F00AC8F09 /* BackgroundGeometryReader.swift */; };
 		B834A9372976EF6400AC8F09 /* SizePreferenceKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = B834A9362976EF6400AC8F09 /* SizePreferenceKey.swift */; };
 		B834A9392976EF8D00AC8F09 /* View.eraseToAnyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B834A9382976EF8D00AC8F09 /* View.eraseToAnyView.swift */; };
+		B834A93B297745F200AC8F09 /* AuthorizationModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B834A93A297745F200AC8F09 /* AuthorizationModel.swift */; };
+		B834A93D29784A2E00AC8F09 /* ErrorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B834A93C29784A2E00AC8F09 /* ErrorView.swift */; };
+		B834A93F2978550B00AC8F09 /* VisualEffectView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B834A93E2978550B00AC8F09 /* VisualEffectView.swift */; };
+		B834A9412978585300AC8F09 /* SecureTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = B834A9402978585300AC8F09 /* SecureTextField.swift */; };
+		B834A94329785D0000AC8F09 /* AppCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = B834A94229785D0000AC8F09 /* AppCoordinator.swift */; };
+		B834A94529785DA000AC8F09 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B834A94429785DA000AC8F09 /* Main.storyboard */; };
+		B834A94729785EEE00AC8F09 /* AuthorizationCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = B834A94629785EEE00AC8F09 /* AuthorizationCoordinator.swift */; };
+		B834A94929786BB900AC8F09 /* MainMenuCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = B834A94829786BB900AC8F09 /* MainMenuCoordinator.swift */; };
+		B834A94B29786BEA00AC8F09 /* MainMenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B834A94A29786BEA00AC8F09 /* MainMenuViewController.swift */; };
 		B874C97B296ED20F00D6CC30 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B874C97A296ED20F00D6CC30 /* Assets.xcassets */; };
 		B874C97E296ED20F00D6CC30 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B874C97D296ED20F00D6CC30 /* Preview Assets.xcassets */; };
-		B874C98A297579E900D6CC30 /* Router.swift in Sources */ = {isa = PBXBuildFile; fileRef = B874C989297579E900D6CC30 /* Router.swift */; };
-		B874C98C297579F700D6CC30 /* NavigationTranisitionStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = B874C98B297579F700D6CC30 /* NavigationTranisitionStyle.swift */; };
-		B874C98E29757A3A00D6CC30 /* AuthorizationRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = B874C98D29757A3A00D6CC30 /* AuthorizationRouter.swift */; };
+		B874C98E29757A3A00D6CC30 /* AuthorizationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B874C98D29757A3A00D6CC30 /* AuthorizationViewController.swift */; };
 		B874C99029757AA100D6CC30 /* AuthorizationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B874C98F29757AA100D6CC30 /* AuthorizationView.swift */; };
 		B874C99229757ABB00D6CC30 /* MainMenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B874C99129757ABB00D6CC30 /* MainMenuView.swift */; };
 		B874C99429757AEF00D6CC30 /* Coordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = B874C99329757AEF00D6CC30 /* Coordinator.swift */; };
@@ -26,6 +33,10 @@
 		B874C99E2975CB0800D6CC30 /* AuthManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B874C99D2975CB0800D6CC30 /* AuthManager.swift */; };
 		B874C9A02975CBBF00D6CC30 /* AuthorizationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B874C99F2975CBBF00D6CC30 /* AuthorizationViewModel.swift */; };
 		B874C9A22975F14300D6CC30 /* SegmentedPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = B874C9A12975F14200D6CC30 /* SegmentedPicker.swift */; };
+		B8C5CAD92979ECB6009ED632 /* BottomSheetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8C5CAD82979ECB6009ED632 /* BottomSheetView.swift */; };
+		B8C5CADD2979ED10009ED632 /* ForgotPasswordView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8C5CADC2979ED10009ED632 /* ForgotPasswordView.swift */; };
+		B8C5CADF2979F032009ED632 /* ForgotPasswordViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8C5CADE2979F032009ED632 /* ForgotPasswordViewModel.swift */; };
+		B8C5CAE2297AECB0009ED632 /* MainMenuCatView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8C5CAE1297AECB0009ED632 /* MainMenuCatView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -36,12 +47,20 @@
 		B834A9342976EF4F00AC8F09 /* BackgroundGeometryReader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackgroundGeometryReader.swift; sourceTree = "<group>"; };
 		B834A9362976EF6400AC8F09 /* SizePreferenceKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SizePreferenceKey.swift; sourceTree = "<group>"; };
 		B834A9382976EF8D00AC8F09 /* View.eraseToAnyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = View.eraseToAnyView.swift; sourceTree = "<group>"; };
+		B834A93A297745F200AC8F09 /* AuthorizationModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthorizationModel.swift; sourceTree = "<group>"; };
+		B834A93C29784A2E00AC8F09 /* ErrorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorView.swift; sourceTree = "<group>"; };
+		B834A93E2978550B00AC8F09 /* VisualEffectView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VisualEffectView.swift; sourceTree = "<group>"; };
+		B834A9402978585300AC8F09 /* SecureTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecureTextField.swift; sourceTree = "<group>"; };
+		B834A94229785D0000AC8F09 /* AppCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppCoordinator.swift; sourceTree = "<group>"; };
+		B834A94429785DA000AC8F09 /* Main.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
+		B834A94629785EEE00AC8F09 /* AuthorizationCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthorizationCoordinator.swift; sourceTree = "<group>"; };
+		B834A94829786BB900AC8F09 /* MainMenuCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainMenuCoordinator.swift; sourceTree = "<group>"; };
+		B834A94A29786BEA00AC8F09 /* MainMenuViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainMenuViewController.swift; sourceTree = "<group>"; };
+		B834A95129788C4E00AC8F09 /* Diploma_v2.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Diploma_v2.entitlements; sourceTree = "<group>"; };
 		B874C973296ED20D00D6CC30 /* Diploma_v2.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Diploma_v2.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B874C97A296ED20F00D6CC30 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		B874C97D296ED20F00D6CC30 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
-		B874C989297579E900D6CC30 /* Router.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Router.swift; sourceTree = "<group>"; };
-		B874C98B297579F700D6CC30 /* NavigationTranisitionStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationTranisitionStyle.swift; sourceTree = "<group>"; };
-		B874C98D29757A3A00D6CC30 /* AuthorizationRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthorizationRouter.swift; sourceTree = "<group>"; };
+		B874C98D29757A3A00D6CC30 /* AuthorizationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthorizationViewController.swift; sourceTree = "<group>"; };
 		B874C98F29757AA100D6CC30 /* AuthorizationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthorizationView.swift; sourceTree = "<group>"; };
 		B874C99129757ABB00D6CC30 /* MainMenuView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainMenuView.swift; sourceTree = "<group>"; };
 		B874C99329757AEF00D6CC30 /* Coordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Coordinator.swift; sourceTree = "<group>"; };
@@ -51,6 +70,10 @@
 		B874C99D2975CB0800D6CC30 /* AuthManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthManager.swift; sourceTree = "<group>"; };
 		B874C99F2975CBBF00D6CC30 /* AuthorizationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthorizationViewModel.swift; sourceTree = "<group>"; };
 		B874C9A12975F14200D6CC30 /* SegmentedPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SegmentedPicker.swift; sourceTree = "<group>"; };
+		B8C5CAD82979ECB6009ED632 /* BottomSheetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BottomSheetView.swift; sourceTree = "<group>"; };
+		B8C5CADC2979ED10009ED632 /* ForgotPasswordView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForgotPasswordView.swift; sourceTree = "<group>"; };
+		B8C5CADE2979F032009ED632 /* ForgotPasswordViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForgotPasswordViewModel.swift; sourceTree = "<group>"; };
+		B8C5CAE1297AECB0009ED632 /* MainMenuCatView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainMenuCatView.swift; sourceTree = "<group>"; };
 		D19EA41FA2485D5F2659D2E9 /* Pods-Diploma_v2.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Diploma_v2.debug.xcconfig"; path = "Target Support Files/Pods-Diploma_v2/Pods-Diploma_v2.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -95,6 +118,33 @@
 			path = SegmentedPicker;
 			sourceTree = "<group>";
 		};
+		B834A94C2978889E00AC8F09 /* SystemFiles */ = {
+			isa = PBXGroup;
+			children = (
+				B874C99829757CB800D6CC30 /* SceneDelegate.swift */,
+				B874C99529757C9E00D6CC30 /* AppDelegate.swift */,
+				B834A94429785DA000AC8F09 /* Main.storyboard */,
+				B874C99A29757ECF00D6CC30 /* GoogleService-Info.plist */,
+			);
+			path = SystemFiles;
+			sourceTree = "<group>";
+		};
+		B834A94D297888CD00AC8F09 /* Managers */ = {
+			isa = PBXGroup;
+			children = (
+				B834A94E2978893B00AC8F09 /* Auth */,
+			);
+			path = Managers;
+			sourceTree = "<group>";
+		};
+		B834A94E2978893B00AC8F09 /* Auth */ = {
+			isa = PBXGroup;
+			children = (
+				B874C99D2975CB0800D6CC30 /* AuthManager.swift */,
+			);
+			path = Auth;
+			sourceTree = "<group>";
+		};
 		B874C96A296ED20D00D6CC30 = {
 			isa = PBXGroup;
 			children = (
@@ -116,16 +166,16 @@
 		B874C975296ED20D00D6CC30 /* Diploma_v2 */ = {
 			isa = PBXGroup;
 			children = (
+				B8C5CAD72979ECA5009ED632 /* BottomSheet */,
+				B834A95129788C4E00AC8F09 /* Diploma_v2.entitlements */,
+				B874C988297579BA00D6CC30 /* Сoordinator */,
+				B834A94D297888CD00AC8F09 /* Managers */,
+				B834A94C2978889E00AC8F09 /* SystemFiles */,
 				B834A9312976EF1D00AC8F09 /* SegmentedPicker */,
 				B834A93029760AA000AC8F09 /* Diploma-v2-Info.plist */,
-				B874C988297579BA00D6CC30 /* Сoordinator */,
 				B874C984296ED48700D6CC30 /* Flows */,
 				B874C97A296ED20F00D6CC30 /* Assets.xcassets */,
 				B874C97C296ED20F00D6CC30 /* Preview Content */,
-				B874C99529757C9E00D6CC30 /* AppDelegate.swift */,
-				B874C99829757CB800D6CC30 /* SceneDelegate.swift */,
-				B874C99A29757ECF00D6CC30 /* GoogleService-Info.plist */,
-				B874C99D2975CB0800D6CC30 /* AuthManager.swift */,
 			);
 			path = Diploma_v2;
 			sourceTree = "<group>";
@@ -151,9 +201,15 @@
 		B874C985296ED49900D6CC30 /* Authorization */ = {
 			isa = PBXGroup;
 			children = (
-				B874C98D29757A3A00D6CC30 /* AuthorizationRouter.swift */,
+				B8C5CAE0297AE6C1009ED632 /* ForgotPasswordView */,
+				B874C98D29757A3A00D6CC30 /* AuthorizationViewController.swift */,
 				B874C98F29757AA100D6CC30 /* AuthorizationView.swift */,
 				B874C99F2975CBBF00D6CC30 /* AuthorizationViewModel.swift */,
+				B834A93A297745F200AC8F09 /* AuthorizationModel.swift */,
+				B834A93C29784A2E00AC8F09 /* ErrorView.swift */,
+				B834A93E2978550B00AC8F09 /* VisualEffectView.swift */,
+				B834A9402978585300AC8F09 /* SecureTextField.swift */,
+				B834A94629785EEE00AC8F09 /* AuthorizationCoordinator.swift */,
 			);
 			path = Authorization;
 			sourceTree = "<group>";
@@ -162,6 +218,9 @@
 			isa = PBXGroup;
 			children = (
 				B874C99129757ABB00D6CC30 /* MainMenuView.swift */,
+				B834A94829786BB900AC8F09 /* MainMenuCoordinator.swift */,
+				B834A94A29786BEA00AC8F09 /* MainMenuViewController.swift */,
+				B8C5CAE1297AECB0009ED632 /* MainMenuCatView.swift */,
 			);
 			path = MainMenu;
 			sourceTree = "<group>";
@@ -176,11 +235,27 @@
 		B874C988297579BA00D6CC30 /* Сoordinator */ = {
 			isa = PBXGroup;
 			children = (
-				B874C989297579E900D6CC30 /* Router.swift */,
-				B874C98B297579F700D6CC30 /* NavigationTranisitionStyle.swift */,
 				B874C99329757AEF00D6CC30 /* Coordinator.swift */,
+				B834A94229785D0000AC8F09 /* AppCoordinator.swift */,
 			);
 			path = "Сoordinator";
+			sourceTree = "<group>";
+		};
+		B8C5CAD72979ECA5009ED632 /* BottomSheet */ = {
+			isa = PBXGroup;
+			children = (
+				B8C5CAD82979ECB6009ED632 /* BottomSheetView.swift */,
+			);
+			path = BottomSheet;
+			sourceTree = "<group>";
+		};
+		B8C5CAE0297AE6C1009ED632 /* ForgotPasswordView */ = {
+			isa = PBXGroup;
+			children = (
+				B8C5CADC2979ED10009ED632 /* ForgotPasswordView.swift */,
+				B8C5CADE2979F032009ED632 /* ForgotPasswordViewModel.swift */,
+			);
+			path = ForgotPasswordView;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -194,7 +269,7 @@
 				B874C96F296ED20D00D6CC30 /* Sources */,
 				B874C970296ED20D00D6CC30 /* Frameworks */,
 				B874C971296ED20D00D6CC30 /* Resources */,
-				50FAE8D0CBCF9CD2DE51B53B /* [CP] Embed Pods Frameworks */,
+				21BC9DA6E8FA9C4349DDBCDA /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -246,13 +321,14 @@
 				B874C97E296ED20F00D6CC30 /* Preview Assets.xcassets in Resources */,
 				B874C97B296ED20F00D6CC30 /* Assets.xcassets in Resources */,
 				B874C99B29757ECF00D6CC30 /* GoogleService-Info.plist in Resources */,
+				B834A94529785DA000AC8F09 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		50FAE8D0CBCF9CD2DE51B53B /* [CP] Embed Pods Frameworks */ = {
+		21BC9DA6E8FA9C4349DDBCDA /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -300,18 +376,28 @@
 			files = (
 				B834A9332976EF3800AC8F09 /* SizeAwareViewModifier.swift in Sources */,
 				B874C99429757AEF00D6CC30 /* Coordinator.swift in Sources */,
-				B874C98C297579F700D6CC30 /* NavigationTranisitionStyle.swift in Sources */,
 				B834A9392976EF8D00AC8F09 /* View.eraseToAnyView.swift in Sources */,
+				B834A93D29784A2E00AC8F09 /* ErrorView.swift in Sources */,
+				B8C5CAE2297AECB0009ED632 /* MainMenuCatView.swift in Sources */,
 				B874C99229757ABB00D6CC30 /* MainMenuView.swift in Sources */,
+				B834A93B297745F200AC8F09 /* AuthorizationModel.swift in Sources */,
+				B8C5CADF2979F032009ED632 /* ForgotPasswordViewModel.swift in Sources */,
+				B834A94929786BB900AC8F09 /* MainMenuCoordinator.swift in Sources */,
+				B834A94329785D0000AC8F09 /* AppCoordinator.swift in Sources */,
 				B874C99629757C9E00D6CC30 /* AppDelegate.swift in Sources */,
 				B874C99929757CB800D6CC30 /* SceneDelegate.swift in Sources */,
+				B8C5CADD2979ED10009ED632 /* ForgotPasswordView.swift in Sources */,
 				B874C9A22975F14300D6CC30 /* SegmentedPicker.swift in Sources */,
 				B874C99029757AA100D6CC30 /* AuthorizationView.swift in Sources */,
+				B834A93F2978550B00AC8F09 /* VisualEffectView.swift in Sources */,
 				B874C99E2975CB0800D6CC30 /* AuthManager.swift in Sources */,
 				B834A9352976EF4F00AC8F09 /* BackgroundGeometryReader.swift in Sources */,
-				B874C98A297579E900D6CC30 /* Router.swift in Sources */,
-				B874C98E29757A3A00D6CC30 /* AuthorizationRouter.swift in Sources */,
+				B834A9412978585300AC8F09 /* SecureTextField.swift in Sources */,
+				B874C98E29757A3A00D6CC30 /* AuthorizationViewController.swift in Sources */,
 				B874C9A02975CBBF00D6CC30 /* AuthorizationViewModel.swift in Sources */,
+				B834A94B29786BEA00AC8F09 /* MainMenuViewController.swift in Sources */,
+				B8C5CAD92979ECB6009ED632 /* BottomSheetView.swift in Sources */,
+				B834A94729785EEE00AC8F09 /* AuthorizationCoordinator.swift in Sources */,
 				B834A9372976EF6400AC8F09 /* SizePreferenceKey.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -439,6 +525,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = Diploma_v2/Diploma_v2.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"Diploma_v2/Preview Content\"";
@@ -456,7 +543,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "odanevych.Diplom-v2";
+				PRODUCT_BUNDLE_IDENTIFIER = "odanevych.Diploma-v1";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -470,6 +557,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = Diploma_v2/Diploma_v2.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"Diploma_v2/Preview Content\"";
@@ -487,7 +575,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "odanevych.Diplom-v2";
+				PRODUCT_BUNDLE_IDENTIFIER = "odanevych.Diploma-v1";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
