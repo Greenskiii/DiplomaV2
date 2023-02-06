@@ -50,13 +50,15 @@ class AppCoordinator: Coordinator {
     }
     
     func goToMainPageScreen() {
-        print("goToMainPageScreen")
         children.removeAll()
         
-        let viewController = MainMenuViewController()
+        let viewController = MainMenuViewController(
+            viewModel: MainMenuViewModel(
+                model: MainMenuDomainModel(
+                    authManager: AuthManager(),
+                    dataManager: DataManager())))
         let coordinator = MainMenuCoordinator(viewController: viewController, parentCoordinator: self)
         children.append(coordinator)
         navigationController?.viewControllers = [viewController]
     }
-    
 }
