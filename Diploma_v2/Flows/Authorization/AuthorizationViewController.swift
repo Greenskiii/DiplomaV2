@@ -32,8 +32,22 @@ final class AuthorizationViewController: UIViewController {
         configureUI()
     }
 
+//    override func viewWillAppear(_ animated: Bool) {
+//        super.viewWillAppear(animated)
+//        navigationController?.setNavigationBarHidden(true, animated: animated)
+//    }
+    
     private func configureUI() {
-         add(childViewController: embedController, to: view)
+        navigationController?.navigationBar.isHidden = true
+        addChild(embedController)
+        view.addSubview(embedController.view)
+        embedController.view?.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            embedController.view.topAnchor.constraint(equalTo: view.topAnchor),
+            embedController.view.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+            embedController.view.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            embedController.view.trailingAnchor.constraint(equalTo: view.trailingAnchor)
+        ])
     }
 }
 
