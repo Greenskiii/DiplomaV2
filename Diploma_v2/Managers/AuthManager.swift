@@ -22,7 +22,7 @@ final class AuthManager: NSObject, ObservableObject {
     @Published var auth: Bool = false
 
     let firebaseAuth = Auth.auth()
-
+    
     func loginWithApple() {
         self.nonce = randomNonceString()
         let appleIDProvider = ASAuthorizationAppleIDProvider()
@@ -103,6 +103,17 @@ final class AuthManager: NSObject, ObservableObject {
                 print(error.localizedDescription)
             }
         }
+    }
+    
+    func getUserInfo() -> User? {
+        guard let authUser = Auth.auth().currentUser else {
+            return nil
+        }
+        
+        return User(
+            name: authUser.displayName ?? "User",
+            imageUrl: authUser.photoURL?.absoluteString ?? "",
+            uid: authUser.uid)
     }
 }
 

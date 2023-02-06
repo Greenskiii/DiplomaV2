@@ -10,21 +10,22 @@ import SwiftUI
 
 final class MainMenuViewController: UIViewController {
     
-//    var viewModel: AuthorizationViewModel!
+    var viewModel: MainMenuViewModel!
     
     private lazy var embedController: UIHostingController<MainMenuView> = {
-        let controller = UIHostingController(rootView: MainMenuView())
+        let controller = UIHostingController(rootView: MainMenuView(viewModel: viewModel))
+        controller.navigationController?.setNavigationBarHidden(true, animated: true)
         return controller
     }()
     
-//    init(viewModel: AuthorizationViewModel) {
-//        self.viewModel = viewModel
-//        super.init(nibName: nil, bundle: nil)
-//    }
-//    
-//    required init?(coder: NSCoder) {
-//        fatalError("init(coder:) has not been implemented")
-//    }
+    init(viewModel: MainMenuViewModel) {
+        self.viewModel = viewModel
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -33,6 +34,15 @@ final class MainMenuViewController: UIViewController {
     }
 
     private func configureUI() {
-         add(childViewController: embedController, to: view)
+        navigationController?.navigationBar.isHidden = true
+        addChild(embedController)
+        view.addSubview(embedController.view)
+        embedController.view?.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            embedController.view.topAnchor.constraint(equalTo: view.topAnchor),
+            embedController.view.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+            embedController.view.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            embedController.view.trailingAnchor.constraint(equalTo: view.trailingAnchor)
+        ])
     }
 }
