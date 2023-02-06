@@ -8,86 +8,114 @@
 import SwiftUI
 
 struct MainMenuView: View {
-    
-    let authManager = AuthManager()
+    @ObservedObject var viewModel: MainMenuViewModel
+    @State var selection = 0
     
     var body: some View {
         GeometryReader { geometry in
-            
             ZStack {
                 Color("TropicalBlue")
                     .ignoresSafeArea()
-
                 VStack {
-                    HStack {
-                        Spacer()
-                        ZStack {
-                            Circle()
-                                .frame(width: 40)
-                                .foregroundColor(Color("Royalblue"))
-                            
-                            VStack {
-                                Rectangle()
-                                    .frame(width: 20, height: 3)
-                                    .foregroundColor(.white)
-                                    .offset(y: 3)
-                                Rectangle()
-                                    .frame(width: 20, height: 3)
-                                    .foregroundColor(.white)
-                                Rectangle()
-                                    .frame(width: 20, height: 3)
-                                    .foregroundColor(.white)
-                                    .offset(y: -3)
+                    makeTopView()
+                        .padding()
+                    if let house = viewModel.house {
+                        ScrollView(.horizontal, showsIndicators: false) {
+                            HStack {
+                                ForEach(house.rooms, id: \.self) { room in
+                                    RoomPreviewCard(room: room, isSelected: room.name == viewModel.choosenRoom)
+                                        .frame(width: 150)
+                                        .onTapGesture {
+                                            withAnimation {
+                                                viewModel.onChooseRoom.send(room.name)
+                                            }
+                                        }
+                                }
                             }
+                            .padding(.bottom)
+                            .padding(.horizontal)
                         }
-                        .padding(.trailing, 10)
-                        .offset(y: -5)
+                        if let room = viewModel.shownRoom {
+                            ZStack {
+                                RoundedRectangle(cornerRadius: 16)
+                                    .foregroundColor(.white)
+                                ZStack(alignment: .bottom) {
+                                    DevicesGridView(devices: room.devices)
+                                    Button {
+                                        
+                                    } label: {
+                                        ZStack {
+                                            RoundedRectangle(cornerRadius: 8)
+                                                .foregroundColor(Color("Navy"))
+//                                                .opacity(0.8)
+
+                                            Image(systemName: "plus")
+                                                .font(.system(size: 30))
+                                                .foregroundColor(.white)
+                                        }
+                                        .padding()
+                                        .frame(height: 75)
+                                    }
+                                }
+                            }
+                            .frame(height: geometry.size.height * 0.7)
+                            .padding(.horizontal)
+                        }
                     }
                     Spacer()
-                    
-//                    Rectangle()
-//                        .cornerRadius(16, corners: [.bottomLeft, .bottomRight])
-//                        
-                    
-                    RoundedRectangle(cornerRadius: 16)
-                        .ignoresSafeArea()
-                        .foregroundColor(.white)
-                        .frame(width: geometry.size.width, height: geometry.size.height * 0.9)
-                        .offset(y: 10)
-                }
-                VStack {
-                    Text("MainMenuView")
-                    
-                    Button {
-                        authManager.logOut()
-                    } label: {
-                        Text("logOut")
-                    }
                 }
             }
         }
+        .ignoresSafeArea()
     }
-}
 
-struct MainMenuView_Previews: PreviewProvider {
-    static var previews: some View {
-        MainMenuView()
-    }
-}
-
-extension View {
-    func cornerRadius(_ radius: CGFloat, corners: UIRectCorner) -> some View {
-        clipShape( RoundedCorner(radius: radius, corners: corners) )
-    }
-}
-
-struct RoundedCorner: Shape {
-
-    var radius: CGFloat = .infinity
-    var corners: UIRectCorner = .allCorners
-
-    func path(in rect: CGRect) -> Path {
-        let path = UIBezierPath(roundedRect: rect, byRoundingCorners: corners, cornerRadii: CGSize(width: radius, height: radius))
-        return Path(path.cgPath)
+    func makeTopView() -> some View {
+        
+        ZStack(alignment: .bottom) {
+            Image("MainTitle")
+                .resizable()
+                .frame(width: 125, height: 35)
+            HStack(alignment: .bottom) {
+                if !viewModel.houses.isEmpty {
+                    Menu {
+                        ForEach(viewModel.houses, id: \.self) { house in
+                            Button {
+                                viewModel.choosenHouse = house
+                                viewModel.onChangeHouse.send(house)
+                            } label: {
+                                HStack {
+                                    Text(house)
+                                    Spacer()
+                                    if viewModel.choosenHouse == house {
+                                        Image(systemName: "checkmark")
+                                            .font(.system(size: 10))
+                                    }
+                                }
+                            }
+                        }
+                    } label: {
+                        ZStack {
+                            HStack {
+                                Text(viewModel.house?.name ?? "")
+                                    .bold()
+                                Image(systemName: "arrowtriangle.down.fill")
+                                    .font(.system(size: 10))
+                            }
+                            .foregroundColor(Color("Navy"))
+                        }
+                    }
+                }
+                Spacer()
+                if let user = viewModel.user,
+                   !user.imageUrl.isEmpty {
+                    ImageView(withURL: user.imageUrl)
+                        .frame(width: 40, height: 40)
+                } else {
+                    Image(systemName: "person.circle.fill")
+                        .font(.system(size: 25))
+                        .foregroundColor(Color("Navy"))
+                }
+            }
+        }
     }
 }
