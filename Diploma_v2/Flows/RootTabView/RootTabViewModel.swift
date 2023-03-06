@@ -11,8 +11,12 @@ class RootTabViewModel: ObservableObject {
     @Published var selectedTab: TabType = .main
 
     let mainMenuViewModel: MainMenuViewModel
-
-    init(mainMenuViewModel: MainMenuViewModel) {
+    let settingsViewModel: SettingsViewModel
+    init(
+        mainMenuViewModel: MainMenuViewModel,
+         settingsViewModel: SettingsViewModel
+    ) {
         self.mainMenuViewModel = mainMenuViewModel
+        self.settingsViewModel = settingsViewModel
     }
 }

@@ -112,7 +112,7 @@ struct MainMenuView: View {
                             .foregroundColor(Color("Navy"))
                         
                         if !user.imageUrl.isEmpty {
-                            ImageView(withURL: user.imageUrl)
+                            UrlImageView(urlString: user.imageUrl)
                                 .clipShape(Circle())
                                 .frame(width: 40, height: 40)
                         } else {

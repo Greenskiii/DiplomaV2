@@ -25,14 +25,10 @@ struct RootTabView: View {
     }
 
     private var settings: some View {
-        ZStack {
-            Color("TropicalBlue")
-                .ignoresSafeArea()
-            Text("Settings")
-        }
-        .tabItem {
-            Label("Settings", systemImage: "person")
-        }
+        SettingsView(viewModel: viewModel.settingsViewModel)
+            .tabItem {
+                Label("Settings", systemImage: "person")
+            }
     }
 }
 

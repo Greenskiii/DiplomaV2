@@ -60,7 +60,7 @@ struct DeviceDetailsView: View {
 
     private func createDeviceInfoView() -> some View {
         VStack {
-            ImageView(withURL: viewModel.device.image)
+            UrlImageView(urlString: viewModel.device.image)
                 .frame(width: 150, height: 150)
             Text(viewModel.device.name)
                 .font(.title)

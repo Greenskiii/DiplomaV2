@@ -134,6 +134,8 @@ class AppCoordinator: Coordinator {
                         dataManager: dataManager,
                         onGoToScannerScreen: onGoToScannerScreen
                     )
+                ), settingsViewModel: SettingsViewModel(
+                    model: SettingsModel()
                 )
             )
         )

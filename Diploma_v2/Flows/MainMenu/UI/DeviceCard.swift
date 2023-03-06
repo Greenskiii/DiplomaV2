@@ -20,7 +20,7 @@ struct DeviceCard: View {
 
             HStack(alignment: .top) {
                 VStack(alignment: .leading) {
-                    ImageView(withURL: device.image)
+                    UrlImageView(urlString: device.image)
                         .frame(width: 50, height: 50)
 
                     if isFavorite {
