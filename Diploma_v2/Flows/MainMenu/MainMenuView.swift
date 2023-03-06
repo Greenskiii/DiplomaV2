@@ -24,7 +24,6 @@ struct MainMenuView: View {
                         makeRoomPreviewView(for: house)
                         if let room = viewModel.shownRoom {
                             makeDevicesGrid(for: room)
-                                
                                 .frame(minHeight: geometry.size.height * 0.75)
                                 .padding(.horizontal)
                                 .padding(.bottom)
@@ -56,17 +55,17 @@ struct MainMenuView: View {
                 }
 
                 BottomSheetView(maxHeight: 600, isOpen: $viewModel.deviceDetailIsOpen) {
-                            if viewModel.deviceDetailIsOpen,
-                               let deviceDetailsViewModel = viewModel.deviceDetailsViewModel {
-                                DeviceDetailsView(viewModel: deviceDetailsViewModel)
-                                    .transition(.move(edge: .bottom))
-                            }
-                        }
-                        .ignoresSafeArea()
-                        .shadow(color: .gray, radius: 3, x: 2, y: 0)
-                        .onDisappear {
-                            viewModel.onTapDevice.send(nil)
-                        }
+                    if viewModel.deviceDetailIsOpen,
+                       let deviceDetailsViewModel = viewModel.deviceDetailsViewModel {
+                        DeviceDetailsView(viewModel: deviceDetailsViewModel)
+                            .transition(.move(edge: .bottom))
+                    }
+                }
+                .ignoresSafeArea()
+                .shadow(color: .gray, radius: 3, x: 2, y: 0)
+                .onDisappear {
+                    viewModel.onTapDevice.send(nil)
+                }
             }
         }
     }
