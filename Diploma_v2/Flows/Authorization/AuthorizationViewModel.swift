@@ -11,8 +11,8 @@ import AuthenticationServices
 
 final class AuthorizationViewModel: ObservableObject {
     var subscriptions = Set<AnyCancellable>()
-
     let model: AuthorizationModel
+
     @Published var showError = false
     @Published var email: String = ""
     @Published var password: String = ""
@@ -20,10 +20,17 @@ final class AuthorizationViewModel: ObservableObject {
     @Published var selection = 0
     @Published var nonce: String = ""
     @Published var forgotPasswordIsOpen: Bool = false
+
     var forgotPasswordViewModel: ForgotPasswordViewModel {
         model.forgotPasswordViewModel
     }
-    
+    var onLoginWithGoogle: PassthroughSubject<Void, Never> {
+        model.onLoginWithGoogle
+    }
+    var onLoginWithApple: PassthroughSubject<Void, Never> {
+        model.onLoginWithApple
+    }
+
     init(model: AuthorizationModel) {
         self.model = model
         model.$showError
@@ -33,21 +40,12 @@ final class AuthorizationViewModel: ObservableObject {
         model.$nonce
             .assign(to: \.nonce, on: self)
             .store(in: &subscriptions)
+    }
 
-    }
-    
-    func loginWithApple() {
-        model.loginWithApple()
-    }
-    
     func loginWithEmail() {
         model.loginWithEmail(email: email, password: password)
     }
-    
-    func loginWithGoogle() {
-        model.loginWithGoogle()
-    }
-    
+
     func signUpWithEmail() {
         if password == passwordDuplicate {
             model.signUpWithEmail(email: email, password: password)

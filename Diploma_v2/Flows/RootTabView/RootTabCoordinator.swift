@@ -1,13 +1,13 @@
 //
-//  AuthorizationCoordinator.swift
+//  RootTabCoordinator.swift
 //  Diploma_v2
 //
-//  Created by Алексей Даневич on 18.01.2023.
+//  Created by Алексей Даневич on 03.03.2023.
 //
 
 import UIKit
 
-class AuthorizationCoordinator: Coordinator {
+final class RootTabCoordinator: Coordinator {
     var parentCoordinator: Coordinator?
     var children: [Coordinator] = []
     var viewController: UIViewController
@@ -17,5 +17,7 @@ class AuthorizationCoordinator: Coordinator {
         self.viewController = viewController
     }
 
-    func start() {}
+    func start() {
+        
+    }
 }

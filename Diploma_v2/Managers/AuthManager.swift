@@ -15,14 +15,14 @@ import Foundation
 import GoogleSignIn
 
 final class AuthManager: NSObject, ObservableObject {
-    var subscriptions = Set<AnyCancellable>()
     @AppStorage("log_status") var logStatus = false
     
     @Published var nonce: String = ""
     @Published var auth: Bool = false
 
     let firebaseAuth = Auth.auth()
-    
+    var subscriptions = Set<AnyCancellable>()
+
     func loginWithApple() {
         self.nonce = randomNonceString()
         let appleIDProvider = ASAuthorizationAppleIDProvider()
@@ -38,26 +38,24 @@ final class AuthManager: NSObject, ObservableObject {
     func loginWithGoogle() {
         guard let clientID = FirebaseApp.app()?.options.clientID,
               let screen = UIApplication.shared.connectedScenes.first as? UIWindowScene,
-              let root = screen.windows.first?.rootViewController else { return }
-        
+              let root = screen.windows.first?.rootViewController else {
+            return
+        }
         let config = GIDConfiguration(clientID: clientID)
-        
+
         GIDSignIn.sharedInstance.configuration = config
-        
         GIDSignIn.sharedInstance.signIn(withPresenting: root) { signResult, error in
-            
             if let error = error {
                 print(error.localizedDescription)
                 return
             }
-            
             guard let user = signResult?.user,
-                  let idToken = user.idToken else { return }
-            
+                  let idToken = user.idToken else {
+                return
+            }
             let accessToken = user.accessToken
-            
             let credential = GoogleAuthProvider.credential(withIDToken: idToken.tokenString, accessToken: accessToken.tokenString)
-            
+
             self.googleAuthenticate(credential: credential)
         }
     }
@@ -76,7 +74,7 @@ final class AuthManager: NSObject, ObservableObject {
     }
 
     func signUpWithEmail(email: String, password: String, completion: @escaping (Bool) -> Void) {
-        firebaseAuth.createUser(withEmail: email, password: password, completion: { result, err in
+        firebaseAuth.createUser(withEmail: email, password: password) { result, err in
             if let err = err {
                 print("Failed due to error:", err)
                 completion(true)
@@ -85,7 +83,7 @@ final class AuthManager: NSObject, ObservableObject {
             completion(false)
             print("Successfully created account with ID: \(result?.user.uid ?? "")")
             self.logStatus = true
-        })
+        }
     }
 
     func logOut() {
@@ -96,7 +94,7 @@ final class AuthManager: NSObject, ObservableObject {
             print("Error signing out: %@", signOutError)
         }
     }
-    
+
     func resetPassword(email: String) {
         firebaseAuth.sendPasswordReset(withEmail: email) { error in
             if let error = error {
@@ -104,12 +102,12 @@ final class AuthManager: NSObject, ObservableObject {
             }
         }
     }
-    
+
     func getUserInfo() -> User? {
         guard let authUser = Auth.auth().currentUser else {
             return nil
         }
-        
+
         return User(
             name: authUser.displayName ?? "User",
             imageUrl: authUser.photoURL?.absoluteString ?? "",
@@ -124,13 +122,13 @@ extension AuthManager {
               let tokenString = String(data: token, encoding: .utf8) else {
             return
         }
-        
+
         let firebaseCredential = OAuthProvider.credential(
             withProviderID: "apple.com",
             idToken: tokenString,
             rawNonce: self.nonce
           )
-        
+
         firebaseAuth.signIn(with: firebaseCredential) { (result, error) in
             if let error = error {
                 print(error.localizedDescription)
@@ -144,8 +142,7 @@ extension AuthManager {
     
     private func randomNonceString(length: Int = 32) -> String {
       precondition(length > 0)
-      let charset: [Character] =
-        Array("0123456789ABCDEFGHIJKLMNOPQRSTUVXYZabcdefghijklmnopqrstuvwxyz-._")
+      let charset: [Character] = Array("0123456789ABCDEFGHIJKLMNOPQRSTUVXYZabcdefghijklmnopqrstuvwxyz-._")
       var result = ""
       var remainingLength = length
 
@@ -172,36 +169,34 @@ extension AuthManager {
           }
         }
       }
-
       return result
     }
 
     private func sha256(_ input: String) -> String {
-      let inputData = Data(input.utf8)
-      let hashedData = SHA256.hash(data: inputData)
-      let hashString = hashedData.compactMap {
-        String(format: "%02x", $0)
-      }.joined()
+        let inputData = Data(input.utf8)
+        let hashedData = SHA256.hash(data: inputData)
+        let hashString = hashedData.compactMap {
+            String(format: "%02x", $0)
+        }
+            .joined()
 
-      return hashString
+        return hashString
     }
 }
 
 // MARK: - ASAuthorizationControllerDelegate
 extension AuthManager: ASAuthorizationControllerDelegate {
-    
     func authorizationController(controller: ASAuthorizationController, didCompleteWithAuthorization authorization: ASAuthorization) {
         guard let credential = authorization.credential as? ASAuthorizationAppleIDCredential else {
-                                    print("error")
-                                    return
-                                }
+            print("error")
+            return
+        }
         self.appleAuthenticate(credential: credential)
     }
 }
 
 // MARK: - Google
 extension AuthManager {
-    
     private func googleAuthenticate(credential: AuthCredential) {
         firebaseAuth.signIn(with: credential) { (result, error) in
             if let error = error {

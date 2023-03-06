@@ -32,12 +32,12 @@ final class AppDelegate: NSObject, UIApplicationDelegate {
         sceneConfig.delegateClass = SceneDelegate.self
         return sceneConfig
     }
-    
-    func application(_ application: UIApplication,
-                     open url: URL,
-                     options: [UIApplication.OpenURLOptionsKey: Any])
-      -> Bool {
-          
+
+    func application(
+        _ application: UIApplication,
+        open url: URL,
+        options: [UIApplication.OpenURLOptionsKey: Any]
+    ) -> Bool {
       return GIDSignIn.sharedInstance.handle(url)
     }
 }

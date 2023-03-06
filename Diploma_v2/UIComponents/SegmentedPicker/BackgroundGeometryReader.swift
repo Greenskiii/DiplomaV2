@@ -11,8 +11,8 @@ struct BackgroundGeometryReader: View {
     var body: some View {
         GeometryReader { geometry in
             return Color
-                    .clear
-                    .preference(key: SizePreferenceKey.self, value: geometry.size)
+                .clear
+                .preference(key: SizePreferenceKey.self, value: geometry.size)
         }
     }
 }

@@ -11,13 +11,11 @@ class MainMenuCoordinator: Coordinator {
     var parentCoordinator: Coordinator?
     var children: [Coordinator] = []
     var viewController: UIViewController
-    
+
     required init(viewController: UIViewController, parentCoordinator: Coordinator) {
         self.parentCoordinator = parentCoordinator
         self.viewController = viewController
     }
-    
-    func start() {
-        
-    }
+
+    func start() { }
 }

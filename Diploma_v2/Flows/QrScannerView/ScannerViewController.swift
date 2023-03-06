@@ -1,22 +1,23 @@
 //
-//  AuthorizationRouter.swift
+//  ScannerViewController.swift
 //  Diploma_v2
 //
-//  Created by Алексей Даневич on 16.01.2023.
+//  Created by Алексей Даневич on 24.02.2023.
 //
 
 import UIKit
 import SwiftUI
 
-final class AuthorizationViewController: UIViewController {
-    var viewModel: AuthorizationViewModel!
+final class ScannerViewController: UIViewController {
+    var viewModel: ScannerViewModel!
 
-    private lazy var embedController: UIHostingController<AuthorizationView> = {
-        let controller = UIHostingController(rootView: AuthorizationView(viewModel: viewModel))
+    private lazy var embedController: UIHostingController<ScannerView> = {
+        let controller = UIHostingController(rootView: ScannerView(viewModel: viewModel))
+        controller.navigationController?.setNavigationBarHidden(true, animated: true)
         return controller
     }()
 
-    init(viewModel: AuthorizationViewModel) {
+    init(viewModel: ScannerViewModel) {
         self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
     }

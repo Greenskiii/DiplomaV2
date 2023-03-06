@@ -7,35 +7,27 @@
 
 import Foundation
 
-struct House: Equatable {
-    
+struct House: Equatable, Hashable {
+    let id: String
     var name: String
     var rooms: [Room]
     
-    struct Room: Hashable{
+    struct Room: Hashable {
+        let id: String
         var name: String
         var devicesId: [String]
-        var type: RoomType
         var previewValues: [Value] = []
         var devices: [Device] = []
 
-        init(name: String, devicesId: [String], type: String) {
+        init(name: String, devicesId: [String], id: String) {
            self.name = name
            self.devicesId = devicesId
-           self.type = RoomType.byName(name: type)
+           self.id = id
         }
     }
     
-    struct Device: Hashable {
-        let name: String
-        let image: String
-        let room: String
-        var values: [Value]
-    }
+
     
-    struct Value: Codable, Hashable {
-        var name: String
-        var value: String
-    }
+
     
 }

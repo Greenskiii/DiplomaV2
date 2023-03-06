@@ -1,22 +1,23 @@
 //
-//  AuthorizationRouter.swift
+//  RootTabViewController.swift
 //  Diploma_v2
 //
-//  Created by Алексей Даневич on 16.01.2023.
+//  Created by Алексей Даневич on 03.03.2023.
 //
 
 import UIKit
 import SwiftUI
 
-final class AuthorizationViewController: UIViewController {
-    var viewModel: AuthorizationViewModel!
+final class RootTabViewController: UIViewController {
+    var viewModel: RootTabViewModel!
 
-    private lazy var embedController: UIHostingController<AuthorizationView> = {
-        let controller = UIHostingController(rootView: AuthorizationView(viewModel: viewModel))
+    private lazy var embedController: UIHostingController<RootTabView> = {
+        let controller = UIHostingController(rootView: RootTabView(viewModel: viewModel))
+        controller.navigationController?.setNavigationBarHidden(true, animated: true)
         return controller
     }()
 
-    init(viewModel: AuthorizationViewModel) {
+    init(viewModel: RootTabViewModel) {
         self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
     }
@@ -45,3 +46,4 @@ final class AuthorizationViewController: UIViewController {
         )
     }
 }
+
