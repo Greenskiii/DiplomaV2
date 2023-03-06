@@ -12,7 +12,7 @@ protocol Coordinator {
     var parentCoordinator: Coordinator? { get set }
     var children: [Coordinator] { get set }
     var viewController: UIViewController { get set }
-    
+
     init(viewController: UIViewController, parentCoordinator: Coordinator)
     func start()
 }

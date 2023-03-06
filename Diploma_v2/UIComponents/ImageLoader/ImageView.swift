@@ -18,16 +18,13 @@ struct ImageView: View {
     }
 
     var body: some View {
-        GeometryReader { geometry in
-            Image(uiImage: image)
-                .resizable()
-                .aspectRatio(contentMode: .fit)
-                .clipShape(Circle())
-                .onReceive(imageLoader.didChange) { data in
-                    if let image = UIImage(data: data) {
-                        self.image = image
-                    }
+        Image(uiImage: image)
+            .resizable()
+            .aspectRatio(contentMode: .fit)
+            .onReceive(imageLoader.didChange) { data in
+                if let image = UIImage(data: data) {
+                    self.image = image
                 }
-        }
+            }
     }
 }

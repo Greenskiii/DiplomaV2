@@ -12,17 +12,15 @@ import Combine
 
 struct AuthorizationView: View {
     @ObservedObject var viewModel: AuthorizationViewModel
-    
+
     var body: some View {
         GeometryReader { geometry in
             ZStack {
                 VStack {
-                    Spacer()
-                        .frame(maxHeight: 100)
                     createLogo()
                     createTextFields()
                     createButtonsView()
-                    
+
                     HStack {
                         Rectangle()
                             .frame(height: 1)
@@ -33,19 +31,19 @@ struct AuthorizationView: View {
                     .foregroundColor(Color("Royalblue"))
                     .padding(.top, 10)
                     .padding(.horizontal, 40)
-                    
+
                     createAlternativeAuthorizationView()
-                    
-                    Spacer()
+
                 }
                 .textFieldStyle(RoundedBorderTextFieldStyle())
-                
+
                 if viewModel.showError {
                     ErrorView()
                         .frame(width: 225, height: 255)
                         .foregroundColor(.black)
+                        .animation(.easeInOut(duration: 1), value: viewModel.showError)
                 }
-                
+
                 BottomSheetView(
                     maxHeight: geometry.size.height * 0.95,
                     isOpen: $viewModel.forgotPasswordIsOpen) {
@@ -107,12 +105,12 @@ struct AuthorizationView: View {
                         Text("Forgot Password?")
                             .foregroundColor(Color("Royalblue"))
                             .font(Font.subheadline)
-  
+
                         Spacer()
                     }
                     .padding(.horizontal, 40)
                     .padding(.bottom, 16)
-                    
+
                 }
                 .animation(.easeInOut(duration: 0.3))
                 .transition(.move(edge: .trailing))
@@ -130,11 +128,7 @@ struct AuthorizationView: View {
             } label: {
                 ZStack {
                     RoundedRectangle(cornerRadius: 4)
-                        .fill(LinearGradient(
-                            gradient: .init(colors: [Color("Royalblue"), Color("TropicalBlue")]),
-                            startPoint: .init(x: 0, y: 0.5),
-                            endPoint: .init(x: 0.6, y: 0.5)
-                        ))
+                        .foregroundColor(Color("BlueShark"))
                         .shadow(color: .gray, radius: 3, x: 2, y: 2)
                     Text(viewModel.selection == 0 ? "Login" : "SignUp")
                         .foregroundColor(.white)
@@ -149,7 +143,7 @@ struct AuthorizationView: View {
     private func createAlternativeAuthorizationView() -> some View {
         HStack {
             Button {
-                viewModel.loginWithGoogle()
+                viewModel.onLoginWithGoogle.send()
             } label: {
                 ZStack{
                     RoundedRectangle(cornerRadius: 4)
@@ -162,10 +156,8 @@ struct AuthorizationView: View {
                 }
             }
 
-
-            
             Button {
-                viewModel.loginWithApple()
+                viewModel.onLoginWithApple.send()
             } label: {
                 ZStack{
                     RoundedRectangle(cornerRadius: 4)
@@ -175,7 +167,7 @@ struct AuthorizationView: View {
                     Image("appleLogo")
                         .resizable()
                         .frame(width: 30, height: 30)
-            }
+                }
             }
         }
         .padding(.top, 10)

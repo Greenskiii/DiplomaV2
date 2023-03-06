@@ -9,8 +9,8 @@ import SwiftUI
 import Combine
 
 class ImageLoader: ObservableObject {
-    var didChange = PassthroughSubject<Data, Never>()
-    var onError = PassthroughSubject<Void, Never>()
+    private(set) lazy var didChange = PassthroughSubject<Data, Never>()
+    private(set) lazy var onError = PassthroughSubject<Void, Never>()
 
     var data = Data() {
         didSet {

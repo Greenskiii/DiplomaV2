@@ -11,7 +11,7 @@ struct RoomPreviewCard: View {
     let room: House.Room
     let isSelected: Bool
 
-    var previewValue: [House.Value] {
+    var previewValue: [Value] {
             return room.previewValues
                 .filter({ $0.name == "Temperature" || $0.name == "Humidity" })
                 .sorted(by: { $0.name > $1.name })
@@ -34,25 +34,25 @@ struct RoomPreviewCard: View {
                 .frame(height: 50)
 
             VStack(alignment: .leading) {
-                
                 Text(room.name)
-                    .offset(y: room.name == "Favorite" ? 0 : 5)
+                    .offset(y: previewValue.isEmpty ? 0 : 5)
+                    .padding(.horizontal)
 
                 if !previewValue.isEmpty && room.name != "Favorite" {
                     HStack {
+                        Spacer()
                         ForEach(previewValue, id: \.self) { value in
-                            Image( value.name == "Temperature" ? "thermometer.low" : "drop.degreesign")
+                            Image(systemName: value.imageSystemName)
                                 .resizable()
                                 .frame(width: 10, height: 15)
                             Text(value.value)
+                            Spacer()
                         }
                     }
                     .offset(y: -5)
                 }
             }
             .foregroundColor(.white)
-            .padding(.vertical)
         }
     }
-    
 }

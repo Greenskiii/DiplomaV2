@@ -10,9 +10,9 @@ import Combine
 
 class ForgotPasswordViewModel: ObservableObject {
     @Published var email: String = ""
-    
-    var onResetPassword = PassthroughSubject<String, Never>()
-    
+
+    private(set) lazy var onResetPassword = PassthroughSubject<String, Never>()
+
     init(onResetPassword: PassthroughSubject<String, Never>) {
         self.onResetPassword = onResetPassword
     }

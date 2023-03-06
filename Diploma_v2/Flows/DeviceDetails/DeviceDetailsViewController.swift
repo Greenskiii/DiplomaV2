@@ -1,22 +1,23 @@
 //
-//  AuthorizationRouter.swift
+//  DeviceDetailsViewController.swift
 //  Diploma_v2
 //
-//  Created by Алексей Даневич on 16.01.2023.
+//  Created by Алексей Даневич on 07.02.2023.
 //
 
 import UIKit
 import SwiftUI
 
-final class AuthorizationViewController: UIViewController {
-    var viewModel: AuthorizationViewModel!
-
-    private lazy var embedController: UIHostingController<AuthorizationView> = {
-        let controller = UIHostingController(rootView: AuthorizationView(viewModel: viewModel))
+final class DeviceDetailsViewController: UIViewController {
+    var viewModel: DeviceDetailsViewModel!
+    
+    private lazy var embedController: UIHostingController<DeviceDetailsView> = {
+        let controller = UIHostingController(rootView: DeviceDetailsView(viewModel: viewModel))
+        controller.navigationController?.setNavigationBarHidden(false, animated: true)
         return controller
     }()
 
-    init(viewModel: AuthorizationViewModel) {
+    init(viewModel: DeviceDetailsViewModel) {
         self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
     }

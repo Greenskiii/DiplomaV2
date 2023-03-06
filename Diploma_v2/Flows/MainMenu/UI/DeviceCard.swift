@@ -8,10 +8,9 @@
 import SwiftUI
 
 struct DeviceCard: View {
-    
-    let device: House.Device
+    let device: Device
     let isFavorite: Bool
-    
+
     var body: some View {
         ZStack {
             RoundedRectangle(cornerRadius: 8)
@@ -23,7 +22,7 @@ struct DeviceCard: View {
                 VStack(alignment: .leading) {
                     ImageView(withURL: device.image)
                         .frame(width: 50, height: 50)
-                        
+
                     if isFavorite {
                         Text(device.room)
                             .font(.system(size: 12))
@@ -37,21 +36,8 @@ struct DeviceCard: View {
                     }
                 }
                 Spacer()
-                
-                Image(systemName: "star")
-                    .font(.system(size: 16))
-                    .foregroundColor(Color("Navy"))
             }
-
             .padding()
-
         }
-    }
-}
-
-
-struct DeviceCard_Previews: PreviewProvider {
-    static var previews: some View {
-        DeviceCard(device: House.Device(name: "", image: "", room: "", values: []), isFavorite: true)
     }
 }
