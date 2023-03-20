@@ -25,9 +25,9 @@ struct House: Equatable, Hashable {
            self.id = id
         }
     }
-    
+}
 
-    
-
-    
+struct HousePreview: Equatable, Hashable {
+    let id: String
+    var name: String
 }

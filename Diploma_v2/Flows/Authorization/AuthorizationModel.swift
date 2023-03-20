@@ -97,6 +97,7 @@ final class AuthorizationModel {
                 } else {
                     self.dataManager.setHousesId()
                     self.onGoToRootTabView.send()
+                    self.dataManager.checkFCMToken()
                 }
             }
         } else {
@@ -112,6 +113,7 @@ final class AuthorizationModel {
                 } else {
                     self.dataManager.setHousesId()
                     self.onGoToRootTabView.send()
+                    self.dataManager.checkFCMToken()
                 }
             }
         } else {

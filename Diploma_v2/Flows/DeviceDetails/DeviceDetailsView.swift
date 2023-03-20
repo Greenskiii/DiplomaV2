@@ -82,14 +82,14 @@ struct DeviceDetailsView: View {
     private func createDeviceLocationView() -> some View {
         VStack {
             Menu {
-                ForEach(viewModel.housesId, id: \.self) { house in
+                ForEach(viewModel.housePreview, id: \.self) { house in
                     Button {
-                        viewModel.onChangeHouse.send(house)
+                        viewModel.onChangeHouse.send(house.id)
                     } label: {
                         HStack {
-                            Text(house)
+                            Text(house.name)
                             Spacer()
-                            if viewModel.selectedHouseId == house {
+                            if viewModel.selectedHouseId == house.id {
                                 Image(systemName: "checkmark")
                                     .font(.system(size: 10))
                             }

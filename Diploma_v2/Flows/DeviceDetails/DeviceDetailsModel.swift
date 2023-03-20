@@ -16,7 +16,7 @@ class DeviceDetailsModel: ObservableObject {
     @Published var rooms: [String] = []
 
     let dataManager: DataManager
-    let housesId: [String]
+    let housePreview: [HousePreview]
     let device: Device
     let oldHouse: String
     let oldRoom: String
@@ -33,14 +33,14 @@ class DeviceDetailsModel: ObservableObject {
 
     init(
         dataManager: DataManager,
-        housesId: [String],
+        housePreview: [HousePreview],
         device: Device,
         selectedHouse: House,
         selectedRoomId: String,
         onCloseDeviceDetail: PassthroughSubject<Void, Never>
     ) {
         self.dataManager = dataManager
-        self.housesId = housesId
+        self.housePreview = housePreview
         self.device = device
         self.selectedRoomId = selectedRoomId
         self.selectedHouseId = selectedHouse.id
