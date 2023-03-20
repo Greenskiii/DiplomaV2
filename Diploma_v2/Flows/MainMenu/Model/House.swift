@@ -31,3 +31,8 @@ struct HousePreview: Equatable, Hashable {
     let id: String
     var name: String
 }
+
+struct RoomPreview: Equatable, Hashable {
+    let id: String
+    var name: String
+}

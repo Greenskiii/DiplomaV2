@@ -13,7 +13,7 @@ class DeviceDetailsModel: ObservableObject {
 
     @Published var selectedHouseId: String
     @Published var selectedRoomId: String
-    @Published var rooms: [String] = []
+    @Published var rooms: [RoomPreview] = []
 
     let dataManager: DataManager
     let housePreview: [HousePreview]
@@ -49,7 +49,7 @@ class DeviceDetailsModel: ObservableObject {
 
         selectedHouse.rooms.forEach { room in
             if room.id != "Favorite" {
-                rooms.append(room.id)
+                rooms.append(RoomPreview(id: room.id, name: room.name))
             }
         }
 
@@ -67,7 +67,7 @@ class DeviceDetailsModel: ObservableObject {
             .sink { [weak self] houseId in
             self?.dataManager.getRooms(for: houseId) { rooms in
                 var rooms = rooms
-                if let favoriteRoomIndex = rooms.firstIndex(where: { $0 == "Favorite" }) {
+                if let favoriteRoomIndex = rooms.firstIndex(where: { $0.id == "Favorite" }) {
                     rooms.remove(at: favoriteRoomIndex)
                 }
                 self?.rooms = rooms

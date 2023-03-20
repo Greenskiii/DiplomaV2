@@ -13,7 +13,7 @@ class DeviceDetailsViewModel: ObservableObject {
 
     @Published var selectedHouseId: String = ""
     @Published var selectedRoomId: String = ""
-    @Published var rooms: [String]
+    @Published var rooms: [RoomPreview]
     
     let housePreview: [HousePreview]
     let device: Device
