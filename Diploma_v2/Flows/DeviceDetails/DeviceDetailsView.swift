@@ -46,6 +46,7 @@ struct DeviceDetailsView: View {
             } label: {
                 Text("Save")
             }
+            .isHidden(viewModel.selectedRoomId.isEmpty)
             Spacer()
             Button {
                 withAnimation {
@@ -101,9 +102,11 @@ struct DeviceDetailsView: View {
                     RoundedRectangle(cornerRadius: 16)
                         .foregroundColor(.white)
                         .shadow(color: .gray, radius: 3, x: 2, y: 2)
-                    Text(viewModel.selectedHouseId)
-                        .foregroundColor(.black)
-                        .padding()
+                    if let house = viewModel.housePreview.first(where: { $0.id == viewModel.selectedHouseId }) {
+                        Text(house.name)
+                            .foregroundColor(.black)
+                            .padding()
+                    }
                 }
                 .frame(height: 50)
                 .padding(.horizontal)
@@ -113,12 +116,12 @@ struct DeviceDetailsView: View {
             Menu {
                 ForEach(viewModel.rooms, id: \.self) { room in
                     Button {
-                        viewModel.onChangeRoom.send(room)
+                        viewModel.onChangeRoom.send(room.id)
                     } label: {
                         HStack {
-                            Text(room)
+                            Text(room.name)
                             Spacer()
-                            if viewModel.selectedRoomId == room {
+                            if viewModel.selectedRoomId == room.id {
                                 Image(systemName: "checkmark")
                                     .font(.system(size: 10))
                             }
@@ -130,10 +133,15 @@ struct DeviceDetailsView: View {
                     RoundedRectangle(cornerRadius: 16)
                         .foregroundColor(.white)
                         .shadow(color: .gray, radius: 3, x: 2, y: 2)
-                    
-                    Text(viewModel.selectedRoomId.isEmpty ? "Select the room" : viewModel.selectedRoomId)
-                        .foregroundColor(viewModel.selectedRoomId.isEmpty ? .gray : .black)
-                        .padding()
+                    if let room = viewModel.rooms.first(where: { $0.id == viewModel.selectedRoomId }) {
+                        Text(room.name)
+                            .foregroundColor(viewModel.selectedRoomId.isEmpty ? .gray : .black)
+                            .padding()
+                    } else {
+                        Text("Select the room")
+                            .foregroundColor(viewModel.selectedRoomId.isEmpty ? .gray : .black)
+                            .padding()
+                    }
                 }
                 .frame(height: 50)
                 .padding()

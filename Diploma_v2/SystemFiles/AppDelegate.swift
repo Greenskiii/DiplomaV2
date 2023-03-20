@@ -10,6 +10,9 @@ import FirebaseDatabase
 import FirebaseCore
 import GoogleSignIn
 import FirebaseMessaging
+import AppCenter
+import AppCenterAnalytics
+import AppCenterCrashes
 
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -49,6 +52,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     application.registerForRemoteNotifications()
     Messaging.messaging().delegate = self
     
+      AppCenter.start(withAppSecret: "ffc8dcfd-865f-4351-8098-b025fb1aa17e", services:[
+        Analytics.self,
+        Crashes.self
+      ])
+      
     return true
   }
 }

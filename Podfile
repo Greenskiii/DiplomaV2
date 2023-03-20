@@ -31,5 +31,6 @@ pod 'FirebaseDatabase'
 pod 'GoogleSignIn'
 pod 'GoogleSignInSwiftSupport'
 pod 'FirebaseFirestoreSwift'
+pod 'AppCenter'
 
 end

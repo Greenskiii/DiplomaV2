@@ -183,6 +183,7 @@ extension DataManager {
                             self.setRoomToDevice(roomName: roomName, deviceId: deviceId) {
                                 self.setDevices(for: roomId) {
                                     self.newDeviceId = ""
+                                    self.setPreviewValues()
                                     completion(.success)
                                 }
                             }
@@ -263,11 +264,13 @@ extension DataManager {
         }
     }
 
-    func getRooms(for house: String, completion: @escaping ([String]) -> Void ) {
-        var rooms: [String] = []
+    func getRooms(for house: String, completion: @escaping ([RoomPreview]) -> Void ) {
+        var rooms: [RoomPreview] = []
         collection?.document(house).collection("rooms").getDocuments() { querySnapshot, err in
             querySnapshot?.documents.forEach { document in
-                rooms.append(document.documentID)
+                guard let name = document.data()["name"] as? String
+                else { return }
+                rooms.append(RoomPreview(id: document.documentID, name: name))
             }
             completion(rooms)
         }
