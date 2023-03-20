@@ -183,6 +183,7 @@ extension DataManager {
                             self.setRoomToDevice(roomName: roomName, deviceId: deviceId) {
                                 self.setDevices(for: roomId) {
                                     self.newDeviceId = ""
+                                    self.setPreviewValues()
                                     completion(.success)
                                 }
                             }
