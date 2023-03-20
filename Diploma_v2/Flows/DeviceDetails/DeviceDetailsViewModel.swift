@@ -15,7 +15,7 @@ class DeviceDetailsViewModel: ObservableObject {
     @Published var selectedRoomId: String = ""
     @Published var rooms: [String]
     
-    let housesId: [String]
+    let housePreview: [HousePreview]
     let device: Device
     var subscriptions = Set<AnyCancellable>()
 
@@ -46,7 +46,7 @@ class DeviceDetailsViewModel: ObservableObject {
     init(model: DeviceDetailsModel) {
         self.model = model
         self.rooms = model.rooms
-        self.housesId = model.housesId
+        self.housePreview = model.housePreview
         self.device = model.device
 
         model.$selectedHouseId

@@ -22,7 +22,8 @@ end
 inhibit_all_warnings!
 
   # Pods for Diploma_v2
-
+ 
+pod 'FirebaseMessaging'
 pod 'FirebaseAuth'
 pod 'FirebaseFirestore'
 pod 'FirebaseCrashlytics'

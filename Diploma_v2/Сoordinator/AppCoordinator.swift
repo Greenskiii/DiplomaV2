@@ -21,7 +21,6 @@ class AppCoordinator: Coordinator {
         viewController as? UINavigationController
     }
 
-    private(set) lazy var onGoToMainPageScreen = PassthroughSubject<Void, Never>()
     private(set) lazy var onGoToAuthScreen = PassthroughSubject<Void, Never>()
     private(set) lazy var onGoToScannerScreen = PassthroughSubject<Void, Never>()
     private(set) lazy var onGoBack = PassthroughSubject<Void, Never>()
@@ -34,12 +33,6 @@ class AppCoordinator: Coordinator {
 
     init(navCon: UINavigationController) {
         self.viewController = navCon
-
-        onGoToMainPageScreen
-            .sink { [weak self] _ in
-                self?.goToMainPageScreen()
-            }
-            .store(in: &subscriptions)
 
         onGoToScannerScreen
             .sink { [weak self] _ in
@@ -93,23 +86,23 @@ class AppCoordinator: Coordinator {
         navigationController?.viewControllers = [viewController]
     }
 
-    func goToMainPageScreen() {
-        children.removeAll()
-
-        let viewController = MainMenuViewController(
-            viewModel: MainMenuViewModel(
-                model: MainMenuDomainModel(
-                    authManager: AuthManager(),
-                    dataManager: dataManager,
-                    onGoToScannerScreen: onGoToScannerScreen
-                )
-            )
-        )
-
-        let coordinator = MainMenuCoordinator(viewController: viewController, parentCoordinator: self)
-        children.append(coordinator)
-        navigationController?.viewControllers = [viewController]
-    }
+//    func goToMainPageScreen() {
+//        children.removeAll()
+//
+//        let viewController = MainMenuViewController(
+//            viewModel: MainMenuViewModel(
+//                model: MainMenuDomainModel(
+//                    authManager: AuthManager(),
+//                    dataManager: dataManager,
+//                    onGoToScannerScreen: onGoToScannerScreen
+//                )
+//            )
+//        )
+//
+//        let coordinator = MainMenuCoordinator(viewController: viewController, parentCoordinator: self)
+//        children.append(coordinator)
+//        navigationController?.viewControllers = [viewController]
+//    }
     
     func goToScannerScreen() {
         
@@ -128,12 +121,10 @@ class AppCoordinator: Coordinator {
     func goToRootTabView() {
         let viewController = RootTabViewController(
             viewModel: RootTabViewModel(
-                mainMenuViewModel:  MainMenuViewModel(
-                    model: MainMenuDomainModel(
-                        authManager: AuthManager(),
-                        dataManager: dataManager,
-                        onGoToScannerScreen: onGoToScannerScreen
-                    )
+                model: RootTabModel(
+                    authManager: AuthManager(),
+                    dataManager: dataManager,
+                    onGoToScannerScreen: onGoToScannerScreen
                 )
             )
         )

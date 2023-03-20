@@ -11,28 +11,73 @@ struct RootTabView: View {
     @ObservedObject var viewModel: RootTabViewModel
 
     var body: some View {
-        TabView(selection: $viewModel.selectedTab) {
-            main.tag(TabType.main)
-            settings.tag(TabType.settings)
+        ZStack(alignment: .top) {
+            Color("TropicalBlue")
+                .ignoresSafeArea()
+            
+            TabView(selection: $viewModel.selectedTab) {
+                if let viewModel = viewModel.mainMenuViewModel {
+                    setMainView(viewModel: viewModel).tag(TabType.main)
+
+                }
+                
+                if let viewModel = viewModel.settingsViewModel {
+                    setSettingsView(viewModel: viewModel).tag(TabType.settings)
+                }
+            }
+
+
+            if viewModel.addDeviceViewIsOpen {
+                ZStack(alignment: .center) {
+                    VisualEffectView(effect: UIBlurEffect(style: .dark))
+                        .onTapGesture {
+                            viewModel.onPressAdddevice.send()
+                        }
+                        .ignoresSafeArea()
+                    
+                    AddDeviceView(
+                        deviceId: $viewModel.newDeviceId,
+                        onGoToScannerScreen: viewModel.onGoToScannerScreen,
+                        onSaveNewDeviceId: viewModel.onSaveNewDeviceId
+                    )
+                    .frame(height: 150)
+                    .padding()
+                }
+            }
+            if viewModel.showErrorView {
+                ErrorView(errorText: viewModel.errorText)
+                    .frame(width: 225, height: 255)
+                    .foregroundColor(.black)
+                    .animation(.easeInOut(duration: 1), value: viewModel.showErrorView)
+            }
+
+            BottomSheetView(maxHeight: 600, isOpen: $viewModel.deviceDetailIsOpen) {
+                if viewModel.deviceDetailIsOpen,
+                   let deviceDetailsViewModel = viewModel.deviceDetailsViewModel {
+                    DeviceDetailsView(viewModel: deviceDetailsViewModel)
+                        .transition(.move(edge: .bottom))
+                }
+            }
+            .ignoresSafeArea()
+            .shadow(color: .gray, radius: 3, x: 2, y: 0)
+            .onDisappear {
+                viewModel.onTapDevice.send(nil)
+            }
         }
     }
 
-    private var main: some View {
-        MainMenuView(viewModel: viewModel.mainMenuViewModel)
+    func setMainView(viewModel: MainMenuViewModel) -> some View {
+        return MainMenuView(viewModel: viewModel)
             .tabItem {
                 Label("Menu", systemImage: "house")
             }
     }
-
-    private var settings: some View {
-        ZStack {
-            Color("TropicalBlue")
-                .ignoresSafeArea()
-            Text("Settings")
-        }
-        .tabItem {
-            Label("Settings", systemImage: "person")
-        }
+    
+    func setSettingsView(viewModel: SettingsViewModel) -> some View {
+        SettingsView(viewModel: viewModel)
+            .tabItem {
+                Label("Settings", systemImage: "person")
+            }
     }
 }
 

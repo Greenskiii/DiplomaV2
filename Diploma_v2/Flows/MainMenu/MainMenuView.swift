@@ -20,53 +20,28 @@ struct MainMenuView: View {
                 VStack {
                     makeTopView()
                         .padding(.horizontal)
+                    
                     if let house = viewModel.house {
                         makeRoomPreviewView(for: house)
                         if let room = viewModel.shownRoom {
                             makeDevicesGrid(for: room)
-                                
                                 .frame(minHeight: geometry.size.height * 0.75)
                                 .padding(.horizontal)
                                 .padding(.bottom)
+                        } else {
+                            VStack {
+                                Spacer()
+                                Image(systemName: "house")
+                                    .font(.system(size: 150))
+                                    .padding(.bottom)
+                                Text("Select a room to view more information")
+                                    .fontWeight(.bold)
+                                Spacer()
+                            }
+                            .foregroundColor(.gray)
                         }
                     }
                 }
-                if viewModel.addDeviceViewIsOpen {
-                    ZStack(alignment: .center) {
-                        VisualEffectView(effect: UIBlurEffect(style: .dark))
-                            .onTapGesture {
-                                viewModel.onPressAdddevice.send()
-                            }
-                            .ignoresSafeArea()
-
-                        AddDeviceView(
-                            deviceId: $viewModel.newDeviceId,
-                            onGoToScannerScreen: viewModel.onGoToScannerScreen,
-                            onSaveNewDeviceId: viewModel.onSaveNewDeviceId
-                        )
-                            .frame(height: 150)
-                            .padding()
-                    }
-                }
-                if viewModel.showErrorView {
-                    ErrorView(errorText: viewModel.errorText)
-                        .frame(width: 225, height: 255)
-                        .foregroundColor(.black)
-                        .animation(.easeInOut(duration: 1), value: viewModel.showErrorView)
-                }
-
-                BottomSheetView(maxHeight: 600, isOpen: $viewModel.deviceDetailIsOpen) {
-                            if viewModel.deviceDetailIsOpen,
-                               let deviceDetailsViewModel = viewModel.deviceDetailsViewModel {
-                                DeviceDetailsView(viewModel: deviceDetailsViewModel)
-                                    .transition(.move(edge: .bottom))
-                            }
-                        }
-                        .ignoresSafeArea()
-                        .shadow(color: .gray, radius: 3, x: 2, y: 0)
-                        .onDisappear {
-                            viewModel.onTapDevice.send(nil)
-                        }
             }
         }
     }
@@ -77,16 +52,16 @@ struct MainMenuView: View {
                 .resizable()
                 .frame(width: 125, height: 35)
             HStack(alignment: .bottom) {
-                if !viewModel.housesId.isEmpty {
+                if !viewModel.housePreview.isEmpty {
                     Menu {
-                        ForEach(viewModel.housesId, id: \.self) { id in
+                        ForEach(viewModel.housePreview, id: \.self) { house in
                             Button {
-                                viewModel.onChangeHouse.send(id)
+                                viewModel.onChangeHouse.send(house.id)
                             } label: {
                                 HStack {
-                                    Text(id)
+                                    Text(house.name)
                                     Spacer()
-                                    if viewModel.house?.name == id {
+                                    if viewModel.house?.id == house.id {
                                         Image(systemName: "checkmark")
                                             .font(.system(size: 10))
                                     }
@@ -113,7 +88,7 @@ struct MainMenuView: View {
                             .foregroundColor(Color("Navy"))
                         
                         if !user.imageUrl.isEmpty {
-                            ImageView(withURL: user.imageUrl)
+                            UrlImageView(urlString: user.imageUrl)
                                 .clipShape(Circle())
                                 .frame(width: 40, height: 40)
                         } else {
@@ -127,11 +102,12 @@ struct MainMenuView: View {
         }
     }
 
+    
     func makeRoomPreviewView(for house: House) -> some View {
         ScrollView(.horizontal, showsIndicators: false) {
             HStack {
                 ForEach(house.rooms, id: \.self) { room in
-                    RoomPreviewCard(room: room, isSelected: room.name == viewModel.choosenRoom)
+                    RoomPreviewCard(room: room, isSelected: room.id == viewModel.choosenRoom)
                         .frame(width: 150)
                         .onTapGesture {
                             withAnimation {

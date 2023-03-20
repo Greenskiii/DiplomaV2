@@ -20,7 +20,7 @@ class DataManager {
     private var previewValuesObservers: [DatabaseReference] = []
 
     @Published var house: House? = nil
-    @Published var housesId: [String] = []
+    @Published var housePreview: [HousePreview] = []
     @Published var newDeviceId: String = ""
 
     private(set) lazy var onChangeHouse = PassthroughSubject<String, Never>()
@@ -55,12 +55,47 @@ class DataManager {
 
 // MARK: - Database
 extension DataManager {
+    
+    func removeFCMToken() {
+        collection?.document("devicesId").getDocument { (document, error) in
+            if var devicesId = document?.data()?["ids"] as? [String],
+            let fcmToken = UserDefaults.standard.string(forKey: "fcmToken") {
+                if let index = devicesId.firstIndex(where: { $0 == fcmToken }) {
+                    devicesId.remove(at: index)
+                    self.collection?.document("devicesId").updateData(["ids": devicesId]) { error in
+                        if let error = error {
+                            print(error.localizedDescription)
+                        }
+                    }
+                }
+            }
+        }
+    }
+    
+    func checkFCMToken() {
+        collection?.document("devicesId").getDocument { (document, error) in
+            if var devicesId = document?.data()?["ids"] as? [String],
+            let fcmToken = UserDefaults.standard.string(forKey: "fcmToken") {
+                if !devicesId.contains(fcmToken) {
+                    devicesId.append(fcmToken)
+                    self.collection?.document("devicesId").updateData(["ids": devicesId]) { error in
+                        if let error = error {
+                            print(error.localizedDescription)
+                        }
+                    }
+                }
+            }
+        }
+    }
+    
     func setHousesId() {
-        self.housesId = []
+        self.housePreview = []
         collection?.getDocuments { (querySnapshot, err) in
             querySnapshot?.documents.forEach { document in
-                self.housesId.append(document.documentID)
-                if self.housesId.count == 1 {
+                if let name = document.data()["name"] as? String {
+                    self.housePreview.append(HousePreview(id: document.documentID, name: name))
+                }
+                if self.housePreview.count == 1 {
                     self.getHouseFromDocument(document)
                 }
             }
@@ -105,8 +140,8 @@ extension DataManager {
 
     // ADD
     func addHouse(with name: String) {
-        if housesId.first(where: { $0 == name }) == nil {
-            collection?.document(name).setData(["name": name])
+        if housePreview.first(where: { $0.name == name }) == nil {
+            collection?.document().setData(["name": name])
         } else {
             print("дом с таким названием уже сществует")
         }
@@ -142,9 +177,10 @@ extension DataManager {
                     }
                     devices.append(deviceId)
                     roomDocument.updateData(["devices": devices]) { error in
-                        if error == nil {
+                        if error == nil,
+                           let roomName = self.house?.rooms.first(where: { $0.id == roomId })?.name {
                             self.house?.rooms[roomIndex].devicesId = devices
-                            self.setRoomToDevice(roomName: roomId, deviceId: deviceId) {
+                            self.setRoomToDevice(roomName: roomName, deviceId: deviceId) {
                                 self.setDevices(for: roomId) {
                                     self.newDeviceId = ""
                                     completion(.success)
@@ -252,7 +288,7 @@ extension DataManager {
             }
 
             room.devicesId.forEach { id in
-                if id.contains("atmospheric") {
+                if id.contains("preview") {
                     previewValuesObservers.append(databasePath.child(id).child("previewValues"))
                     databasePath.child(id).child("previewValues")
                         .observe(.value) { [weak self] snapshot, arg  in
@@ -270,7 +306,7 @@ extension DataManager {
 
     func setDevices(for roomId: String, completion: @escaping () -> Void) {
         guard let databasePath = databasePath,
-              let roomIndex = self.house?.rooms.firstIndex(where: { $0.name == roomId }),
+              let roomIndex = self.house?.rooms.firstIndex(where: { $0.id == roomId }),
               let room = self.house?.rooms[roomIndex]
         else {
             return

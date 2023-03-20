@@ -20,7 +20,7 @@ struct DeviceCard: View {
 
             HStack(alignment: .top) {
                 VStack(alignment: .leading) {
-                    ImageView(withURL: device.image)
+                    UrlImageView(urlString: device.image)
                         .frame(width: 50, height: 50)
 
                     if isFavorite {
@@ -29,9 +29,12 @@ struct DeviceCard: View {
                     }
                     Text(device.name)
                         .font(.system(size: 16))
-                    HStack {
+                    LazyVGrid(columns: [GridItem(), GridItem()]) {
                         ForEach(device.values, id: \.self) { value in
-                            Text(value.value)
+                            VStack {
+                                Image(systemName: value.imageSystemName)
+                                Text(value.value)
+                            }
                         }
                     }
                 }
