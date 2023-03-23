@@ -1,0 +1,61 @@
+/* 
+  Localizable.strings
+  Diploma_v2
+
+  Created by Алексей Даневич on 22.03.2023.
+  
+*/
+
+/* Main Menu */
+"NO_DEVICES_FAVORITE" = "There are no devices yet.";
+"NO_DEVICES" = "There are no devices yet.\nСlick the button below to add.";
+"SELECT_ROOM" = "Select a room to view more information";
+
+/* TapBar */
+"HOUSE" = "House";
+"SETTINGS" = "Settings";
+
+/* Settings */
+"SETTINGS" = "Settings";
+"ACCOUNT" = "Account";
+"NOTIFICATIONS" = "Notifications";
+"HOUSES" = "Houses";
+"LOGOUT" = "Logout";
+"LOGOUT_QUESTION" = "Are you sure you want to logout?";
+
+/* Account Settings */
+"CHANGE_PASSWORD" = "Change password";
+
+/* Action */
+"DELETE" = "Delete";
+"BACK" = "Back";
+"SAVE" = "Save";
+"CANCEL" = "Cancel";
+"YES" = "Yes";
+"ADD_DEVICE" = "Add device";
+"SEND" = "Send";
+
+/* Device View */
+"SELECT_ROOM" = "Select the room";
+"DEVICE_ID" = "Enter device id";
+
+/* Auth view */
+"FORGOT_PASSWORD_VIEW" = "Forgot your password?";
+"ENTER_EMAIL" = "Enter your email address to \nretrieve your password";
+"EMAIL_ADDRESS" = "Email Address";
+"OR" = "Or";
+"FORGOT_PASSWORD" = "Forgot Password?";
+"EMAIL_ADDRESS" = "Email Address";
+"PASSWORD" = "Password";
+"CONFIRM_PASSWORD" = "Confirm password";
+"LOGIN" = "Login";
+"SIGNUP" = "Signup";
+
+/* User */
+"NAME" = "Name";
+"EMAIL" = "Email";
+
+/* Error */
+"BASE_ERROR" = "Something went wrong, please try again";
+"ID_ERROR" = "Please check the spelling of the device id";
+"EMPTY_ID_ERROR" = "To add a device You must enter its ID";

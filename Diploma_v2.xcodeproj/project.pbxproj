@@ -36,6 +36,11 @@
 		B889C8FC29B611A500E6977B /* SettingsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B889C8FB29B611A500E6977B /* SettingsViewModel.swift */; };
 		B889C8FE29B611B300E6977B /* SettingsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B889C8FD29B611B300E6977B /* SettingsModel.swift */; };
 		B889C90029B6527200E6977B /* RootTabModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B889C8FF29B6527200E6977B /* RootTabModel.swift */; };
+		B88AEEBE29CB7CFE002FFE7B /* MainSettingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B88AEEBD29CB7CFE002FFE7B /* MainSettingView.swift */; };
+		B88AEEC029CB7D2B002FFE7B /* SettingsText.swift in Sources */ = {isa = PBXBuildFile; fileRef = B88AEEBF29CB7D2B002FFE7B /* SettingsText.swift */; };
+		B88AEEC229CB8069002FFE7B /* AccountSettingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B88AEEC129CB8069002FFE7B /* AccountSettingView.swift */; };
+		B88AEEC729CB842D002FFE7B /* HousesSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B88AEEC629CB842D002FFE7B /* HousesSettingsView.swift */; };
+		B88AEECA29CB8846002FFE7B /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = B88AEECC29CB8846002FFE7B /* Localizable.strings */; };
 		B88DE1B72992DF0100DD91AB /* DeviceDetailsCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = B88DE1B62992DF0100DD91AB /* DeviceDetailsCoordinator.swift */; };
 		B88DE1B92992DF2A00DD91AB /* DeviceDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B88DE1B82992DF2A00DD91AB /* DeviceDetailsViewController.swift */; };
 		B88DE1BB2992DF7000DD91AB /* DeviceDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B88DE1BA2992DF7000DD91AB /* DeviceDetailsView.swift */; };
@@ -48,6 +53,7 @@
 		B894BA6729A9331A00C4BB22 /* CameraPreview.swift in Sources */ = {isa = PBXBuildFile; fileRef = B894BA6629A9331A00C4BB22 /* CameraPreview.swift */; };
 		B894BA6929A9333800C4BB22 /* QrCodeScannerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B894BA6829A9333800C4BB22 /* QrCodeScannerView.swift */; };
 		B894BA6B29A935D400C4BB22 /* ScannerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B894BA6A29A935D400C4BB22 /* ScannerViewController.swift */; };
+		B8A4CF5D29C900D8009E9BC5 /* Diploma_v2Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8A4CF5C29C900D8009E9BC5 /* Diploma_v2Tests.swift */; };
 		B8AC98F1298D3D6500C40B84 /* RoomPreviewCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8AC98F0298D3D6500C40B84 /* RoomPreviewCard.swift */; };
 		B8AC98F3298D3D9400C40B84 /* DeviceCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8AC98F2298D3D9400C40B84 /* DeviceCard.swift */; };
 		B8C5CADD2979ED10009ED632 /* ForgotPasswordView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8C5CADC2979ED10009ED632 /* ForgotPasswordView.swift */; };
@@ -69,7 +75,18 @@
 		B8CE2DC12983F704007FFA2E /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8CE2DC02983F704007FFA2E /* User.swift */; };
 		B8CE2DC32983F71D007FFA2E /* House.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8CE2DC22983F71D007FFA2E /* House.swift */; };
 		B8CE2DCF29845D9B007FFA2E /* DevicesGridView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8CE2DCE29845D9B007FFA2E /* DevicesGridView.swift */; };
+		B8D2303F29CA22E800EB1973 /* HouseMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8D2303E29CA22E800EB1973 /* HouseMenu.swift */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		B8A4CF5E29C900D8009E9BC5 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = B874C96B296ED20D00D6CC30 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = B874C972296ED20D00D6CC30;
+			remoteInfo = Diploma_v2;
+		};
+/* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
 		09DA504D158DE61EA7BDDB3B /* Pods_Diploma_v2.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Diploma_v2.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -105,6 +122,12 @@
 		B889C8FB29B611A500E6977B /* SettingsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewModel.swift; sourceTree = "<group>"; };
 		B889C8FD29B611B300E6977B /* SettingsModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsModel.swift; sourceTree = "<group>"; };
 		B889C8FF29B6527200E6977B /* RootTabModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootTabModel.swift; sourceTree = "<group>"; };
+		B88AEEBD29CB7CFE002FFE7B /* MainSettingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainSettingView.swift; sourceTree = "<group>"; };
+		B88AEEBF29CB7D2B002FFE7B /* SettingsText.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsText.swift; sourceTree = "<group>"; };
+		B88AEEC129CB8069002FFE7B /* AccountSettingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountSettingView.swift; sourceTree = "<group>"; };
+		B88AEEC629CB842D002FFE7B /* HousesSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HousesSettingsView.swift; sourceTree = "<group>"; };
+		B88AEECB29CB8846002FFE7B /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
+		B88AEECD29CB8878002FFE7B /* uk */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = uk; path = uk.lproj/Localizable.strings; sourceTree = "<group>"; };
 		B88DE1B62992DF0100DD91AB /* DeviceDetailsCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceDetailsCoordinator.swift; sourceTree = "<group>"; };
 		B88DE1B82992DF2A00DD91AB /* DeviceDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceDetailsViewController.swift; sourceTree = "<group>"; };
 		B88DE1BA2992DF7000DD91AB /* DeviceDetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceDetailsView.swift; sourceTree = "<group>"; };
@@ -117,6 +140,8 @@
 		B894BA6629A9331A00C4BB22 /* CameraPreview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraPreview.swift; sourceTree = "<group>"; };
 		B894BA6829A9333800C4BB22 /* QrCodeScannerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QrCodeScannerView.swift; sourceTree = "<group>"; };
 		B894BA6A29A935D400C4BB22 /* ScannerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScannerViewController.swift; sourceTree = "<group>"; };
+		B8A4CF5A29C900D8009E9BC5 /* Diploma_v2Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Diploma_v2Tests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		B8A4CF5C29C900D8009E9BC5 /* Diploma_v2Tests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Diploma_v2Tests.swift; sourceTree = "<group>"; };
 		B8AC98F0298D3D6500C40B84 /* RoomPreviewCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoomPreviewCard.swift; sourceTree = "<group>"; };
 		B8AC98F2298D3D9400C40B84 /* DeviceCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceCard.swift; sourceTree = "<group>"; };
 		B8C5CADC2979ED10009ED632 /* ForgotPasswordView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForgotPasswordView.swift; sourceTree = "<group>"; };
@@ -138,6 +163,7 @@
 		B8CE2DC02983F704007FFA2E /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		B8CE2DC22983F71D007FFA2E /* House.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = House.swift; sourceTree = "<group>"; };
 		B8CE2DCE29845D9B007FFA2E /* DevicesGridView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DevicesGridView.swift; sourceTree = "<group>"; };
+		B8D2303E29CA22E800EB1973 /* HouseMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HouseMenu.swift; sourceTree = "<group>"; };
 		D19EA41FA2485D5F2659D2E9 /* Pods-Diploma_v2.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Diploma_v2.debug.xcconfig"; path = "Target Support Files/Pods-Diploma_v2/Pods-Diploma_v2.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -147,6 +173,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				07B4B010461FFC62091EB16A /* Pods_Diploma_v2.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		B8A4CF5729C900D8009E9BC5 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -177,6 +210,7 @@
 				B874C99529757C9E00D6CC30 /* AppDelegate.swift */,
 				B834A94429785DA000AC8F09 /* Main.storyboard */,
 				B874C99A29757ECF00D6CC30 /* GoogleService-Info.plist */,
+				B88AEECC29CB8846002FFE7B /* Localizable.strings */,
 			);
 			path = SystemFiles;
 			sourceTree = "<group>";
@@ -194,6 +228,7 @@
 			isa = PBXGroup;
 			children = (
 				B874C975296ED20D00D6CC30 /* Diploma_v2 */,
+				B8A4CF5B29C900D8009E9BC5 /* Diploma_v2Tests */,
 				B874C974296ED20D00D6CC30 /* Products */,
 				6117B5022985AE8D0034ADFD /* Pods */,
 				107A6E61F626166A3D08237B /* Frameworks */,
@@ -204,6 +239,7 @@
 			isa = PBXGroup;
 			children = (
 				B874C973296ED20D00D6CC30 /* Diploma_v2.app */,
+				B8A4CF5A29C900D8009E9BC5 /* Diploma_v2Tests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -276,6 +312,7 @@
 		B874C987296ED4D000D6CC30 /* Settings */ = {
 			isa = PBXGroup;
 			children = (
+				B88AEEBC29CB7CE4002FFE7B /* UI */,
 				B889C8F929B6119900E6977B /* SettingsView.swift */,
 				B889C8FB29B611A500E6977B /* SettingsViewModel.swift */,
 				B889C8FD29B611B300E6977B /* SettingsModel.swift */,
@@ -313,6 +350,17 @@
 			path = RootTabView;
 			sourceTree = "<group>";
 		};
+		B88AEEBC29CB7CE4002FFE7B /* UI */ = {
+			isa = PBXGroup;
+			children = (
+				B88AEEBD29CB7CFE002FFE7B /* MainSettingView.swift */,
+				B88AEEBF29CB7D2B002FFE7B /* SettingsText.swift */,
+				B88AEEC129CB8069002FFE7B /* AccountSettingView.swift */,
+				B88AEEC629CB842D002FFE7B /* HousesSettingsView.swift */,
+			);
+			path = UI;
+			sourceTree = "<group>";
+		};
 		B88DE1B52992DEC100DD91AB /* DeviceDetails */ = {
 			isa = PBXGroup;
 			children = (
@@ -336,6 +384,14 @@
 				B894BA6A29A935D400C4BB22 /* ScannerViewController.swift */,
 			);
 			path = QrScannerView;
+			sourceTree = "<group>";
+		};
+		B8A4CF5B29C900D8009E9BC5 /* Diploma_v2Tests */ = {
+			isa = PBXGroup;
+			children = (
+				B8A4CF5C29C900D8009E9BC5 /* Diploma_v2Tests.swift */,
+			);
+			path = Diploma_v2Tests;
 			sourceTree = "<group>";
 		};
 		B8C5CAE0297AE6C1009ED632 /* ForgotPasswordView */ = {
@@ -398,6 +454,7 @@
 				B8AC98F0298D3D6500C40B84 /* RoomPreviewCard.swift */,
 				B8AC98F2298D3D9400C40B84 /* DeviceCard.swift */,
 				B894BA5C29A8122800C4BB22 /* AddDeviceView.swift */,
+				B8D2303E29CA22E800EB1973 /* HouseMenu.swift */,
 			);
 			path = UI;
 			sourceTree = "<group>";
@@ -424,6 +481,24 @@
 			productReference = B874C973296ED20D00D6CC30 /* Diploma_v2.app */;
 			productType = "com.apple.product-type.application";
 		};
+		B8A4CF5929C900D8009E9BC5 /* Diploma_v2Tests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = B8A4CF6229C900D8009E9BC5 /* Build configuration list for PBXNativeTarget "Diploma_v2Tests" */;
+			buildPhases = (
+				B8A4CF5629C900D8009E9BC5 /* Sources */,
+				B8A4CF5729C900D8009E9BC5 /* Frameworks */,
+				B8A4CF5829C900D8009E9BC5 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				B8A4CF5F29C900D8009E9BC5 /* PBXTargetDependency */,
+			);
+			name = Diploma_v2Tests;
+			productName = Diploma_v2Tests;
+			productReference = B8A4CF5A29C900D8009E9BC5 /* Diploma_v2Tests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -431,11 +506,15 @@
 			isa = PBXProject;
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
-				LastSwiftUpdateCheck = 1400;
+				LastSwiftUpdateCheck = 1420;
 				LastUpgradeCheck = 1400;
 				TargetAttributes = {
 					B874C972296ED20D00D6CC30 = {
 						CreatedOnToolsVersion = 14.0.1;
+					};
+					B8A4CF5929C900D8009E9BC5 = {
+						CreatedOnToolsVersion = 14.2;
+						TestTargetID = B874C972296ED20D00D6CC30;
 					};
 				};
 			};
@@ -446,6 +525,7 @@
 			knownRegions = (
 				en,
 				Base,
+				uk,
 			);
 			mainGroup = B874C96A296ED20D00D6CC30;
 			productRefGroup = B874C974296ED20D00D6CC30 /* Products */;
@@ -453,6 +533,7 @@
 			projectRoot = "";
 			targets = (
 				B874C972296ED20D00D6CC30 /* Diploma_v2 */,
+				B8A4CF5929C900D8009E9BC5 /* Diploma_v2Tests */,
 			);
 		};
 /* End PBXProject section */
@@ -462,10 +543,18 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B88AEECA29CB8846002FFE7B /* Localizable.strings in Resources */,
 				B874C97E296ED20F00D6CC30 /* Preview Assets.xcassets in Resources */,
 				B874C97B296ED20F00D6CC30 /* Assets.xcassets in Resources */,
 				B874C99B29757ECF00D6CC30 /* GoogleService-Info.plist in Resources */,
 				B834A94529785DA000AC8F09 /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		B8A4CF5829C900D8009E9BC5 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -518,7 +607,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B88AEEC229CB8069002FFE7B /* AccountSettingView.swift in Sources */,
 				B889C90029B6527200E6977B /* RootTabModel.swift in Sources */,
+				B8D2303F29CA22E800EB1973 /* HouseMenu.swift in Sources */,
 				B8CE2DB72982C622007FFA2E /* MainMenuDomainModel.swift in Sources */,
 				B88DE1B72992DF0100DD91AB /* DeviceDetailsCoordinator.swift in Sources */,
 				B889C8F429B5F67D00E6977B /* View.isHiden.swift in Sources */,
@@ -556,6 +647,7 @@
 				B874C99929757CB800D6CC30 /* SceneDelegate.swift in Sources */,
 				B8C5CADD2979ED10009ED632 /* ForgotPasswordView.swift in Sources */,
 				B874C99029757AA100D6CC30 /* AuthorizationView.swift in Sources */,
+				B88AEEC029CB7D2B002FFE7B /* SettingsText.swift in Sources */,
 				B8CE2DAA2982C5F1007FFA2E /* BottomSheetView.swift in Sources */,
 				B894BA6729A9331A00C4BB22 /* CameraPreview.swift in Sources */,
 				B8AC98F3298D3D9400C40B84 /* DeviceCard.swift in Sources */,
@@ -569,22 +661,53 @@
 				B88DE1B92992DF2A00DD91AB /* DeviceDetailsViewController.swift in Sources */,
 				B874D188298BE13D0075910A /* UrlImageView.swift in Sources */,
 				B874C98E29757A3A00D6CC30 /* AuthorizationViewController.swift in Sources */,
+				B88AEEBE29CB7CFE002FFE7B /* MainSettingView.swift in Sources */,
 				B874C9A02975CBBF00D6CC30 /* AuthorizationViewModel.swift in Sources */,
 				B8AC98F1298D3D6500C40B84 /* RoomPreviewCard.swift in Sources */,
 				B834A94729785EEE00AC8F09 /* AuthorizationCoordinator.swift in Sources */,
+				B88AEEC729CB842D002FFE7B /* HousesSettingsView.swift in Sources */,
 				B8CE2DB92982C622007FFA2E /* MainMenuCoordinator.swift in Sources */,
 				B8CE2DA52982C5F0007FFA2E /* SizeAwareViewModifier.swift in Sources */,
 				B8CE2DA72982C5F0007FFA2E /* View.eraseToAnyView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		B8A4CF5629C900D8009E9BC5 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B8A4CF5D29C900D8009E9BC5 /* Diploma_v2Tests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		B8A4CF5F29C900D8009E9BC5 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = B874C972296ED20D00D6CC30 /* Diploma_v2 */;
+			targetProxy = B8A4CF5E29C900D8009E9BC5 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		B88AEECC29CB8846002FFE7B /* Localizable.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				B88AEECB29CB8846002FFE7B /* en */,
+				B88AEECD29CB8878002FFE7B /* uk */,
+			);
+			name = Localizable.strings;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
 		B874C97F296ED20F00D6CC30 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
@@ -645,6 +768,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
@@ -761,6 +885,44 @@
 			};
 			name = Release;
 		};
+		B8A4CF6029C900D8009E9BC5 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 3S2CYLM3U4;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.2;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "odanevych.Diploma-v2Tests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Diploma_v2.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/Diploma_v2";
+			};
+			name = Debug;
+		};
+		B8A4CF6129C900D8009E9BC5 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 3S2CYLM3U4;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.2;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "odanevych.Diploma-v2Tests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Diploma_v2.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/Diploma_v2";
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -778,6 +940,15 @@
 			buildConfigurations = (
 				B874C982296ED20F00D6CC30 /* Debug */,
 				B874C983296ED20F00D6CC30 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		B8A4CF6229C900D8009E9BC5 /* Build configuration list for PBXNativeTarget "Diploma_v2Tests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				B8A4CF6029C900D8009E9BC5 /* Debug */,
+				B8A4CF6129C900D8009E9BC5 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

@@ -111,7 +111,8 @@ final class AuthManager: NSObject, ObservableObject {
         return User(
             name: authUser.displayName ?? "User",
             imageUrl: authUser.photoURL?.absoluteString ?? "",
-            uid: authUser.uid)
+            uid: authUser.uid,
+            email: authUser.email ?? "")
     }
 }
 

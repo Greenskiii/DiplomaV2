@@ -6,24 +6,39 @@
 //
 
 import Foundation
+import FirebaseDatabase
+import FirebaseFirestore
+import FirebaseFirestoreSwift
 
 struct House: Equatable, Hashable {
     let id: String
     var name: String
     var rooms: [Room]
     
-    struct Room: Hashable {
-        let id: String
-        var name: String
-        var devicesId: [String]
-        var previewValues: [Value] = []
-        var devices: [Device] = []
+    init(id: String, name: String, rooms: [Room]) {
+        self.id = id
+        self.name = name
+        self.rooms = rooms
+    }
+}
 
-        init(name: String, devicesId: [String], id: String) {
-           self.name = name
-           self.devicesId = devicesId
-           self.id = id
-        }
+struct Room: Hashable {
+    let id: String
+    var name: String
+    var devicesId: [String]
+    var previewValues: [Value] = []
+    var devices: [Device] = []
+
+    init(name: String, devicesId: [String], id: String) {
+       self.name = name
+       self.devicesId = devicesId
+       self.id = id
+    }
+    
+    init?(id: String, from document: [String: Any]) {
+        guard let name = document["name"] as? String,
+        let devicesId = document["devices"] as? [String] else { return nil }
+        self.init(name: name, devicesId: devicesId, id: id)
     }
 }
 

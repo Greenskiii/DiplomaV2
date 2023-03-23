@@ -42,5 +42,6 @@ struct DeviceCard: View {
             }
             .padding()
         }
+        .animation(.easeInOut(duration: 2))
     }
 }

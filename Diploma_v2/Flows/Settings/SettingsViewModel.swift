@@ -11,20 +11,22 @@ import Combine
 final class SettingsViewModel: ObservableObject {
     let model: SettingsModel
     var subscriptions = Set<AnyCancellable>()
-
-    @Published var housePreview: [HousePreview] = []
-    @Published var house: House? = nil
-    var onChangeHouse: PassthroughSubject<String, Never> {
-        return model.onChangeHouse
+    @Published var name = ""
+    @Published var email = ""
+    var user: User? {
+        model.user
     }
     
+    var logout: PassthroughSubject<Void, Never> {
+        model.logout
+    }
+
     init(model: SettingsModel) {
         self.model = model
-        model.$housePreview
-            .assign(to: \.housePreview, on: self)
-            .store(in: &subscriptions)
-        model.$house
-            .assign(to: \.house, on: self)
-            .store(in: &subscriptions)
+        
+        if let user = model.user {
+            self.name = user.name
+            self.email = user.email
+        }
     }
 }

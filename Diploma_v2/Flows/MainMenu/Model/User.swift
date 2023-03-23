@@ -11,4 +11,5 @@ struct User {
     let name: String
     let imageUrl: String
     let uid: String
+    let email: String
 }

@@ -24,7 +24,7 @@ struct AuthorizationView: View {
                     HStack {
                         Rectangle()
                             .frame(height: 1)
-                        Text("Or")
+                        Text(NSLocalizedString("OR", comment: "Auth view"))
                         Rectangle()
                             .frame(height: 1)
                     }
@@ -49,6 +49,7 @@ struct AuthorizationView: View {
                     isOpen: $viewModel.forgotPasswordIsOpen) {
                     ForgotPasswordView(viewModel: viewModel.forgotPasswordViewModel)
                 }
+                    .shadow(color: .gray, radius: 3, x: 2, y: 0)
                     .offset(y: 100)
             }
         }
@@ -72,22 +73,22 @@ struct AuthorizationView: View {
 
     private func createTextFields() -> some View {
         VStack {
-            SegmentedPicker(items: ["Login", "SignUp"], selection: $viewModel.selection)
+            SegmentedPicker(items: [NSLocalizedString("LOGIN", comment: "Auth view"), NSLocalizedString("SIGNUP", comment: "Auth view")], selection: $viewModel.selection)
                 .frame(height: 40)
                 .padding(.horizontal, 40)
                 .padding(.bottom, 20)
 
-            TextField("Email Address", text: $viewModel.email)
+            TextField(NSLocalizedString("EMAIL_ADDRESS", comment: "Auth view"), text: $viewModel.email)
                 .padding(.horizontal, 40)
                 .padding(.vertical, 10)
                 .shadow(color: .gray, radius: 3, x: 2, y: 2)
 
-            SecureTextField("Password", text: $viewModel.password)
+            SecureTextField(NSLocalizedString("PASSWORD", comment: "Auth view"), text: $viewModel.password)
                 .padding(.horizontal, 40)
                 .padding(.bottom, 10)
 
             if viewModel.selection == 1 {
-                SecureTextField("Confirm password", text: $viewModel.passwordDuplicate)
+                SecureTextField(NSLocalizedString("CONFIRM_PASSWORD", comment: "Auth view"), text: $viewModel.passwordDuplicate)
                     .padding(.horizontal, 40)
                     .animation(.easeInOut(duration: 0.3))
                     .transition(.move(edge: .leading))
@@ -102,7 +103,7 @@ struct AuthorizationView: View {
                     viewModel.forgotPasswordIsOpen = true
                 } label: {
                     HStack {
-                        Text("Forgot Password?")
+                        Text(NSLocalizedString("FORGOT_PASSWORD", comment: "Auth view"))
                             .foregroundColor(Color("Royalblue"))
                             .font(Font.subheadline)
 
@@ -130,7 +131,7 @@ struct AuthorizationView: View {
                     RoundedRectangle(cornerRadius: 4)
                         .foregroundColor(Color("BlueShark"))
                         .shadow(color: .gray, radius: 3, x: 2, y: 2)
-                    Text(viewModel.selection == 0 ? "Login" : "SignUp")
+                    Text(viewModel.selection == 0 ? NSLocalizedString("LOGIN", comment: "Auth view") : NSLocalizedString("SIGNUP", comment: "Auth view"))
                         .foregroundColor(.white)
                 }
                 .frame(height: 40)
@@ -172,4 +173,4 @@ struct AuthorizationView: View {
         }
         .padding(.top, 10)
     }
-}
+} 

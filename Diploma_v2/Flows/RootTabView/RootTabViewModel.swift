@@ -22,6 +22,7 @@ class RootTabViewModel: ObservableObject {
     @Published var errorText: String = ""
     @Published var choosenDevice: Device?
     @Published var deviceDetailIsOpen = false
+    @Published var housePreview: [HousePreview] = []
 
     private(set) lazy var onSaveNewDeviceId = PassthroughSubject<Void, Never>()
 
@@ -41,6 +42,10 @@ class RootTabViewModel: ObservableObject {
         return model.onGoToScannerScreen
     }
 
+    var onChangeHouse: PassthroughSubject<String, Never> {
+        return model.onChangeHouse
+    }
+
     var onTapDevice: PassthroughSubject<Device?, Never> {
         return model.onTapDevice
     }
@@ -49,8 +54,15 @@ class RootTabViewModel: ObservableObject {
         return model.onPressAdddevice
     }
 
+    var user: User? {
+        return model.user
+    }
     init(model: RootTabModel) {
         self.model = model
+
+        model.$housePreview
+            .assign(to: \.housePreview, on: self)
+            .store(in: &subscriptions)
 
         model.$choosenDevice
             .assign(to: \.choosenDevice, on: self)

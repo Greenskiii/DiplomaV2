@@ -95,7 +95,7 @@ final class AuthorizationModel {
                 if isError {
                     self.onShowError.send()
                 } else {
-                    self.dataManager.setHousesId()
+                    self.dataManager.getHousesId()
                     self.onGoToRootTabView.send()
                     self.dataManager.checkFCMToken()
                 }
@@ -111,7 +111,7 @@ final class AuthorizationModel {
                 if isError {
                     self.onShowError.send()
                 } else {
-                    self.dataManager.setHousesId()
+                    self.dataManager.getHousesId()
                     self.onGoToRootTabView.send()
                     self.dataManager.checkFCMToken()
                 }

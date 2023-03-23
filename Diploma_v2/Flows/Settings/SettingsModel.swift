@@ -10,29 +10,29 @@ import Combine
 
 final class SettingsModel: ObservableObject {
     let dataManager: DataManager
+    let authManager: AuthManager
     var subscriptions = Set<AnyCancellable>()
 
-    @Published var house: House? = nil
-
-    @Published var housePreview: [HousePreview] = []
+    var user: User? {
+        authManager.getUserInfo()
+    }
     
-    private(set) lazy var onChangeHouse = PassthroughSubject<String, Never>()
-
+    var logout = PassthroughSubject<Void, Never>()
+    
     init(
-        dataManager: DataManager
+        authManager: AuthManager,
+        dataManager: DataManager,
+        onGoToAuthScreen: PassthroughSubject<Void, Never>
     ) {
         self.dataManager = dataManager
-        dataManager.$housePreview
-            .assign(to: \.housePreview, on: self)
-            .store(in: &subscriptions)
-        dataManager.$house
-            .assign(to: \.house, on: self)
-            .store(in: &subscriptions)
+        self.authManager = authManager
         
-        onChangeHouse
-            .sink { [weak self] houseId in
-                self?.dataManager.onChangeHouse.send(houseId)
+        self.logout
+            .sink { [weak self]_ in
+                self?.dataManager.removeFCMToken()
+                self?.authManager.logOut()
+                onGoToAuthScreen.send()
             }
-            .store(in: &subscriptions)
+            .store(in: &self.subscriptions)
     }
 }

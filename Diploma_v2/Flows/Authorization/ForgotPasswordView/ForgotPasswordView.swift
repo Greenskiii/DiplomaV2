@@ -20,17 +20,17 @@ struct ForgotPasswordView: View {
                     .resizable()
                     .frame(width: 150, height: 150)
 
-                Text("Forgot your password?")
+                Text(NSLocalizedString("FORGOT_PASSWORD_VIEW", comment: "Auth view"))
                     .font(.title)
                     .fontWeight(.bold)
                     .padding(.top, 20)
 
-                Text("Enter your email address to \nretrieve your password")
+                Text(NSLocalizedString("ENTER_EMAIL", comment: "Auth view"))
                     .multilineTextAlignment(.center)
                     .font(.title2)
                     .padding(.top, -10)
 
-                TextField("Email Address", text: $viewModel.email)
+                TextField(NSLocalizedString("EMAIL_ADDRESS", comment: "Auth view"), text: $viewModel.email)
                     .padding(.horizontal, 40)
                     .padding(.vertical, 10)
                     .shadow(color: .gray, radius: 3, x: 2, y: 2)
@@ -45,7 +45,7 @@ struct ForgotPasswordView: View {
                             .frame(height: 50)
                             .padding(.horizontal, 40)
 
-                        Text("Send")
+                        Text(NSLocalizedString("SEND", comment: "Action"))
                             .foregroundColor(.white)
                             .font(.title2)
                             .fontWeight(.bold)

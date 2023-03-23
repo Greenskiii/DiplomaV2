@@ -23,7 +23,7 @@ struct AddDeviceView: View {
 
             VStack {
                 ZStack(alignment: .trailing) {
-                    TextField("Enter device id", text: $deviceId)
+                    TextField(NSLocalizedString("DEVICE_ID", comment: "Device View"), text: $deviceId)
                         .textFieldStyle(RoundedBorderTextFieldStyle())
                     Button {
                         onGoToScannerScreen.send()
@@ -38,13 +38,10 @@ struct AddDeviceView: View {
                 Button {
                     onSaveNewDeviceId.send()
                 } label: {
-                    ZStack {
-                        Color("BlueShark")
-                            .frame(width: 100, height: 40)
-                            .clipShape(RoundedRectangle(cornerRadius: 16, style: .circular))
-                        Text("Add device")
-                            .foregroundColor(.white)
-                    }
+                    Text(NSLocalizedString("ADD_DEVICE", comment: "Action"))
+                        .foregroundColor(.white)
+                        .padding()
+                        .background(RoundedRectangle(cornerRadius: 16).fill(Color("BlueShark")))
                 }
             }
         }

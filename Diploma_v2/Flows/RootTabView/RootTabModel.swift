@@ -14,7 +14,6 @@ class RootTabModel {
     let dataManager: DataManager
     var timer = Timer()
 
-    
     @Published var house: House? = nil
     @Published var addDeviceViewIsOpen: Bool = false
     @Published var newDeviceId = ""
@@ -29,9 +28,14 @@ class RootTabModel {
     private(set) lazy var onSaveNewDeviceId = PassthroughSubject<String, Never>()
     private(set) lazy var onPressAdddevice = PassthroughSubject<Void, Never>()
     private(set) lazy var onCloseDeviceDetail = PassthroughSubject<Void, Never>()
+    private(set) lazy var onChangeHouse = PassthroughSubject<String, Never>()
 
     var mainMenuViewModel: MainMenuViewModel?
     var settingsViewModel: SettingsViewModel?
+    
+    var user: User? {
+        authManager.getUserInfo()
+    }
     
     var deviceDetailsViewModel: DeviceDetailsViewModel? {
         if let device = self.choosenDevice,
@@ -55,7 +59,8 @@ class RootTabModel {
     init(
         authManager: AuthManager,
         dataManager : DataManager,
-        onGoToScannerScreen: PassthroughSubject<Void, Never>
+        onGoToScannerScreen: PassthroughSubject<Void, Never>,
+        onGoToAuthScreen: PassthroughSubject<Void, Never>
     ) {
         self.authManager = authManager
         self.dataManager = dataManager
@@ -70,7 +75,7 @@ class RootTabModel {
             )
         )
         
-        self.settingsViewModel = SettingsViewModel(model: SettingsModel(dataManager: dataManager))
+        self.settingsViewModel = SettingsViewModel(model: SettingsModel(authManager: authManager, dataManager: dataManager, onGoToAuthScreen: onGoToAuthScreen))
         
         dataManager.$house
             .assign(to: \.house, on: self)
@@ -93,11 +98,11 @@ class RootTabModel {
                     dataManager.addDevice(houseId: houseId, roomId: roomId, deviceId: deviceId) { completion in
                         switch completion {
                         case .notFoundId:
-                            self?.errorText = "Please check the spelling of the device id"
+                            self?.errorText = NSLocalizedString("ID_ERROR", comment: "Error")
                             self?.showErrorView = true
                             self?.startTimerForError()
                         case .error:
-                            self?.errorText = "Something went wrong, please try again"
+                            self?.errorText = NSLocalizedString("BASE_ERROR", comment: "Error")
                             self?.showErrorView = true
                             self?.startTimerForError()
                         case .success:
@@ -105,7 +110,7 @@ class RootTabModel {
                         }
                     }
                 } else {
-                    self?.errorText = "To add a device You must enter its ID"
+                    self?.errorText = NSLocalizedString("EMPTY_ID_ERROR", comment: "Error")
                     self?.showErrorView = true
                     self?.startTimerForError()
                 }
@@ -132,6 +137,13 @@ class RootTabModel {
         onCloseDeviceDetail
             .sink { [weak self] _ in
                 self?.deviceDetailIsOpen = false
+            }
+            .store(in: &subscriptions)
+
+        onChangeHouse
+            .sink { [weak self] houseId in
+                self?.dataManager.choosenRoomId = "Favorite"
+                self?.dataManager.onChangeHouse.send(houseId)
             }
             .store(in: &subscriptions)
     }

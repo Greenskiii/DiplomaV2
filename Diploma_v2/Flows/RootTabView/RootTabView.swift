@@ -9,23 +9,37 @@ import SwiftUI
 
 struct RootTabView: View {
     @ObservedObject var viewModel: RootTabViewModel
+    @State var isMenuShown = false
 
     var body: some View {
         ZStack(alignment: .top) {
             Color("TropicalBlue")
                 .ignoresSafeArea()
-            
-            TabView(selection: $viewModel.selectedTab) {
-                if let viewModel = viewModel.mainMenuViewModel {
-                    setMainView(viewModel: viewModel).tag(TabType.main)
+            VStack {
+                makeTopView()
+                    .padding(.horizontal)
+                    .padding(.top)
 
-                }
-                
-                if let viewModel = viewModel.settingsViewModel {
-                    setSettingsView(viewModel: viewModel).tag(TabType.settings)
+                TabView(selection: $viewModel.selectedTab) {
+                    if let viewModel = viewModel.mainMenuViewModel {
+                        setMainView(viewModel: viewModel).tag(TabType.main)
+
+                    }
+                    
+                    if let viewModel = viewModel.settingsViewModel {
+                        setSettingsView(viewModel: viewModel).tag(TabType.settings)
+                    }
                 }
             }
-
+            HStack {
+                if let choosenHouse = viewModel.house?.id {
+                    HouseMenu(isMenuShown: $isMenuShown, choosenHouse: choosenHouse, houses: viewModel.housePreview, onChangeHouse: viewModel.onChangeHouse)
+                        .padding()
+                }
+                Spacer()
+            }
+            .padding(.horizontal, 10)
+            .padding(.top)
 
             if viewModel.addDeviceViewIsOpen {
                 ZStack(alignment: .center) {
@@ -65,18 +79,49 @@ struct RootTabView: View {
             }
         }
     }
+    
+    func makeTopView() -> some View {
+        ZStack(alignment: .bottom) {
+            if let choosenHouse = viewModel.house?.name {
+                Text(choosenHouse)
+                    .font(.title2)
+                    .fontWeight(.medium)
+                    .foregroundColor(Color("Navy"))
+
+            }
+            HStack(alignment: .bottom) {
+                Spacer()
+                HStack {
+                    if let user = viewModel.user {
+                        Text(user.name)
+                            .foregroundColor(Color("Navy"))
+                        
+                        if !user.imageUrl.isEmpty {
+                            UrlImageView(urlString: user.imageUrl)
+                                .clipShape(Circle())
+                                .frame(width: 40, height: 40)
+                        } else {
+                            Image(systemName: "person.circle.fill")
+                                .font(.system(size: 25))
+                                .foregroundColor(Color("Navy"))
+                        }
+                    }
+                }
+            }
+        }
+    }
 
     func setMainView(viewModel: MainMenuViewModel) -> some View {
         return MainMenuView(viewModel: viewModel)
             .tabItem {
-                Label("Menu", systemImage: "house")
+                Label(NSLocalizedString("HOUSE", comment: "TapBar"), systemImage: "house")
             }
     }
     
     func setSettingsView(viewModel: SettingsViewModel) -> some View {
         SettingsView(viewModel: viewModel)
             .tabItem {
-                Label("Settings", systemImage: "person")
+                Label(NSLocalizedString("SETTINGS", comment: "TapBar"), systemImage: "person")
             }
     }
 }
@@ -85,3 +130,4 @@ enum TabType: Int {
     case main
     case settings
 }
+

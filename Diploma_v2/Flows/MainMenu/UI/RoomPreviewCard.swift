@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct RoomPreviewCard: View {
-    let room: House.Room
+    let room: Room
     let isSelected: Bool
 
     var previewValue: [Value] {
@@ -18,7 +18,7 @@ struct RoomPreviewCard: View {
     }
 
     init(
-        room: House.Room,
+        room: Room,
          isSelected: Bool
     ) {
         self.room = room
@@ -31,7 +31,7 @@ struct RoomPreviewCard: View {
                 .foregroundColor(isSelected ? Color("Navy") : Color("BlueShark"))
                 .opacity(0.6)
                 .shadow(color: .gray, radius: 3, x: 2, y: 2)
-                .frame(height: 50)
+                .frame(height: 55)
 
             VStack(alignment: .leading) {
                 Text(room.name)

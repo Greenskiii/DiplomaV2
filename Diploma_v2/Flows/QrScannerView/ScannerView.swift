@@ -23,7 +23,7 @@ struct ScannerView: View {
                     Button {
                         viewModel.onGoBack.send()
                     } label: {
-                        Text("Back")
+                        Text(NSLocalizedString("BACK", comment: "Action"))
                             .padding()
                     }
                     Spacer()

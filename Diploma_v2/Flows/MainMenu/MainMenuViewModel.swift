@@ -21,14 +21,9 @@ class MainMenuViewModel: ObservableObject {
     @Published var house: House? = nil
     @Published var showErrorView: Bool = false
     @Published var user: User?
-    @Published var housePreview: [HousePreview] = []
 
     var onChooseRoom: PassthroughSubject<String, Never> {
         return model.onChooseRoom
-    }
-
-    var onChangeHouse: PassthroughSubject<String, Never> {
-        return model.onChangeHouse
     }
 
     var onTapDevice: PassthroughSubject<Device?, Never> {
@@ -43,7 +38,7 @@ class MainMenuViewModel: ObservableObject {
         return model.onTapFavorite
     }
 
-    var shownRoom: House.Room? {
+    var shownRoom: Room? {
         model.shownRoom
     }
     
@@ -52,10 +47,6 @@ class MainMenuViewModel: ObservableObject {
 
         model.$showErrorView
             .assign(to: \.showErrorView, on: self)
-            .store(in: &subscriptions)
-
-        model.$housePreview
-            .assign(to: \.housePreview, on: self)
             .store(in: &subscriptions)
 
         model.$user

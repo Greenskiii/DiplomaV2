@@ -86,24 +86,6 @@ class AppCoordinator: Coordinator {
         navigationController?.viewControllers = [viewController]
     }
 
-//    func goToMainPageScreen() {
-//        children.removeAll()
-//
-//        let viewController = MainMenuViewController(
-//            viewModel: MainMenuViewModel(
-//                model: MainMenuDomainModel(
-//                    authManager: AuthManager(),
-//                    dataManager: dataManager,
-//                    onGoToScannerScreen: onGoToScannerScreen
-//                )
-//            )
-//        )
-//
-//        let coordinator = MainMenuCoordinator(viewController: viewController, parentCoordinator: self)
-//        children.append(coordinator)
-//        navigationController?.viewControllers = [viewController]
-//    }
-    
     func goToScannerScreen() {
         
         let viewController = ScannerViewController(
@@ -124,7 +106,8 @@ class AppCoordinator: Coordinator {
                 model: RootTabModel(
                     authManager: AuthManager(),
                     dataManager: dataManager,
-                    onGoToScannerScreen: onGoToScannerScreen
+                    onGoToScannerScreen: onGoToScannerScreen,
+                    onGoToAuthScreen: onGoToAuthScreen
                 )
             )
         )

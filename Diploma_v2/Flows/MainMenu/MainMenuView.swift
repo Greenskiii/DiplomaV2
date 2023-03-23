@@ -18,9 +18,6 @@ struct MainMenuView: View {
                     .ignoresSafeArea()
 
                 VStack {
-                    makeTopView()
-                        .padding(.horizontal)
-                    
                     if let house = viewModel.house {
                         makeRoomPreviewView(for: house)
                         if let room = viewModel.shownRoom {
@@ -34,7 +31,7 @@ struct MainMenuView: View {
                                 Image(systemName: "house")
                                     .font(.system(size: 150))
                                     .padding(.bottom)
-                                Text("Select a room to view more information")
+                                Text(NSLocalizedString("SELECT_ROOM", comment: "Main Menu"))
                                     .fontWeight(.bold)
                                 Spacer()
                             }
@@ -48,39 +45,14 @@ struct MainMenuView: View {
 
     func makeTopView() -> some View {
         ZStack(alignment: .bottom) {
-            Image("MainTitle")
-                .resizable()
-                .frame(width: 125, height: 35)
+            if let choosenHouse = viewModel.house?.name {
+                Text(choosenHouse)
+                    .font(.title2)
+                    .fontWeight(.medium)
+                    .foregroundColor(Color("Navy"))
+
+            }
             HStack(alignment: .bottom) {
-                if !viewModel.housePreview.isEmpty {
-                    Menu {
-                        ForEach(viewModel.housePreview, id: \.self) { house in
-                            Button {
-                                viewModel.onChangeHouse.send(house.id)
-                            } label: {
-                                HStack {
-                                    Text(house.name)
-                                    Spacer()
-                                    if viewModel.house?.id == house.id {
-                                        Image(systemName: "checkmark")
-                                            .font(.system(size: 10))
-                                    }
-                                }
-                            }
-                        }
-                    } label: {
-                        ZStack {
-                            HStack {
-                                Text(viewModel.house?.name ?? "")
-                                    .bold()
-                                    .frame(maxWidth: 85, maxHeight: 20)
-                                Image(systemName: "arrowtriangle.down.fill")
-                                    .font(.system(size: 10))
-                            }
-                            .foregroundColor(Color("Navy"))
-                        }
-                    }
-                }
                 Spacer()
                 HStack {
                     if let user = viewModel.user {
@@ -109,19 +81,19 @@ struct MainMenuView: View {
                 ForEach(house.rooms, id: \.self) { room in
                     RoomPreviewCard(room: room, isSelected: room.id == viewModel.choosenRoom)
                         .frame(width: 150)
+                        .padding(.bottom)
                         .onTapGesture {
                             withAnimation {
                                 viewModel.onChooseRoom.send(room.id)
                             }
                         }
-                        .padding(.vertical)
                 }
             }
             .padding(.horizontal)
         }
     }
 
-    func makeDevicesGrid(for room: House.Room) -> some View {
+    func makeDevicesGrid(for room: Room) -> some View {
         ZStack(alignment: .bottom) {
             RoundedRectangle(cornerRadius: 16)
                 .foregroundColor(.white)
@@ -135,14 +107,19 @@ struct MainMenuView: View {
                             .font(.system(size: 100))
                             .padding()
 
-                        Text(room.id == "Favorite" ? "There are no devices yet" : "There are no devices yet\nСlick the button below to add")
+                        Text(NSLocalizedString(room.id == "Favorite" ? "NO_DEVICES_FAVORITE" : "NO_DEVICES", comment: "Main Menu") )
                             .foregroundColor(.gray)
                             .multilineTextAlignment(.center)
                         Spacer()
                     }
                 } else {
-                    DevicesGridView(devices: room.devices, onTapDevice: viewModel.onTapDevice, onTapFavorite: viewModel.onTapFavorite)
+                    DevicesGridView(
+                        devices: room.devices,
+                        onTapDevice: viewModel.onTapDevice,
+                        onTapFavorite: viewModel.onTapFavorite
+                    )
                         .padding(.bottom)
+                        .animation(.easeInOut(duration: 1))
                 }
             
             if room.id != "Favorite" {

@@ -13,15 +13,16 @@ import SwiftUI
 import Combine
 
 class DataManager {
-    private var subscriptions = Set<AnyCancellable>()
     private let db = Firestore.firestore()
     private let auth = Auth.auth()
     private var firebaseDeviceObservers: [DatabaseReference] = []
     private var previewValuesObservers: [DatabaseReference] = []
+    private var subscriptions = Set<AnyCancellable>()
 
-    @Published var house: House? = nil
-    @Published var housePreview: [HousePreview] = []
-    @Published var newDeviceId: String = ""
+    @Published public var house: House? = nil
+    @Published public var housePreview: [HousePreview] = []
+    @Published public var newDeviceId: String = ""
+    @Published var choosenRoomId = "Favorite"
 
     private(set) lazy var onChangeHouse = PassthroughSubject<String, Never>()
     private(set) lazy var onChangeNewDeviceId = PassthroughSubject<String, Never>()
@@ -37,7 +38,7 @@ class DataManager {
     }()
 
     init() {
-        setHousesId()
+        getHousesId()
 
         onChangeHouse
             .sink { [weak self] id in
@@ -55,91 +56,118 @@ class DataManager {
 
 // MARK: - Database
 extension DataManager {
-    
-    func removeFCMToken() {
+    // MARK: - FCMToken
+    public func removeFCMToken() {
         collection?.document("devicesId").getDocument { (document, error) in
             if var devicesId = document?.data()?["ids"] as? [String],
-            let fcmToken = UserDefaults.standard.string(forKey: "fcmToken") {
-                if let index = devicesId.firstIndex(where: { $0 == fcmToken }) {
-                    devicesId.remove(at: index)
-                    self.collection?.document("devicesId").updateData(["ids": devicesId]) { error in
-                        if let error = error {
-                            print(error.localizedDescription)
-                        }
+               let fcmToken = UserDefaults.standard.string(forKey: "fcmToken"),
+               let index = devicesId.firstIndex(where: { $0 == fcmToken }) {
+
+                devicesId.remove(at: index)
+                self.collection?.document("devicesId").updateData(["ids": devicesId]) { error in
+                    if let error = error {
+                        print(error.localizedDescription)
                     }
                 }
             }
         }
     }
-    
-    func checkFCMToken() {
+
+    public func checkFCMToken() {
         collection?.document("devicesId").getDocument { (document, error) in
             if var devicesId = document?.data()?["ids"] as? [String],
-            let fcmToken = UserDefaults.standard.string(forKey: "fcmToken") {
-                if !devicesId.contains(fcmToken) {
-                    devicesId.append(fcmToken)
-                    self.collection?.document("devicesId").updateData(["ids": devicesId]) { error in
-                        if let error = error {
-                            print(error.localizedDescription)
-                        }
+               let fcmToken = UserDefaults.standard.string(forKey: "fcmToken"),
+               !devicesId.contains(fcmToken) {
+
+                devicesId.append(fcmToken)
+                self.collection?.document("devicesId").updateData(["ids": devicesId]) { error in
+                    if let error = error {
+                        print(error.localizedDescription)
                     }
                 }
             }
         }
     }
-    
-    func setHousesId() {
+
+    // MARK: - Get Request
+    public func getHousesId() {
         self.housePreview = []
         collection?.getDocuments { (querySnapshot, err) in
             querySnapshot?.documents.forEach { document in
-                if let name = document.data()["name"] as? String {
-                    self.housePreview.append(HousePreview(id: document.documentID, name: name))
-                }
-                if self.housePreview.count == 1 {
+                guard let name = document.data()["name"] as? String else { return }
+                self.housePreview.append(HousePreview(id: document.documentID, name: name))
+
+                if self.housePreview.count == 1,
+                   self.house == nil {
                     self.getHouseFromDocument(document)
                 }
             }
         }
     }
 
-    func getHouseFromDocument(_ houseDocument: QueryDocumentSnapshot) {
-        guard let housename = houseDocument.data()["name"] as? String else {
-            return
-        }
-        var newHouse = House(id: houseDocument.documentID, name: housename, rooms: [])
-
+    public func getHouseFromDocument(
+        _ houseDocument: QueryDocumentSnapshot
+    ) {
         houseDocument.reference.collection("rooms").getDocuments { (querySnapshot, err) in
-            guard let roomDocuments = querySnapshot?.documents else {
+            guard let roomDocuments = querySnapshot?.documents,
+                  let houseName = houseDocument.data()["name"] as? String else {
                 return
             }
+            var newHouse = House(id: houseDocument.documentID, name: houseName, rooms: [])
+
             roomDocuments.forEach { roomDocument in
                 roomDocument.reference.getDocument { (querySnapshot, err) in
-                    guard let data = querySnapshot?.data() else {
+                    guard let data = querySnapshot?.data(),
+                    let room = Room(id: roomDocument.documentID, from: data) else {
                         return
                     }
-                    let room = House.Room(
-                        name: data["name"] as? String ?? "",
-                        devicesId: data["devices"] as? [String] ?? [],
-                        id: roomDocument.documentID
-                    )
-
+                    
                     if room.name == "Favorite" {
                         newHouse.rooms.insert(room, at: 0)
                     } else {
                         newHouse.rooms.append(room)
                     }
-
+                    
                     if newHouse.rooms.count == roomDocuments.count {
-                            self.house = newHouse
-                            self.setPreviewValues()
+                        self.house = newHouse
+                        self.setPreviewValues()
                     }
                 }
             }
         }
     }
 
-    // ADD
-    func addHouse(with name: String) {
+    public func getHouse(
+        with id: String
+    ) {
+        collection?.getDocuments { (querySnapshot, err) in
+            if let document = querySnapshot?.documents.first(where: { $0.documentID == id }) {
+                self.getHouseFromDocument(document)
+            } else {
+                print("Error getting documents: \(String(describing: err))")
+            }
+        }
+    }
+
+    public func getRooms(
+        for house: String,
+        completion: @escaping ([RoomPreview]) -> Void
+    ) {
+        var rooms: [RoomPreview] = []
+        collection?.document(house).collection("rooms").getDocuments() { querySnapshot, err in
+            querySnapshot?.documents.forEach { document in
+                guard let name = document.data()["name"] as? String
+                else { return }
+                rooms.append(RoomPreview(id: document.documentID, name: name))
+            }
+            completion(rooms)
+        }
+    }
+
+    // MARK: - Post Request
+    public func addHouse(
+        with name: String
+    ) {
         if housePreview.first(where: { $0.name == name }) == nil {
             collection?.document().setData(["name": name])
         } else {
@@ -147,13 +175,16 @@ extension DataManager {
         }
     }
 
-    func addRoom(with houseId: String, name: String) {
+    public func addRoom(
+        with houseId: String,
+        name: String
+    ) {
         let roomsCollection = collection?.document(houseId).collection("rooms")
         roomsCollection?.document(name)
             .setData(["name": name, "devices": []])
     }
 
-    func addDevice(
+    public func addDevice(
         houseId: String,
         roomId: String,
         deviceId: String,
@@ -196,7 +227,9 @@ extension DataManager {
         }
     }
 
-    func addToFavorite(deviceId: String) {
+    public func addToFavorite(
+        deviceId: String
+    ) {
         guard let houseId = house?.id,
               let roomDocument = collection?.document(houseId).collection("rooms").document("Favorite"),
               let favoriteRoomIndex = house?.rooms.firstIndex(where: { $0.id == "Favorite" })
@@ -227,7 +260,12 @@ extension DataManager {
         }
     }
 
-    func deleteDevice(with id: String, house: String, room: String, completion: @escaping () -> Void) {
+    public func deleteDevice(
+        with id: String,
+        house: String,
+        room: String,
+        completion: @escaping () -> Void
+    ) {
         guard let roomDocument = collection?.document(house).collection("rooms").document(room) else {
             return
         }
@@ -252,35 +290,12 @@ extension DataManager {
             completion()
         }
     }
-
-    // GET
-    func getHouse(with id: String) {
-        collection?.getDocuments { (querySnapshot, err) in
-            if let document = querySnapshot?.documents.first(where: { $0.documentID == id }) {
-                self.getHouseFromDocument(document)
-            } else {
-                print("Error getting documents: \(String(describing: err))")
-            }
-        }
-    }
-
-    func getRooms(for house: String, completion: @escaping ([RoomPreview]) -> Void ) {
-        var rooms: [RoomPreview] = []
-        collection?.document(house).collection("rooms").getDocuments() { querySnapshot, err in
-            querySnapshot?.documents.forEach { document in
-                guard let name = document.data()["name"] as? String
-                else { return }
-                rooms.append(RoomPreview(id: document.documentID, name: name))
-            }
-            completion(rooms)
-        }
-    }
 }
 
 // MARK: - Realtime Database
 extension DataManager {
-
-    func setPreviewValues() {
+    // MARK: - Get Request
+    public func setPreviewValues() {
         guard let databasePath = databasePath else {
             return
         }
@@ -307,7 +322,10 @@ extension DataManager {
         }
     }
 
-    func setDevices(for roomId: String, completion: @escaping () -> Void) {
+    public func setDevices(
+        for roomId: String,
+        completion: @escaping () -> Void
+    ) {
         guard let databasePath = databasePath,
               let roomIndex = self.house?.rooms.firstIndex(where: { $0.id == roomId }),
               let room = self.house?.rooms[roomIndex]
@@ -327,7 +345,7 @@ extension DataManager {
                 .observe(.value) { [weak self] snapshot, arg  in
                     if let roomId = self?.house?.rooms.firstIndex(where: { $0.name == room.name }),
                        let device = self?.parseDevice(snapshot) {
-                        
+
                         if self?.house?.rooms[roomId].devices.first(where: { $0.id == device.id }) == nil {
                             self?.house?.rooms[roomId].devices.append(device)
                         } else if let deviceIndex = self?.house?.rooms[roomId].devices.firstIndex(where: { $0.id == device.id }) {
@@ -341,7 +359,9 @@ extension DataManager {
         }
     }
 
-    private func parsePreviewValues(_ previewJson: [String: Any]) -> [Value] {
+    private func parsePreviewValues(
+        _ previewJson: [String: Any]
+    ) -> [Value] {
         var parsedPreviewValues: [Value] = []
         previewJson.forEach { key, value in
             guard let parsedDictionary = value as? [String: Any],
@@ -356,7 +376,9 @@ extension DataManager {
         return parsedPreviewValues
     }
 
-    private func parseDevice(_ snapshot: DataSnapshot) -> Device? {
+    private func parseDevice(
+        _ snapshot: DataSnapshot
+    ) -> Device? {
         guard let json = snapshot.value as? [String: Any],
               let previewJson = json["previewValues"] as? [String: Any]
         else {
@@ -391,12 +413,52 @@ extension DataManager {
             isFavorite: json["isFavorite"] as? Bool ?? false
         )
     }
-
-    func changeIsFavoriteValue(deviceId: String, isFavorite: Bool) {
+    // MARK: - Post Request
+    public func changeIsFavoriteValue(
+        deviceId: String,
+        isFavorite: Bool
+    ) {
         databasePath?.child(deviceId).updateChildValues(["isFavorite": isFavorite])
     }
 
-    func removeDeviceObserver(with id: String) {
+    public func setRoomToDevice(
+        roomName: String,
+        deviceId: String,
+        completion: @escaping () -> Void
+    ) {
+        databasePath?.child(deviceId).updateChildValues(["room": roomName]) { error,_ in
+            if error == nil {
+                completion()
+            }
+        }
+    }
+
+    public func setDefaultValues(
+        for device: String
+    ) {
+        setRoomToDevice(roomName: "", deviceId: device) {
+            self.changeIsFavoriteValue(deviceId: device, isFavorite: false)
+        }
+    }
+
+    // MARK: - Realtime Databse Observers
+    public func removeDeviceObservers() {
+        self.firebaseDeviceObservers.forEach { databaseReference in
+            databaseReference.removeAllObservers()
+        }
+        self.firebaseDeviceObservers = []
+    }
+
+    private func removePreviewObservers() {
+        self.previewValuesObservers.forEach { databaseReference in
+            databaseReference.removeAllObservers()
+        }
+        self.previewValuesObservers = []
+    }
+
+    private func removeDeviceObserver(
+        with id: String
+    ) {
         let index = self.firebaseDeviceObservers.firstIndex { observer in
             if observer.url.contains(id) {
                 observer.removeAllObservers()
@@ -406,34 +468,6 @@ extension DataManager {
         if let index = index {
             self.firebaseDeviceObservers.remove(at: index)
         }
-    }
-
-    func setRoomToDevice(roomName: String, deviceId: String, completion: @escaping () -> Void) {
-        databasePath?.child(deviceId).updateChildValues(["room": roomName]) { error,_ in
-            if error == nil {
-                completion()
-            }
-        }
-    }
-
-    func setDefaultValues(for device: String) {
-        setRoomToDevice(roomName: "", deviceId: device) {
-            self.changeIsFavoriteValue(deviceId: device, isFavorite: false)
-        }
-    }
-
-    func removeDeviceObservers() {
-        self.firebaseDeviceObservers.forEach { databaseReference in
-            databaseReference.removeAllObservers()
-        }
-        self.firebaseDeviceObservers = []
-    }
-
-    func removePreviewObservers() {
-        self.previewValuesObservers.forEach { databaseReference in
-            databaseReference.removeAllObservers()
-        }
-        self.previewValuesObservers = []
     }
 }
 

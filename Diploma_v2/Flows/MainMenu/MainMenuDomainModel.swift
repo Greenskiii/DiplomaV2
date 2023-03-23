@@ -16,17 +16,16 @@ class MainMenuDomainModel {
 
     @Published var user: User?
     @Published var house: House? = nil
-    @Published var choosenRoomId = "Favorite"
     @Published var showErrorView: Bool = false
     @Published var housePreview: [HousePreview] = []
+    @Published var choosenRoomId = "Favorite"
 
     var onTapDevice: PassthroughSubject<Device?, Never>
     var onPressAdddevice: PassthroughSubject<Void, Never>
     private(set) lazy var onChooseRoom = PassthroughSubject<String, Never>()
     private(set) lazy var onTapFavorite = PassthroughSubject<Device, Never>()
-    private(set) lazy var onChangeHouse = PassthroughSubject<String, Never>()
 
-    var shownRoom: House.Room? {
+    var shownRoom: Room? {
         guard let house = house else { return nil }
         return house.rooms.first(where: { $0.id == choosenRoomId })
     }
@@ -51,16 +50,13 @@ class MainMenuDomainModel {
             .assign(to: \.housePreview, on: self)
             .store(in: &subscriptions)
 
+        dataManager.$choosenRoomId
+            .assign(to: \.choosenRoomId, on: self)
+            .store(in: &subscriptions)
+        
         onTapFavorite
             .sink { [weak self] device in
                 self?.addToFavorite(device: device)
-            }
-            .store(in: &subscriptions)
-
-        onChangeHouse
-            .sink { [weak self] houseId in
-                self?.choosenRoomId = "Favorite"
-                self?.dataManager.onChangeHouse.send(houseId)
             }
             .store(in: &subscriptions)
         
