@@ -2,72 +2,84 @@
 //  MainMenuViewModel.swift
 //  Diploma_v2
 //
-//  Created by Алексей Даневич on 22.01.2023.
+//  Created by Алексей Даневич on 24.01.2023.
 //
 
-import Foundation
-import FirebaseDatabase
-import FirebaseCore
-import SwiftUI
+//import SwiftUI
 import Combine
+import FirebaseDatabase
 
 class MainMenuViewModel: ObservableObject {
     var subscriptions = Set<AnyCancellable>()
-    let model: MainMenuDomainModel
-
-    @Published var choosenRoom = ""
-    @Published var selection = 0
-    @Published var isDeviceMeuOpen: Bool = false
+    let dataManager: DataManager
+    let authManager: AuthManager
+    
+    @Published var user: User?
     @Published var house: House? = nil
     @Published var showErrorView: Bool = false
-    @Published var user: User?
     @Published var housePreview: [HousePreview] = []
-
-    var onChooseRoom: PassthroughSubject<String, Never> {
-        return model.onChooseRoom
-    }
-
-    var onChangeHouse: PassthroughSubject<String, Never> {
-        return model.onChangeHouse
-    }
-
-    var onTapDevice: PassthroughSubject<Device?, Never> {
-        return model.onTapDevice
-    }
-
-    var onPressAdddevice: PassthroughSubject<Void, Never> {
-        return model.onPressAdddevice
-    }
-
-    var onTapFavorite: PassthroughSubject<Device, Never> {
-        return model.onTapFavorite
-    }
-
-    var shownRoom: House.Room? {
-        model.shownRoom
+    @Published var choosenRoomId = "Favorite"
+    
+    var onTapDevice: PassthroughSubject<Device?, Never>
+    var onPressAdddevice: PassthroughSubject<Void, Never>
+    private(set) lazy var onChooseRoom = PassthroughSubject<String, Never>()
+    private(set) lazy var onTapFavorite = PassthroughSubject<Device, Never>()
+    
+    var shownRoom: Room? {
+        guard let house = house else { return nil }
+        return house.rooms.first(where: { $0.id == choosenRoomId })
     }
     
-    init(model: MainMenuDomainModel) {
-        self.model = model
-
-        model.$showErrorView
-            .assign(to: \.showErrorView, on: self)
-            .store(in: &subscriptions)
-
-        model.$housePreview
-            .assign(to: \.housePreview, on: self)
-            .store(in: &subscriptions)
-
-        model.$user
-            .assign(to: \.user, on: self)
-            .store(in: &subscriptions)
-
-        model.$choosenRoomId
-            .assign(to: \.choosenRoom, on: self)
-            .store(in: &subscriptions)
-
-        model.$house
+    init(
+        dataManager: DataManager,
+        authManager: AuthManager,
+        onPressAdddevice: PassthroughSubject<Void, Never>,
+        onTapDevice: PassthroughSubject<Device?, Never>
+    ) {
+        self.dataManager = dataManager
+        self.authManager = authManager
+        self.onTapDevice = onTapDevice
+        self.onPressAdddevice = onPressAdddevice
+        self.user = authManager.getUserInfo()
+        
+        dataManager.$house
             .assign(to: \.house, on: self)
             .store(in: &subscriptions)
+        
+        dataManager.$housePreview
+            .assign(to: \.housePreview, on: self)
+            .store(in: &subscriptions)
+        
+        dataManager.$choosenRoomId
+            .assign(to: \.choosenRoomId, on: self)
+            .store(in: &subscriptions)
+        
+        onTapFavorite
+            .sink { [weak self] device in
+                self?.addToFavorite(device: device)
+            }
+            .store(in: &subscriptions)
+        
+        onChooseRoom
+            .sink { [weak self] id in
+                if self?.choosenRoomId == id {
+                    self?.choosenRoomId = ""
+                } else {
+                    self?.dataManager.choosenRoomId = id
+                }
+            }
+            .store(in: &subscriptions)
+    }
+    
+    func addToFavorite(device: Device) {
+        guard let favoriteRoomIndex = house?.rooms.firstIndex(where: { $0.id == "Favorite" }),
+              let house = house
+        else {
+            return
+        }
+        if let deviceIndex = house.rooms[favoriteRoomIndex].devices.firstIndex(where: { $0.id == device.id }) {
+            self.house?.rooms[favoriteRoomIndex].devices.remove(at: deviceIndex)
+        }
+        self.dataManager.addToFavorite(deviceId: device.id)
     }
 }

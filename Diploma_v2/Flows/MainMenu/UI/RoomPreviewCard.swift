@@ -8,36 +8,36 @@
 import SwiftUI
 
 struct RoomPreviewCard: View {
-    let room: House.Room
+    let room: Room
     let isSelected: Bool
-
+    
     var previewValue: [Value] {
-            return room.previewValues
-                .filter({ $0.name == "Temperature" || $0.name == "Humidity" })
-                .sorted(by: { $0.name > $1.name })
+        return room.previewValues
+            .filter({ $0.name == "Temperature" || $0.name == "Humidity" })
+            .sorted(by: { $0.name > $1.name })
     }
-
+    
     init(
-        room: House.Room,
-         isSelected: Bool
+        room: Room,
+        isSelected: Bool
     ) {
         self.room = room
         self.isSelected = isSelected
     }
-
+    
     var body: some View {
         ZStack {
             RoundedRectangle(cornerRadius: 16)
                 .foregroundColor(isSelected ? Color("Navy") : Color("BlueShark"))
                 .opacity(0.6)
                 .shadow(color: .gray, radius: 3, x: 2, y: 2)
-                .frame(height: 50)
-
+                .frame(height: 55)
+            
             VStack(alignment: .leading) {
                 Text(room.name)
                     .offset(y: previewValue.isEmpty ? 0 : 5)
                     .padding(.horizontal)
-
+                
                 if !previewValue.isEmpty && room.name != "Favorite" {
                     HStack {
                         Spacer()

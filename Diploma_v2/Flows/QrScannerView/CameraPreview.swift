@@ -10,20 +10,20 @@ import AVFoundation
 
 class CameraPreview: UIView {
     private var label:UILabel?
-
+    
     var previewLayer: AVCaptureVideoPreviewLayer?
     var session = AVCaptureSession()
     weak var delegate: QrCodeCameraDelegate?
-
+    
     init(session: AVCaptureSession) {
         super.init(frame: .zero)
         self.session = session
     }
-
+    
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-
+    
     func createSimulatorView(delegate: QrCodeCameraDelegate){
         self.delegate = delegate
         self.backgroundColor = UIColor.black
@@ -38,17 +38,17 @@ class CameraPreview: UIView {
         let gesture = UITapGestureRecognizer(target: self, action: #selector(onClick))
         self.addGestureRecognizer(gesture)
     }
-
+    
     @objc func onClick(){
         delegate?.onSimulateScanning()
     }
-
+    
     override func layoutSubviews() {
         super.layoutSubviews()
-        #if targetEnvironment(simulator)
-            label?.frame = self.bounds
-        #else
-            previewLayer?.frame = self.bounds
-        #endif
+#if targetEnvironment(simulator)
+        label?.frame = self.bounds
+#else
+        previewLayer?.frame = self.bounds
+#endif
     }
 }

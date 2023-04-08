@@ -10,7 +10,7 @@ import SwiftUI
 struct ErrorView: View {
     let errorText: String
 
-    init(errorText: String = "Something went wrong, please try again") {
+    init(errorText: String = NSLocalizedString("BASE_ERROR", comment: "Error")) {
         self.errorText = errorText
     }
 

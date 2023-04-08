@@ -14,7 +14,7 @@ struct SegmentedPicker: View {
     private static let TextColor: Color = Color.black
     private static let SelectedTextColor: Color = Color.white
     private static let TextFont: Font = .system(size: 12)
-
+    
     private static let SegmentCornerRadius: CGFloat = 12
     private static let ShadowRadius: CGFloat = 4
     private static let SegmentXPadding: CGFloat = 16
@@ -24,9 +24,9 @@ struct SegmentedPicker: View {
     
     @State private var segmentSize: CGSize = .zero
     @Binding private var selection: Int
-
+    
     private let items: [String]
-
+    
     private var activeSegmentView: AnyView {
         let isInitialized: Bool = segmentSize != .zero
         if !isInitialized { return EmptyView().eraseToAnyView() }
@@ -38,12 +38,12 @@ struct SegmentedPicker: View {
             .animation(Animation.linear(duration: SegmentedPicker.AnimationDuration))
             .eraseToAnyView()
     }
-
+    
     init(items: [String], selection: Binding<Int>) {
         self._selection = selection
         self.items = items
     }
-
+    
     var body: some View {
         ZStack(alignment: .leading) {
             self.activeSegmentView
@@ -57,11 +57,11 @@ struct SegmentedPicker: View {
         .background(SegmentedPicker.BackgroundColor)
         .clipShape(RoundedRectangle(cornerRadius: SegmentedPicker.SegmentCornerRadius))
     }
-
+    
     private func computeActiveSegmentHorizontalOffset() -> CGFloat {
         CGFloat(self.selection) * (self.segmentSize.width + SegmentedPicker.SegmentXPadding / 2)
     }
-
+    
     private func getSegmentView(for index: Int) -> some View {
         guard index < self.items.count else {
             return EmptyView().eraseToAnyView()
@@ -77,7 +77,7 @@ struct SegmentedPicker: View {
             .onTapGesture { self.onItemTap(index: index) }
             .eraseToAnyView()
     }
-
+    
     private func onItemTap(index: Int) {
         guard index < self.items.count else {
             return

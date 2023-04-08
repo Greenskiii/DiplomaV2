@@ -19,22 +19,22 @@ final class AuthManager: NSObject, ObservableObject {
     
     @Published var nonce: String = ""
     @Published var auth: Bool = false
-
+    
     let firebaseAuth = Auth.auth()
     var subscriptions = Set<AnyCancellable>()
-
+    
     func loginWithApple() {
         self.nonce = randomNonceString()
         let appleIDProvider = ASAuthorizationAppleIDProvider()
         let request = appleIDProvider.createRequest()
         request.requestedScopes = [.fullName, .email]
         request.nonce = sha256(nonce)
-
+        
         let authorizationController = ASAuthorizationController(authorizationRequests: [request])
         authorizationController.delegate = self
         authorizationController.performRequests()
     }
-
+    
     func loginWithGoogle() {
         guard let clientID = FirebaseApp.app()?.options.clientID,
               let screen = UIApplication.shared.connectedScenes.first as? UIWindowScene,
@@ -42,7 +42,7 @@ final class AuthManager: NSObject, ObservableObject {
             return
         }
         let config = GIDConfiguration(clientID: clientID)
-
+        
         GIDSignIn.sharedInstance.configuration = config
         GIDSignIn.sharedInstance.signIn(withPresenting: root) { signResult, error in
             if let error = error {
@@ -55,12 +55,14 @@ final class AuthManager: NSObject, ObservableObject {
             }
             let accessToken = user.accessToken
             let credential = GoogleAuthProvider.credential(withIDToken: idToken.tokenString, accessToken: accessToken.tokenString)
-
+            
             self.googleAuthenticate(credential: credential)
         }
     }
-
-    func loginWithEmail(email: String, password: String, completion: @escaping (Bool) -> Void) {
+    
+    func loginWithEmail(email: String,
+                        password: String,
+                        completion: @escaping (Bool) -> Void) {
         firebaseAuth.signIn(withEmail: email, password: password) { result, err in
             if let err = err {
                 print("Failed due to error:", err)
@@ -72,8 +74,10 @@ final class AuthManager: NSObject, ObservableObject {
             self.logStatus = true
         }
     }
-
-    func signUpWithEmail(email: String, password: String, completion: @escaping (Bool) -> Void) {
+    
+    func signUpWithEmail(email: String,
+                         password: String,
+                         completion: @escaping (Bool) -> Void) {
         firebaseAuth.createUser(withEmail: email, password: password) { result, err in
             if let err = err {
                 print("Failed due to error:", err)
@@ -85,7 +89,7 @@ final class AuthManager: NSObject, ObservableObject {
             self.logStatus = true
         }
     }
-
+    
     func logOut() {
         do {
             try firebaseAuth.signOut()
@@ -94,7 +98,7 @@ final class AuthManager: NSObject, ObservableObject {
             print("Error signing out: %@", signOutError)
         }
     }
-
+    
     func resetPassword(email: String) {
         firebaseAuth.sendPasswordReset(withEmail: email) { error in
             if let error = error {
@@ -102,16 +106,17 @@ final class AuthManager: NSObject, ObservableObject {
             }
         }
     }
-
+    
     func getUserInfo() -> User? {
         guard let authUser = Auth.auth().currentUser else {
             return nil
         }
-
+        
         return User(
             name: authUser.displayName ?? "User",
             imageUrl: authUser.photoURL?.absoluteString ?? "",
-            uid: authUser.uid)
+            uid: authUser.uid,
+            email: authUser.email ?? "")
     }
 }
 
@@ -122,13 +127,13 @@ extension AuthManager {
               let tokenString = String(data: token, encoding: .utf8) else {
             return
         }
-
+        
         let firebaseCredential = OAuthProvider.credential(
             withProviderID: "apple.com",
             idToken: tokenString,
             rawNonce: self.nonce
-          )
-
+        )
+        
         firebaseAuth.signIn(with: firebaseCredential) { (result, error) in
             if let error = error {
                 print(error.localizedDescription)
@@ -141,37 +146,37 @@ extension AuthManager {
     }
     
     private func randomNonceString(length: Int = 32) -> String {
-      precondition(length > 0)
-      let charset: [Character] = Array("0123456789ABCDEFGHIJKLMNOPQRSTUVXYZabcdefghijklmnopqrstuvwxyz-._")
-      var result = ""
-      var remainingLength = length
-
-      while remainingLength > 0 {
-        let randoms: [UInt8] = (0 ..< 16).map { _ in
-          var random: UInt8 = 0
-          let errorCode = SecRandomCopyBytes(kSecRandomDefault, 1, &random)
-          if errorCode != errSecSuccess {
-            fatalError(
-              "Unable to generate nonce. SecRandomCopyBytes failed with OSStatus \(errorCode)"
-            )
-          }
-          return random
+        precondition(length > 0)
+        let charset: [Character] = Array("0123456789ABCDEFGHIJKLMNOPQRSTUVXYZabcdefghijklmnopqrstuvwxyz-._")
+        var result = ""
+        var remainingLength = length
+        
+        while remainingLength > 0 {
+            let randoms: [UInt8] = (0 ..< 16).map { _ in
+                var random: UInt8 = 0
+                let errorCode = SecRandomCopyBytes(kSecRandomDefault, 1, &random)
+                if errorCode != errSecSuccess {
+                    fatalError(
+                        "Unable to generate nonce. SecRandomCopyBytes failed with OSStatus \(errorCode)"
+                    )
+                }
+                return random
+            }
+            
+            randoms.forEach { random in
+                if remainingLength == 0 {
+                    return
+                }
+                
+                if random < charset.count {
+                    result.append(charset[Int(random)])
+                    remainingLength -= 1
+                }
+            }
         }
-
-        randoms.forEach { random in
-          if remainingLength == 0 {
-            return
-          }
-
-          if random < charset.count {
-            result.append(charset[Int(random)])
-            remainingLength -= 1
-          }
-        }
-      }
-      return result
+        return result
     }
-
+    
     private func sha256(_ input: String) -> String {
         let inputData = Data(input.utf8)
         let hashedData = SHA256.hash(data: inputData)
@@ -179,7 +184,7 @@ extension AuthManager {
             String(format: "%02x", $0)
         }
             .joined()
-
+        
         return hashString
     }
 }

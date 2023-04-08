@@ -27,9 +27,3 @@ struct UrlImageView: View {
     
     static var defaultImage = UIImage(systemName: "exclamationmark.triangle")
 }
-
-struct UrlImageView_Previews: PreviewProvider {
-    static var previews: some View {
-        UrlImageView(urlString: nil)
-    }
-}

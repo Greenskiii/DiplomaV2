@@ -19,16 +19,16 @@ struct DeviceDetailsView: View {
                 createEditButtons()
                     .padding(.horizontal)
                     .isHidden(!viewModel.editViewIsShow)
-
+                
                 createDeviceInfoView()
                 createDeviceLocationView()
-
+                
                 Button {
                     withAnimation {
                         viewModel.onDeleteDevice.send()
                     }
                 } label: {
-                    Text("Delete")
+                    Text(NSLocalizedString("DELETE", comment: "Action"))
                         .foregroundColor(.red)
                         .padding(.bottom)
                 }
@@ -36,7 +36,7 @@ struct DeviceDetailsView: View {
             }
         }
     }
-
+    
     private func createEditButtons() -> some View {
         HStack {
             Button {
@@ -44,7 +44,7 @@ struct DeviceDetailsView: View {
                     viewModel.onSaveChanges.send()
                 }
             } label: {
-                Text("Save")
+                Text(NSLocalizedString("SAVE", comment: "Action"))
             }
             .isHidden(viewModel.selectedRoomId.isEmpty)
             Spacer()
@@ -53,12 +53,12 @@ struct DeviceDetailsView: View {
                     viewModel.onCancelChanges.send()
                 }
             } label: {
-                Text("Cancel")
+                Text(NSLocalizedString("CANCEL", comment: "Action"))
                     .foregroundColor(.red)
             }
         }
     }
-
+    
     private func createDeviceInfoView() -> some View {
         VStack {
             UrlImageView(urlString: viewModel.device.image)
@@ -79,7 +79,7 @@ struct DeviceDetailsView: View {
             }
         }
     }
-
+    
     private func createDeviceLocationView() -> some View {
         VStack {
             Menu {
@@ -112,7 +112,7 @@ struct DeviceDetailsView: View {
                 .padding(.horizontal)
                 .padding(.top)
             }
-
+            
             Menu {
                 ForEach(viewModel.rooms, id: \.self) { room in
                     Button {
@@ -138,7 +138,7 @@ struct DeviceDetailsView: View {
                             .foregroundColor(viewModel.selectedRoomId.isEmpty ? .gray : .black)
                             .padding()
                     } else {
-                        Text("Select the room")
+                        Text(NSLocalizedString("SELECT_ROOM", comment: "Device View"))
                             .foregroundColor(viewModel.selectedRoomId.isEmpty ? .gray : .black)
                             .padding()
                     }

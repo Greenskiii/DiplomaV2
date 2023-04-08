@@ -10,27 +10,27 @@ import SwiftUI
 struct BottomSheetView<Content: View>: View {
     @Binding var isOpen: Bool
     @State var blurOpacity: CGFloat = 0
-
+    
     let content: Content
     let maxHeight: CGFloat
     let minHeight: CGFloat = 0
-
+    
     @GestureState private var translation: CGFloat = 0
-
+    
     var offset: CGFloat {
         isOpen ? 0 : maxHeight - minHeight
     }
-
+    
     init(
         maxHeight: CGFloat,
         isOpen: Binding<Bool>,
-         @ViewBuilder content: () -> Content
+        @ViewBuilder content: () -> Content
     ) {
         self.maxHeight = maxHeight
         self._isOpen = isOpen
         self.content = content()
     }
-
+    
     var body: some View {
         GeometryReader { geometry in
             self.content
