@@ -10,14 +10,14 @@ import SwiftUI
 struct SecureTextField: View {
     @Binding private var text: String
     @State private var isSecured: Bool = true
-
+    
     private var title: String
-
+    
     init(_ title: String, text: Binding<String>) {
         self.title = title
         self._text = text
     }
-
+    
     var body: some View {
         ZStack(alignment: .trailing) {
             Group {
@@ -29,7 +29,7 @@ struct SecureTextField: View {
                         .shadow(color: .gray, radius: 3, x: 2, y: 2)
                 }
             }
-
+            
             Button(action: {
                 isSecured.toggle()
             }) {

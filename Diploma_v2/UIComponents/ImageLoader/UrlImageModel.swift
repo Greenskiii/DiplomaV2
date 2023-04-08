@@ -51,8 +51,9 @@ class UrlImageModel: ObservableObject {
         task.resume()
     }
     
-    
-    func getImageFromResponse(data: Data?, response: URLResponse?, error: Error?) {
+    func getImageFromResponse(data: Data?,
+                              response: URLResponse?,
+                              error: Error?) {
         guard error == nil else {
             print("Error: \(error!)")
             return
@@ -70,24 +71,5 @@ class UrlImageModel: ObservableObject {
             self.imageCache.set(forKey: self.urlString!, image: loadedImage)
             self.image = loadedImage
         }
-    }
-}
-
-class ImageCache {
-    var cache = NSCache<NSString, UIImage>()
-    
-    func get(forKey: String) -> UIImage? {
-        return cache.object(forKey: NSString(string: forKey))
-    }
-    
-    func set(forKey: String, image: UIImage) {
-        cache.setObject(image, forKey: NSString(string: forKey))
-    }
-}
-
-extension ImageCache {
-    private static var imageCache = ImageCache()
-    static func getImageCache() -> ImageCache {
-        return imageCache
     }
 }

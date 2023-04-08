@@ -16,21 +16,21 @@ final class DeviceDetailsViewController: UIViewController {
         controller.navigationController?.setNavigationBarHidden(false, animated: true)
         return controller
     }()
-
+    
     init(viewModel: DeviceDetailsViewModel) {
         self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
     }
-
+    
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         configureUI()
     }
-
+    
     private func configureUI() {
         navigationController?.navigationBar.isHidden = true
         addChild(embedController)

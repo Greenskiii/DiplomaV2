@@ -10,19 +10,19 @@ import SwiftUI
 struct DeviceCard: View {
     let device: Device
     let isFavorite: Bool
-
+    
     var body: some View {
         ZStack {
             RoundedRectangle(cornerRadius: 8)
                 .foregroundColor(Color("BlueShark"))
                 .opacity(0.5)
                 .shadow(color: .gray, radius: 3, x: 2, y: 2)
-
+            
             HStack(alignment: .top) {
                 VStack(alignment: .leading) {
                     UrlImageView(urlString: device.image)
                         .frame(width: 50, height: 50)
-
+                    
                     if isFavorite {
                         Text(device.room)
                             .font(.system(size: 12))

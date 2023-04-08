@@ -11,13 +11,13 @@ import AVFoundation
 
 struct QrCodeScannerView: UIViewRepresentable {
     typealias UIViewType = CameraPreview
-
+    
     var supportedBarcodeTypes: [AVMetadataObject.ObjectType] = [.qr]
-
+    
     private let session = AVCaptureSession()
     private let delegate = QrCodeCameraDelegate()
     private let metadataOutput = AVCaptureMetadataOutput()
-
+    
     func torchLight(isOn: Bool) -> QrCodeScannerView {
         if let backCamera = AVCaptureDevice.default(for: AVMediaType.video) {
             if backCamera.hasTorch {
@@ -32,27 +32,27 @@ struct QrCodeScannerView: UIViewRepresentable {
         }
         return self
     }
-
+    
     func interval(delay: Double) -> QrCodeScannerView {
         delegate.scanInterval = delay
         return self
     }
-
+    
     func found(r: @escaping (String) -> Void) -> QrCodeScannerView {
         delegate.onResult = r
         return self
     }
-
+    
     func simulator(mockBarCode: String)-> QrCodeScannerView{
         delegate.mockData = mockBarCode
         return self
     }
-
+    
     func setupCamera(_ uiView: CameraPreview) {
         if let backCamera = AVCaptureDevice.default(for: AVMediaType.video) {
             if let input = try? AVCaptureDeviceInput(device: backCamera) {
                 session.sessionPreset = .photo
-
+                
                 if session.canAddInput(input) {
                     session.addInput(input)
                 }
@@ -62,17 +62,17 @@ struct QrCodeScannerView: UIViewRepresentable {
                     metadataOutput.setMetadataObjectsDelegate(delegate, queue: DispatchQueue.main)
                 }
                 let previewLayer = AVCaptureVideoPreviewLayer(session: session)
-
+                
                 uiView.backgroundColor = UIColor.gray
                 previewLayer.videoGravity = .resizeAspectFill
                 uiView.layer.addSublayer(previewLayer)
                 uiView.previewLayer = previewLayer
-
+                
                 session.startRunning()
             }
         }
     }
-
+    
     func makeUIView(context: UIViewRepresentableContext<QrCodeScannerView>) -> QrCodeScannerView.UIViewType {
         let cameraView = CameraPreview(session: session)
 #if targetEnvironment(simulator)
@@ -82,11 +82,11 @@ struct QrCodeScannerView: UIViewRepresentable {
 #endif
         return cameraView
     }
-
+    
     static func dismantleUIView(_ uiView: CameraPreview, coordinator: ()) {
         uiView.session.stopRunning()
     }
-
+    
     private func checkCameraAuthorizationStatus(_ uiView: CameraPreview) {
         let cameraAuthorizationStatus = AVCaptureDevice.authorizationStatus(for: .video)
         if cameraAuthorizationStatus == .authorized {
@@ -101,7 +101,7 @@ struct QrCodeScannerView: UIViewRepresentable {
             }
         }
     }
-
+    
     func updateUIView(_ uiView: CameraPreview, context: UIViewRepresentableContext<QrCodeScannerView>) {
         uiView.setContentHuggingPriority(.defaultHigh, for: .vertical)
         uiView.setContentHuggingPriority(.defaultLow, for: .horizontal)

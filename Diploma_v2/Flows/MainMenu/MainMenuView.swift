@@ -73,13 +73,12 @@ struct MainMenuView: View {
             }
         }
     }
-
     
     func makeRoomPreviewView(for house: House) -> some View {
         ScrollView(.horizontal, showsIndicators: false) {
             HStack {
                 ForEach(house.rooms, id: \.self) { room in
-                    RoomPreviewCard(room: room, isSelected: room.id == viewModel.choosenRoom)
+                    RoomPreviewCard(room: room, isSelected: room.id == viewModel.choosenRoomId)
                         .frame(width: 150)
                         .padding(.bottom)
                         .onTapGesture {
@@ -107,7 +106,7 @@ struct MainMenuView: View {
                             .font(.system(size: 100))
                             .padding()
 
-                        Text(NSLocalizedString(room.id == "Favorite" ? "NO_DEVICES_FAVORITE" : "NO_DEVICES", comment: "Main Menu") )
+                        Text(NSLocalizedString(room.name == "Favorite" ? "NO_DEVICES_FAVORITE" : "NO_DEVICES", comment: "Main Menu") )
                             .foregroundColor(.gray)
                             .multilineTextAlignment(.center)
                         Spacer()
@@ -122,7 +121,7 @@ struct MainMenuView: View {
                         .animation(.easeInOut(duration: 1))
                 }
             
-            if room.id != "Favorite" {
+            if room.name != "Favorite" {
                 Button {
                     viewModel.onPressAdddevice.send()
                 } label: {

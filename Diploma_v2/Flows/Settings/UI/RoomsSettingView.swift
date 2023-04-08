@@ -1,35 +1,35 @@
 //
-//  HousesSettingsView.swift
+//  RoomsSettingView.swift
 //  Diploma_v2
 //
-//  Created by Алексей Даневич on 22.03.2023.
+//  Created by Алексей Даневич on 07.04.2023.
 //
 
 import SwiftUI
 import Combine
 
-struct HousesSettingsView: View {
+struct RoomsSettingView: View {
     @State var editMode = false
     @Binding var settingView: SettingViews
-    @Binding var deleteHouse: Bool
+    @Binding var deleteRoom: Bool
+    @Binding var addRoom: Bool
     @Binding var choosenHouseId: String
-    @Binding var addHouse: Bool
-    var onGoToRoomsSettings: PassthroughSubject<String, Never>
-    var houses: [HousePreview]
+    
+    var rooms: [Room]
     
     var body: some View {
         VStack {
             HStack {
                 Button {
                     withAnimation {
-                        self.settingView = .main
+                        self.settingView = .houses
                     }
                 } label: {
                     Image(systemName: "chevron.backward.circle")
                         .foregroundColor(Color("Navy"))
                         .font(.title2)
                 }
-                Text("Houses")
+                Text("Rooms")
                     .font(.title2)
                     .fontWeight(.medium)
                     .foregroundColor(Color("Navy"))
@@ -43,32 +43,29 @@ struct HousesSettingsView: View {
             }
             
             VStack {
-                ForEach(houses, id: \.self) { house in
-                    Button {
-                        withAnimation {
+                ForEach(rooms, id: \.self) { room in
+                    if room.name != "Favorite" {
+                        Button {
                             if editMode {
-                                choosenHouseId = house.id
-                                deleteHouse.toggle()
+                                choosenHouseId = room.id
+                                deleteRoom.toggle()
                             } else {
-                                onGoToRoomsSettings.send(house.id)
+                                print("go to devices")
                             }
+                        } label: {
+                            HStack {
+                                Text(room.name)
+                                    .font(.title3)
+                                    .fontWeight(.medium)
+                                    .foregroundColor(Color("Navy"))
+                                Spacer()
+                            }
+                            .padding(.vertical)
                         }
-                    } label: {
-                        HStack {
-                            Text(house.name)
-                                .font(.title3)
-                                .fontWeight(.medium)
-                                .foregroundColor(Color("Navy"))
-                            Spacer()
-                            Image(systemName: editMode ? "minus.circle.fill" : "greaterthan.circle")
-                                .font(.title3)
-                                .foregroundColor(editMode ? Color.red : Color("Navy"))
+                        if room != rooms.last {
+                            Divider()
+                                .padding(.horizontal)
                         }
-                        .padding(.vertical)
-                    }
-                    if house != houses.last {
-                        Divider()
-                            .padding(.horizontal)
                     }
                 }
             }
@@ -77,14 +74,14 @@ struct HousesSettingsView: View {
             if editMode {
                 Button {
                     withAnimation {
-                        addHouse.toggle()
+                        addRoom.toggle()
                     }
                 } label: {
                     ZStack {
                         RoundedRectangle(cornerRadius: 8)
                             .foregroundColor(Color("Navy"))
                         
-                        Text("Add house")
+                        Text("Add Room")
                             .font(.title3)
                             .foregroundColor(.white)
                     }

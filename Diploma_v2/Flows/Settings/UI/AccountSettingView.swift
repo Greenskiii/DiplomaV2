@@ -11,7 +11,7 @@ struct AccountSettingView: View {
     @Binding var settingView: SettingViews
     @Binding var userName: String
     @Binding var email: String
-
+    
     var body: some View {
         VStack {
             HStack {
@@ -24,15 +24,15 @@ struct AccountSettingView: View {
                         .foregroundColor(Color("Navy"))
                         .font(.title2)
                 }
-
+                
                 Text(NSLocalizedString("ACCOUNT", comment: "Settings"))
                     .font(.title2)
                     .fontWeight(.medium)
                     .foregroundColor(Color("Navy"))
                 Spacer()
             }
-
-
+            
+            
             ForEach(AccountSettings.allCases, id: \.self) { setting in
                 HStack {
                     SettingsText(setting: setting)

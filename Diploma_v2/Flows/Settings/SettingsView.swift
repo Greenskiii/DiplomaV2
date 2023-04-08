@@ -9,10 +9,7 @@ import SwiftUI
 
 struct SettingsView: View {
     @ObservedObject var viewModel: SettingsViewModel
-    @State var editMode = false
-    @State var settingView = SettingViews.main
-    @State var showingLogoutAlert = false
-
+    
     var body: some View {
         GeometryReader { geometry in
             ZStack(alignment: .bottom) {
@@ -27,40 +24,167 @@ struct SettingsView: View {
                         Spacer()
                     }
                     .padding()
-
-                            ZStack {
-                                RoundedRectangle(cornerRadius: 16)
-                                    .foregroundColor(.white)
-                                    .shadow(color: .gray, radius: 3, x: 2, y: 2)
-                                ScrollView {
-                                    switch settingView {
-                                    case .account:
-                                        AccountSettingView(settingView: $settingView, userName: $viewModel.name, email: $viewModel.email)
-                                            .transition(.move(edge: settingView == .account ? .trailing : .leading))
-                                    case .main:
-                                        MainSettingView(settingView: $settingView, showingLogoutAlert: $showingLogoutAlert)
-                                    case .houses:
-                                        EmptyView()
-                                    }
+                    
+                    ZStack {
+                        RoundedRectangle(cornerRadius: 16)
+                            .foregroundColor(.white)
+                            .shadow(color: .gray, radius: 3, x: 2, y: 2)
+                        ScrollView {
+                            switch viewModel.settingView {
+                            case .account:
+                                AccountSettingView(
+                                    settingView: $viewModel.settingView,
+                                    userName: $viewModel.name,
+                                    email: $viewModel.email
+                                )
+                                    .transition(.opacity)
+                            case .main:
+                                MainSettingView(
+                                    settingView: $viewModel.settingView,
+                                    showingLogoutAlert: $viewModel.showingLogoutAlert
+                                )
+                                    .transition(.opacity)
+                            case .houses:
+                                HousesSettingsView(
+                                    settingView: $viewModel.settingView,
+                                    deleteHouse: $viewModel.deleteHouse,
+                                    choosenHouseId: $viewModel.choosenHouseId,
+                                    addHouse: $viewModel.addHouse,
+                                    onGoToRoomsSettings: viewModel.onGoToRoomsSettings,
+                                    houses: viewModel.housePreview
+                                )
+                                    .transition(.opacity)
+                                
+                            case .rooms:
+                                if let house = viewModel.house {
+                                    RoomsSettingView(
+                                        settingView: $viewModel.settingView,
+                                        deleteRoom: $viewModel.deleteRoom,
+                                        addRoom: $viewModel.addRoom,
+                                        choosenHouseId: $viewModel.choosenHouseId,
+                                        rooms: house.rooms
+                                    )
+                                        .transition(.opacity)
+                                }
                             }
                         }
-                            .frame(minHeight: geometry.size.height * 0.75)
-                            .padding(.horizontal)
-                            .padding(.bottom)
+                    }
+                    .frame(minHeight: geometry.size.height * 0.75)
+                    .padding(.horizontal)
+                    .padding(.bottom)
                 }
             }
-            .alert(isPresented: $showingLogoutAlert) {
+            .alert(isPresented: $viewModel.showingLogoutAlert) {
                 Alert(
                     title: Text(NSLocalizedString("LOGOUT", comment: "Settings")),
                     message: Text(NSLocalizedString("LOGOUT_QUESTION", comment: "Settings")),
                     primaryButton: .destructive(Text(NSLocalizedString("CANCEL", comment: "Action"))) {
-                        self.showingLogoutAlert = false
+                        viewModel.showingLogoutAlert = false
                     },
                     secondaryButton: .cancel(Text(NSLocalizedString("YES", comment: "Action"))) {
                         self.viewModel.logout.send()
                     }
                 )
             }
+            .textFieldAlert(
+                title: "Delete",
+                message: "Are you sure you want to delete?",
+                textFields: [],
+                actions: [
+                    .init(
+                        title: "Cancel",
+                        closure: { _ in
+                            viewModel.deleteHouse = false
+                            viewModel.choosenHouseId = ""
+                        }
+                    ),
+                    .init(
+                        title: "Yes",
+                        closure: { _ in
+                            viewModel.onDeleteRoom.send(viewModel.choosenHouseId)
+                            viewModel.choosenHouseId = ""
+                        }
+                    )
+                ],
+                isPresented: $viewModel.deleteRoom
+            )
+            .textFieldAlert(
+                title: "Delete",
+                message: "Are you sure you want to delete?",
+                textFields: [],
+                actions: [
+                    .init(
+                        title: "Cancel",
+                        closure: { _ in
+                            viewModel.choosenHouseId = ""
+                        }
+                    ),
+                    .init(
+                        title: "Add",
+                        closure: { _ in
+                            if !viewModel.choosenHouseId.isEmpty {
+                                viewModel.onAddHouse.send(viewModel.choosenHouseId)
+                                viewModel.choosenHouseId = ""
+                            }
+                        }
+                    )
+                ],
+                isPresented: $viewModel.addHouse
+            )
+            .textFieldAlert(
+                title: "Add House",
+                textFields: [
+                    .init(
+                        text: $viewModel.choosenHouseId,
+                        placeholder: "Write the name of the house"
+                    )
+                ],
+                actions: [
+                    .init(
+                        title: "Cancel",
+                        closure: { _ in
+                            viewModel.choosenHouseId = ""
+                        }
+                    ),
+                    .init(
+                        title: "Add",
+                        closure: { _ in
+                            if !viewModel.choosenHouseId.isEmpty {
+                                viewModel.onAddHouse.send(viewModel.choosenHouseId)
+                                viewModel.choosenHouseId = ""
+                            }
+                        }
+                    )
+                ],
+                isPresented: $viewModel.addHouse
+            )
+            .textFieldAlert(
+                title: "Add Room",
+                textFields: [
+                    .init(
+                        text: $viewModel.choosenHouseId,
+                        placeholder: "Write the name of the room"
+                    )
+                ],
+                actions: [
+                    .init(
+                        title: "Cancel",
+                        closure: { _ in
+                            viewModel.choosenHouseId = ""
+                        }
+                    ),
+                    .init(
+                        title: "Add",
+                        closure: { _ in
+                            if !viewModel.choosenHouseId.isEmpty {
+                                viewModel.onAddRoom.send(viewModel.choosenHouseId)
+                                viewModel.choosenHouseId = ""
+                            }
+                        }
+                    )
+                ],
+                isPresented: $viewModel.addRoom
+            )
         }
     }
 }
@@ -69,6 +193,7 @@ enum SettingViews {
     case main
     case account
     case houses
+    case rooms
 }
 
 protocol SettingProtocol {
@@ -127,7 +252,7 @@ enum Settings: CaseIterable, SettingProtocol {
             return NSLocalizedString("LOGOUT", comment: "Settings")
         }
     }
-
+    
     var hasNextPage: Bool {
         switch self {
         case .account, .houses:

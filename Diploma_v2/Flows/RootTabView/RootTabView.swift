@@ -10,7 +10,7 @@ import SwiftUI
 struct RootTabView: View {
     @ObservedObject var viewModel: RootTabViewModel
     @State var isMenuShown = false
-
+    
     var body: some View {
         ZStack(alignment: .top) {
             Color("TropicalBlue")
@@ -19,11 +19,11 @@ struct RootTabView: View {
                 makeTopView()
                     .padding(.horizontal)
                     .padding(.top)
-
+                
                 TabView(selection: $viewModel.selectedTab) {
                     if let viewModel = viewModel.mainMenuViewModel {
                         setMainView(viewModel: viewModel).tag(TabType.main)
-
+                        
                     }
                     
                     if let viewModel = viewModel.settingsViewModel {
@@ -40,7 +40,7 @@ struct RootTabView: View {
             }
             .padding(.horizontal, 10)
             .padding(.top)
-
+            
             if viewModel.addDeviceViewIsOpen {
                 ZStack(alignment: .center) {
                     VisualEffectView(effect: UIBlurEffect(style: .dark))
@@ -64,7 +64,7 @@ struct RootTabView: View {
                     .foregroundColor(.black)
                     .animation(.easeInOut(duration: 1), value: viewModel.showErrorView)
             }
-
+            
             BottomSheetView(maxHeight: 600, isOpen: $viewModel.deviceDetailIsOpen) {
                 if viewModel.deviceDetailIsOpen,
                    let deviceDetailsViewModel = viewModel.deviceDetailsViewModel {
@@ -87,7 +87,7 @@ struct RootTabView: View {
                     .font(.title2)
                     .fontWeight(.medium)
                     .foregroundColor(Color("Navy"))
-
+                
             }
             HStack(alignment: .bottom) {
                 Spacer()
@@ -110,7 +110,7 @@ struct RootTabView: View {
             }
         }
     }
-
+    
     func setMainView(viewModel: MainMenuViewModel) -> some View {
         return MainMenuView(viewModel: viewModel)
             .tabItem {
@@ -125,9 +125,3 @@ struct RootTabView: View {
             }
     }
 }
-
-enum TabType: Int {
-    case main
-    case settings
-}
-

@@ -10,27 +10,27 @@ import SwiftUI
 
 final class RootTabViewController: UIViewController {
     var viewModel: RootTabViewModel!
-
+    
     private lazy var embedController: UIHostingController<RootTabView> = {
         let controller = UIHostingController(rootView: RootTabView(viewModel: viewModel))
         controller.navigationController?.setNavigationBarHidden(true, animated: true)
         return controller
     }()
-
+    
     init(viewModel: RootTabViewModel) {
         self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
     }
-
+    
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         configureUI()
     }
-
+    
     private func configureUI() {
         navigationController?.navigationBar.isHidden = true
         addChild(embedController)

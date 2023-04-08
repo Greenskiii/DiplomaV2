@@ -19,10 +19,10 @@ struct DeviceDetailsView: View {
                 createEditButtons()
                     .padding(.horizontal)
                     .isHidden(!viewModel.editViewIsShow)
-
+                
                 createDeviceInfoView()
                 createDeviceLocationView()
-
+                
                 Button {
                     withAnimation {
                         viewModel.onDeleteDevice.send()
@@ -36,7 +36,7 @@ struct DeviceDetailsView: View {
             }
         }
     }
-
+    
     private func createEditButtons() -> some View {
         HStack {
             Button {
@@ -58,7 +58,7 @@ struct DeviceDetailsView: View {
             }
         }
     }
-
+    
     private func createDeviceInfoView() -> some View {
         VStack {
             UrlImageView(urlString: viewModel.device.image)
@@ -79,7 +79,7 @@ struct DeviceDetailsView: View {
             }
         }
     }
-
+    
     private func createDeviceLocationView() -> some View {
         VStack {
             Menu {
@@ -112,7 +112,7 @@ struct DeviceDetailsView: View {
                 .padding(.horizontal)
                 .padding(.top)
             }
-
+            
             Menu {
                 ForEach(viewModel.rooms, id: \.self) { room in
                     Button {

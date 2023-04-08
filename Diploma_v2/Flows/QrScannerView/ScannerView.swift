@@ -9,7 +9,7 @@ import SwiftUI
 
 struct ScannerView: View {
     @ObservedObject var viewModel: ScannerViewModel
-
+    
     var body: some View {
         ZStack {
             QrCodeScannerView()
@@ -17,7 +17,7 @@ struct ScannerView: View {
                 .torchLight(isOn: self.viewModel.torchIsOn)
                 .interval(delay: self.viewModel.scanInterval)
                 .ignoresSafeArea()
-
+            
             VStack {
                 HStack {
                     Button {
@@ -28,9 +28,9 @@ struct ScannerView: View {
                     }
                     Spacer()
                 }
-
+                
                 Spacer()
-
+                
                 Button {
                     viewModel.torchIsOn.toggle()
                 } label: {

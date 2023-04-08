@@ -11,8 +11,8 @@ import Combine
 struct AddDeviceView: View {
     @Binding var deviceId: String
     var onGoToScannerScreen: PassthroughSubject<Void, Never>
-    var onSaveNewDeviceId: PassthroughSubject<Void, Never>
-
+    var onSaveNewDeviceId: PassthroughSubject<String, Never>
+    
     var body: some View {
         ZStack {
             RoundedRectangle(cornerRadius: 16)
@@ -20,7 +20,7 @@ struct AddDeviceView: View {
             RoundedRectangle(cornerRadius: 16)
                 .stroke()
                 .foregroundColor(.gray)
-
+            
             VStack {
                 ZStack(alignment: .trailing) {
                     TextField(NSLocalizedString("DEVICE_ID", comment: "Device View"), text: $deviceId)
@@ -34,9 +34,9 @@ struct AddDeviceView: View {
                     }
                 }
                 .padding(.horizontal)
-
+                
                 Button {
-                    onSaveNewDeviceId.send()
+                    onSaveNewDeviceId.send(deviceId)
                 } label: {
                     Text(NSLocalizedString("ADD_DEVICE", comment: "Action"))
                         .foregroundColor(.white)

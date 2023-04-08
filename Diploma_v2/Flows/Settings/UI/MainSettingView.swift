@@ -35,7 +35,6 @@ struct MainSettingView: View {
                     }
                 
                 if setting != Settings.allCases.last {
-//                    makeDivider()
                     Divider()
                         .padding(.horizontal)
                 }

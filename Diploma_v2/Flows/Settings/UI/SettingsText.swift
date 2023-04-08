@@ -24,7 +24,7 @@ struct SettingsText: View {
                     .foregroundColor(Color("Navy"))
                 Spacer()
             }
-
+            
             if setting.hasNextPage {
                 Image(systemName: "greaterthan.circle")
                     .font(.title3)
