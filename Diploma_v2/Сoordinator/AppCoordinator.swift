@@ -14,6 +14,7 @@ class AppCoordinator: Coordinator {
     
     var subscriptions = Set<AnyCancellable>()
     var dataManager = DataManager()
+    var authManager = AuthManager()
     var parentCoordinator: Coordinator?
     var children: [Coordinator] = []
     var viewController: UIViewController
@@ -73,7 +74,7 @@ class AppCoordinator: Coordinator {
         
         let viewController = AuthorizationViewController(
             viewModel: AuthorizationViewModel(
-                authManager: AuthManager(),
+                authManager: authManager,
                 dataManager: dataManager,
                 onGoToRootTabView: onGoToRootTabView
             )
@@ -101,7 +102,7 @@ class AppCoordinator: Coordinator {
     func goToRootTabView() {
         let viewController = RootTabViewController(
             viewModel: RootTabViewModel(
-                authManager: AuthManager(),
+                authManager: authManager,
                 dataManager: dataManager,
                 onGoToScannerScreen: onGoToScannerScreen,
                 onGoToAuthScreen: onGoToAuthScreen

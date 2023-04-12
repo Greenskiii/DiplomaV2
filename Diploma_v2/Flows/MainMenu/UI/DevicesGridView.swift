@@ -10,6 +10,7 @@ import Combine
 
 struct DevicesGridView: View {
     let devices: [Device]
+    let isFavoriteRoom: Bool
     let onTapDevice: PassthroughSubject<Device?, Never>
     let onTapFavorite: PassthroughSubject<Device, Never>
     
@@ -18,7 +19,7 @@ struct DevicesGridView: View {
             LazyVGrid(columns: [GridItem(), GridItem()], spacing: 10) {
                 ForEach(devices, id: \.self) { device in
                     ZStack(alignment: .topTrailing) {
-                        DeviceCard(device: device, isFavorite: true)
+                        DeviceCard(device: device, isFavoriteRoom: isFavoriteRoom)
                             .onTapGesture {
                                 withAnimation {
                                     onTapDevice.send(device)

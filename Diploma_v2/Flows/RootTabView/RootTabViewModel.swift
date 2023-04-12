@@ -30,6 +30,7 @@ class RootTabViewModel: ObservableObject {
     @Published var choosenDevice: Device?
     @Published var deviceDetailIsOpen = false
     @Published var housePreview: [HousePreview] = []
+    @Published var user: User? = nil
     
     var onGoToScannerScreen: PassthroughSubject<Void, Never>
     private(set) lazy var onTapDevice = PassthroughSubject<Device?, Never>()
@@ -37,10 +38,6 @@ class RootTabViewModel: ObservableObject {
     private(set) lazy var onPressAdddevice = PassthroughSubject<Void, Never>()
     private(set) lazy var onCloseDeviceDetail = PassthroughSubject<Void, Never>()
     private(set) lazy var onChangeHouse = PassthroughSubject<String, Never>()
-    
-    var user: User? {
-        authManager.getUserInfo()
-    }
     
     var deviceDetailsViewModel: DeviceDetailsViewModel? {
         if let device = self.choosenDevice,
@@ -77,10 +74,14 @@ class RootTabViewModel: ObservableObject {
         )
         
         self.settingsViewModel = SettingsViewModel(
-            authManager: authManager,
-            dataManager: dataManager,
+            authManager: self.authManager,
+            dataManager: self.dataManager,
             onGoToAuthScreen: onGoToAuthScreen
         )
+        
+        authManager.$user
+            .assign(to: \.user, on: self)
+            .store(in: &subscriptions)
         
         dataManager.$house
             .assign(to: \.house, on: self)

@@ -28,6 +28,8 @@
 		B874C99E2975CB0800D6CC30 /* AuthManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B874C99D2975CB0800D6CC30 /* AuthManager.swift */; };
 		B874D186298BE11E0075910A /* UrlImageModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B874D185298BE11E0075910A /* UrlImageModel.swift */; };
 		B874D188298BE13D0075910A /* UrlImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B874D187298BE13D0075910A /* UrlImageView.swift */; };
+		B877ACA129E6C58D00E97EA1 /* KeyboardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B877ACA029E6C58D00E97EA1 /* KeyboardView.swift */; };
+		B877ACA329E6C5AA00E97EA1 /* KeyboardResponder.swift in Sources */ = {isa = PBXBuildFile; fileRef = B877ACA229E6C5AA00E97EA1 /* KeyboardResponder.swift */; };
 		B87BE75629D3513900CECC5A /* FirestoreModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B87BE75529D3513900CECC5A /* FirestoreModel.swift */; };
 		B87BE75829D3519200CECC5A /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = B87BE75729D3519200CECC5A /* User.swift */; };
 		B87BE75A29D351C600CECC5A /* House.swift in Sources */ = {isa = PBXBuildFile; fileRef = B87BE75929D351C600CECC5A /* House.swift */; };
@@ -122,6 +124,8 @@
 		B874C99D2975CB0800D6CC30 /* AuthManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthManager.swift; sourceTree = "<group>"; };
 		B874D185298BE11E0075910A /* UrlImageModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UrlImageModel.swift; sourceTree = "<group>"; };
 		B874D187298BE13D0075910A /* UrlImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UrlImageView.swift; sourceTree = "<group>"; };
+		B877ACA029E6C58D00E97EA1 /* KeyboardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardView.swift; sourceTree = "<group>"; };
+		B877ACA229E6C5AA00E97EA1 /* KeyboardResponder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardResponder.swift; sourceTree = "<group>"; };
 		B87BE75529D3513900CECC5A /* FirestoreModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirestoreModel.swift; sourceTree = "<group>"; };
 		B87BE75729D3519200CECC5A /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		B87BE75929D351C600CECC5A /* House.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = House.swift; sourceTree = "<group>"; };
@@ -354,6 +358,15 @@
 			path = ImageLoader;
 			sourceTree = "<group>";
 		};
+		B877AC9F29E6C58200E97EA1 /* KeyboardView */ = {
+			isa = PBXGroup;
+			children = (
+				B877ACA029E6C58D00E97EA1 /* KeyboardView.swift */,
+				B877ACA229E6C5AA00E97EA1 /* KeyboardResponder.swift */,
+			);
+			path = KeyboardView;
+			sourceTree = "<group>";
+		};
 		B87BE75429D3512900CECC5A /* Model */ = {
 			isa = PBXGroup;
 			children = (
@@ -448,6 +461,7 @@
 		B8CE2D9A2982C5F0007FFA2E /* UIComponents */ = {
 			isa = PBXGroup;
 			children = (
+				B877AC9F29E6C58200E97EA1 /* KeyboardView */,
 				B8CDA92329E057BB00C5502D /* TextFieldAlert */,
 				B874D184298BE10D0075910A /* ImageLoader */,
 				B8CE2D9B2982C5F0007FFA2E /* SegmentedPicker */,
@@ -644,6 +658,7 @@
 				B889C90029B6527200E6977B /* RootTabViewModel.swift in Sources */,
 				B8D2303F29CA22E800EB1973 /* HouseMenu.swift in Sources */,
 				B8CE2DB72982C622007FFA2E /* MainMenuViewModel.swift in Sources */,
+				B877ACA329E6C5AA00E97EA1 /* KeyboardResponder.swift in Sources */,
 				B87BE75829D3519200CECC5A /* User.swift in Sources */,
 				B88DE1B72992DF0100DD91AB /* DeviceDetailsCoordinator.swift in Sources */,
 				B889C8F429B5F67D00E6977B /* View.isHiden.swift in Sources */,
@@ -699,6 +714,7 @@
 				B8CE2DAC2982C5F1007FFA2E /* VisualEffectView.swift in Sources */,
 				B88DE1BF2992DFA200DD91AB /* DeviceDetailsViewModel.swift in Sources */,
 				B8CDA92529E08C9E00C5502D /* RoomsSettingView.swift in Sources */,
+				B877ACA129E6C58D00E97EA1 /* KeyboardView.swift in Sources */,
 				B88DE1B92992DF2A00DD91AB /* DeviceDetailsViewController.swift in Sources */,
 				B874D188298BE13D0075910A /* UrlImageView.swift in Sources */,
 				B874C98E29757A3A00D6CC30 /* AuthorizationViewController.swift in Sources */,

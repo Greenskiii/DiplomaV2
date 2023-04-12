@@ -35,4 +35,3 @@ struct Value: Codable, Hashable {
         self.imageSystemName = imageSystemName
     }
 }
-
