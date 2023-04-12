@@ -17,6 +17,4 @@ localization into two languages (English and Ukrainian)
 Needs to be completed:
 change device card UI,
 make animation on the main menu,
-add the ability to delete an account,
-add account settings,
 add Unit tests
