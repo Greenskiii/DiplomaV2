@@ -19,9 +19,17 @@ final class AuthManager: NSObject, ObservableObject {
     
     @Published var nonce: String = ""
     @Published var auth: Bool = false
+    @Published var user: User? = nil
     
     let firebaseAuth = Auth.auth()
     var subscriptions = Set<AnyCancellable>()
+    
+    override init() {
+        super.init()
+        if let user = self.getUserInfo() {
+            self.user = user
+        }
+    }
     
     func loginWithApple() {
         self.nonce = randomNonceString()
@@ -70,7 +78,7 @@ final class AuthManager: NSObject, ObservableObject {
                 return
             }
             completion(false)
-            print("Successfully logged in with ID: \(result?.user.uid ?? "")")
+            self.user = self.getUserInfo()
             self.logStatus = true
         }
     }
@@ -113,10 +121,53 @@ final class AuthManager: NSObject, ObservableObject {
         }
         
         return User(
+            uid: authUser.uid,
             name: authUser.displayName ?? "User",
             imageUrl: authUser.photoURL?.absoluteString ?? "",
-            uid: authUser.uid,
             email: authUser.email ?? "")
+    }
+}
+
+// MARK: - Change UserInfo
+extension AuthManager {
+    public func changeName(name: String,
+                           completion:  @escaping (AuthManagerResponse) -> Void) {
+        let changeRequest = Auth.auth().currentUser?.createProfileChangeRequest()
+        changeRequest?.displayName = name
+        changeRequest?.commitChanges { error in
+            if let error = error {
+                completion(.error)
+                print(error.localizedDescription)
+            } else {
+                self.user?.name = name
+                completion(.success)
+            }
+        }
+    }
+    
+    public func changeEmail(email: String,
+                            completion:  @escaping (AuthManagerResponse) -> Void) {
+        Auth.auth().currentUser?.updateEmail(to: email) { error in
+            if let error = error {
+                completion(.error)
+                print(error.localizedDescription)
+            } else {
+                completion(.success)
+                self.user?.email = email
+            }
+        }
+    }
+    
+    public func changePassword(newPassword: String,
+                               completion:  @escaping (AuthManagerResponse) -> Void) {
+        Auth.auth().currentUser?.updatePassword(to: newPassword) { error in
+            if let error = error {
+                completion(.error)
+                print(error.localizedDescription)
+            } else {
+                completion(.success)
+            }
+        }
     }
 }
 
@@ -140,8 +191,8 @@ extension AuthManager {
                 return
             }
             self.auth = true
-            print("Success")
             self.logStatus = true
+            self.user = self.getUserInfo()
         }
     }
     
@@ -191,7 +242,8 @@ extension AuthManager {
 
 // MARK: - ASAuthorizationControllerDelegate
 extension AuthManager: ASAuthorizationControllerDelegate {
-    func authorizationController(controller: ASAuthorizationController, didCompleteWithAuthorization authorization: ASAuthorization) {
+    func authorizationController(controller: ASAuthorizationController,
+                                 didCompleteWithAuthorization authorization: ASAuthorization) {
         guard let credential = authorization.credential as? ASAuthorizationAppleIDCredential else {
             print("error")
             return
@@ -209,8 +261,13 @@ extension AuthManager {
                 return
             }
             self.auth = true
-            print("Success")
             self.logStatus = true
+            self.user = self.getUserInfo()
         }
     }
+}
+
+enum AuthManagerResponse {
+    case error
+    case success
 }
