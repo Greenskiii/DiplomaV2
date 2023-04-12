@@ -13,7 +13,7 @@ struct SettingsView: View {
     var body: some View {
         KeyboardView {
             GeometryReader { geometry in
-                ZStack(alignment: .bottom) {
+                ZStack {
                     Color("TropicalBlue")
                         .ignoresSafeArea()
                     VStack {
@@ -74,6 +74,10 @@ struct SettingsView: View {
                         .frame(minHeight: geometry.size.height * 0.75)
                     }
                     .padding(.horizontal)
+                    LoadingView()
+                        .frame(width: 155, height: 175)
+                        .isHidden(!viewModel.loadViewShown)
+                    
                 }
                 .alert(isPresented: $viewModel.showingLogoutAlert) {
                     Alert(

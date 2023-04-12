@@ -34,6 +34,8 @@
 		B877ACA829E714EE00E97EA1 /* SettingProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = B877ACA729E714EE00E97EA1 /* SettingProtocol.swift */; };
 		B877ACAA29E714FF00E97EA1 /* AccountSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = B877ACA929E714FF00E97EA1 /* AccountSettings.swift */; };
 		B877ACAC29E7151200E97EA1 /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = B877ACAB29E7151200E97EA1 /* Settings.swift */; };
+		B877ACB029E71DCF00E97EA1 /* LoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B877ACAF29E71DCF00E97EA1 /* LoadingView.swift */; };
+		B877ACB229E723E400E97EA1 /* UIApplication.endEditing.swift in Sources */ = {isa = PBXBuildFile; fileRef = B877ACB129E723E400E97EA1 /* UIApplication.endEditing.swift */; };
 		B87BE75629D3513900CECC5A /* FirestoreModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B87BE75529D3513900CECC5A /* FirestoreModel.swift */; };
 		B87BE75829D3519200CECC5A /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = B87BE75729D3519200CECC5A /* User.swift */; };
 		B87BE75A29D351C600CECC5A /* House.swift in Sources */ = {isa = PBXBuildFile; fileRef = B87BE75929D351C600CECC5A /* House.swift */; };
@@ -134,6 +136,8 @@
 		B877ACA729E714EE00E97EA1 /* SettingProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingProtocol.swift; sourceTree = "<group>"; };
 		B877ACA929E714FF00E97EA1 /* AccountSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountSettings.swift; sourceTree = "<group>"; };
 		B877ACAB29E7151200E97EA1 /* Settings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Settings.swift; sourceTree = "<group>"; };
+		B877ACAF29E71DCF00E97EA1 /* LoadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingView.swift; sourceTree = "<group>"; };
+		B877ACB129E723E400E97EA1 /* UIApplication.endEditing.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIApplication.endEditing.swift; sourceTree = "<group>"; };
 		B87BE75529D3513900CECC5A /* FirestoreModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirestoreModel.swift; sourceTree = "<group>"; };
 		B87BE75729D3519200CECC5A /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		B87BE75929D351C600CECC5A /* House.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = House.swift; sourceTree = "<group>"; };
@@ -239,6 +243,7 @@
 				B834A94429785DA000AC8F09 /* Main.storyboard */,
 				B874C99A29757ECF00D6CC30 /* GoogleService-Info.plist */,
 				B88AEECC29CB8846002FFE7B /* Localizable.strings */,
+				B877ACB129E723E400E97EA1 /* UIApplication.endEditing.swift */,
 			);
 			path = SystemFiles;
 			sourceTree = "<group>";
@@ -489,6 +494,7 @@
 				B8CE2DA32982C5F0007FFA2E /* SecureTextField.swift */,
 				B8CE2DA42982C5F0007FFA2E /* VisualEffectView.swift */,
 				B889C8F329B5F67D00E6977B /* View.isHiden.swift */,
+				B877ACAF29E71DCF00E97EA1 /* LoadingView.swift */,
 			);
 			path = UIComponents;
 			sourceTree = "<group>";
@@ -705,6 +711,7 @@
 				B889C8FA29B6119900E6977B /* SettingsView.swift in Sources */,
 				B8CDA92B29E0B9C400C5502D /* UITextField + extension.swift in Sources */,
 				B8C5CADF2979F032009ED632 /* ForgotPasswordViewModel.swift in Sources */,
+				B877ACB029E71DCF00E97EA1 /* LoadingView.swift in Sources */,
 				B8CE2DA92982C5F1007FFA2E /* BackgroundGeometryReader.swift in Sources */,
 				B8CE2DCF29845D9B007FFA2E /* DevicesGridView.swift in Sources */,
 				B87BE75A29D351C600CECC5A /* House.swift in Sources */,
@@ -724,6 +731,7 @@
 				B8C5CADD2979ED10009ED632 /* ForgotPasswordView.swift in Sources */,
 				B874C99029757AA100D6CC30 /* AuthorizationView.swift in Sources */,
 				B88AEEC029CB7D2B002FFE7B /* SettingsText.swift in Sources */,
+				B877ACB229E723E400E97EA1 /* UIApplication.endEditing.swift in Sources */,
 				B8CE2DAA2982C5F1007FFA2E /* BottomSheetView.swift in Sources */,
 				B87BE75629D3513900CECC5A /* FirestoreModel.swift in Sources */,
 				B894BA6729A9331A00C4BB22 /* CameraPreview.swift in Sources */,

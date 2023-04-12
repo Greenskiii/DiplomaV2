@@ -54,6 +54,14 @@ final class SettingsViewModel: ObservableObject {
         self.dataManager = dataManager
         self.authManager = authManager
         
+        dataManager.$house
+            .assign(to: \.house, on: self)
+            .store(in: &subscriptions)
+        
+        dataManager.$housePreview
+            .assign(to: \.housePreview, on: self)
+            .store(in: &subscriptions)
+        
         self.settingViewPublisher
             .sink { [weak self] settingView in
                 guard let self = self,
@@ -62,14 +70,6 @@ final class SettingsViewModel: ObservableObject {
                 self.email = self.oldEmail
                 self.newPassword = ""
             }
-            .store(in: &subscriptions)
-        
-        dataManager.$house
-            .assign(to: \.house, on: self)
-            .store(in: &subscriptions)
-        
-        dataManager.$housePreview
-            .assign(to: \.housePreview, on: self)
             .store(in: &subscriptions)
         
         self.onGoToRoomsSettings
@@ -119,6 +119,7 @@ final class SettingsViewModel: ObservableObject {
                 guard let self = self else { return }
                 self.name = self.oldName
                 self.email = self.oldEmail
+                UIApplication.shared.endEditing()
             }
             .store(in: &self.subscriptions)
         
@@ -126,6 +127,7 @@ final class SettingsViewModel: ObservableObject {
             .sink { [weak self] _ in
                 guard let password = self?.newPassword else { return }
                 self?.loadViewShown = true
+                self?.passwordAlertIsShown = false
                 self?.authManager.changePassword(newPassword: password) { completion in
                     switch completion {
                     case .error:
@@ -142,6 +144,8 @@ final class SettingsViewModel: ObservableObject {
             .sink { [weak self] _ in
                 guard let self = self else { return }
                 self.loadViewShown = true
+                UIApplication.shared.endEditing()
+                
                 self.authManager.changeName(name: self.name) { completion in
                     switch completion {
                     case .error:
