@@ -24,7 +24,7 @@ struct MainMenuView: View {
                             makeDevicesGrid(for: room)
                                 .frame(minHeight: geometry.size.height * 0.75)
                                 .padding(.horizontal)
-                                .padding(.bottom)
+                                .padding(.bottom, geometry.size.height * 0.12)
                         } else {
                             VStack {
                                 Spacer()
@@ -40,6 +40,7 @@ struct MainMenuView: View {
                     }
                 }
             }
+            .edgesIgnoringSafeArea(.bottom)
         }
     }
 
@@ -79,7 +80,7 @@ struct MainMenuView: View {
             HStack {
                 ForEach(house.rooms, id: \.self) { room in
                     RoomPreviewCard(room: room, isSelected: room.id == viewModel.choosenRoomId)
-                        .frame(width: 150)
+                        .frame(minWidth: 150)
                         .padding(.bottom)
                         .onTapGesture {
                             withAnimation {
@@ -114,6 +115,7 @@ struct MainMenuView: View {
                 } else {
                     DevicesGridView(
                         devices: room.devices,
+                        isFavoriteRoom: room.id == "Favorite",
                         onTapDevice: viewModel.onTapDevice,
                         onTapFavorite: viewModel.onTapFavorite
                     )

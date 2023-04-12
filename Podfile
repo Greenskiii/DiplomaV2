@@ -1,8 +1,5 @@
 # Uncomment the next line to define a global platform for your project
 
-
-
-
 target 'Diploma_v2' do
 platform :ios, '14.0'
 
@@ -17,7 +14,6 @@ post_install do |installer|
     end
   end
 end
-
 
 inhibit_all_warnings!
 

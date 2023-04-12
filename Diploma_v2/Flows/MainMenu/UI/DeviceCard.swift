@@ -9,7 +9,7 @@ import SwiftUI
 
 struct DeviceCard: View {
     let device: Device
-    let isFavorite: Bool
+    let isFavoriteRoom: Bool
     
     var body: some View {
         ZStack {
@@ -19,16 +19,21 @@ struct DeviceCard: View {
                 .shadow(color: .gray, radius: 3, x: 2, y: 2)
             
             HStack(alignment: .top) {
-                VStack(alignment: .leading) {
-                    UrlImageView(urlString: device.image)
-                        .frame(width: 50, height: 50)
-                    
-                    if isFavorite {
-                        Text(device.room)
-                            .font(.system(size: 12))
+                VStack {
+                    HStack(alignment: .bottom) {
+                        UrlImageView(urlString: device.image)
+                            .frame(width: 50, height: 50)
+                        
+                        VStack {
+                            Text(device.name)
+                                .font(.system(size: 16))
+                            if isFavoriteRoom {
+                                Text(device.room)
+                                    .font(.system(size: 12))
+                            }
+                        }
                     }
-                    Text(device.name)
-                        .font(.system(size: 16))
+                    
                     LazyVGrid(columns: [GridItem(), GridItem()]) {
                         ForEach(device.values, id: \.self) { value in
                             VStack {

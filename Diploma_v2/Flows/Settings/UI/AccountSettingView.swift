@@ -11,7 +11,8 @@ struct AccountSettingView: View {
     @Binding var settingView: SettingViews
     @Binding var userName: String
     @Binding var email: String
-    
+    @Binding var passwordAlertIsShown: Bool
+
     var body: some View {
         VStack {
             HStack {
@@ -32,11 +33,15 @@ struct AccountSettingView: View {
                 Spacer()
             }
             
-            
             ForEach(AccountSettings.allCases, id: \.self) { setting in
                 HStack {
                     SettingsText(setting: setting)
                         .padding(.vertical)
+                        .onTapGesture {
+                            if setting == .changePassword {
+                                self.passwordAlertIsShown = true
+                            }
+                        }
                     switch setting {
                     case .name:
                         HStack {
@@ -49,13 +54,7 @@ struct AccountSettingView: View {
                             Spacer()
                         }
                     case .changePassword:
-                        HStack {
-                            Spacer()
-                            Image(systemName: "greaterthan.circle")
-                                .font(.title3)
-                                .foregroundColor(Color("Navy"))
-                        }
-                        .padding(.horizontal)
+                        EmptyView()
                     }
                 }
                 
@@ -68,4 +67,3 @@ struct AccountSettingView: View {
         .padding()
     }
 }
-

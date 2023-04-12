@@ -59,6 +59,11 @@ struct RoomsSettingView: View {
                                     .fontWeight(.medium)
                                     .foregroundColor(Color("Navy"))
                                 Spacer()
+                                if editMode {
+                                    Image(systemName: "minus.circle.fill")
+                                        .font(.title3)
+                                        .foregroundColor(Color.red)
+                                }
                             }
                             .padding(.vertical)
                         }
