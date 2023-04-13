@@ -65,7 +65,7 @@ struct RootTabView: View {
                     .animation(.easeInOut(duration: 1), value: viewModel.showErrorView)
             }
             
-            BottomSheetView(maxHeight: 600, isOpen: $viewModel.deviceDetailIsOpen) {
+            BottomSheetView(maxHeight: 550, isOpen: $viewModel.deviceDetailIsOpen) {
                 if viewModel.deviceDetailIsOpen,
                    let deviceDetailsViewModel = viewModel.deviceDetailsViewModel {
                     DeviceDetailsView(viewModel: deviceDetailsViewModel)
