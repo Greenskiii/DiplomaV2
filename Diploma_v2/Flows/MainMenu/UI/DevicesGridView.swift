@@ -16,7 +16,7 @@ struct DevicesGridView: View {
     
     var body: some View {
         ScrollView(showsIndicators: false) {
-            LazyVGrid(columns: [GridItem(), GridItem()], spacing: 10) {
+            VStack {
                 ForEach(devices, id: \.self) { device in
                     ZStack(alignment: .topTrailing) {
                         DeviceCard(device: device, isFavoriteRoom: isFavoriteRoom)
