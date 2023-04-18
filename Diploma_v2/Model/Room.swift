@@ -14,6 +14,7 @@ struct Room: FirestoreModel, Hashable {
     var devicesId: [String]
     var previewDeviceId: String?
     var devices: [Device]
+    var values: [Value]
     var previewValues: [Value]
     
     init(id: String,
@@ -21,12 +22,14 @@ struct Room: FirestoreModel, Hashable {
          previewDeviceId: String? = nil,
          devicesId: [String] = [],
          devices: [Device] = [],
+         values: [Value] = [],
          previewValues: [Value] = []
     ) {
         self.id = id
         self.name = name
         self.devicesId = devicesId
         self.devices = devices
+        self.values = values
         self.previewValues = previewValues
         self.previewDeviceId = previewDeviceId
     }

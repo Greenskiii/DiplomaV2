@@ -28,8 +28,7 @@ struct RoomPreviewCard: View {
     var body: some View {
         ZStack {
             RoundedRectangle(cornerRadius: 16)
-                .foregroundColor(isSelected ? Color("Navy") : Color("BlueShark"))
-                .opacity(0.6)
+                .foregroundColor(isSelected ? Color("LightBlueShark") : Color("TropicalBlue"))
                 .shadow(color: .gray, radius: 3, x: 2, y: 2)
                 .frame(height: 55)
             

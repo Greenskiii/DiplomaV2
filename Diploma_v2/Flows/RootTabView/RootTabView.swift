@@ -9,43 +9,37 @@ import SwiftUI
 
 struct RootTabView: View {
     @ObservedObject var viewModel: RootTabViewModel
-    @State var isMenuShown = false
     
     var body: some View {
-        ZStack(alignment: .top) {
-            Color("TropicalBlue")
-                .ignoresSafeArea()
-            VStack {
-                makeTopView()
-                    .padding(.horizontal)
-                    .padding(.top)
+        ZStack(alignment: .bottom) {
+            
+            TabView(selection: $viewModel.selectedTab) {
+                if let viewModel = viewModel.mainMenuViewModel {
+                    setMainView(viewModel: viewModel).tag(TabType.main)
+                }
                 
-                TabView(selection: $viewModel.selectedTab) {
-                    if let viewModel = viewModel.mainMenuViewModel {
-                        setMainView(viewModel: viewModel).tag(TabType.main)
-                        
-                    }
-                    
-                    if let viewModel = viewModel.settingsViewModel {
-                        setSettingsView(viewModel: viewModel).tag(TabType.settings)
-                    }
+                if let viewModel = viewModel.settingsViewModel {
+                    setSettingsView(viewModel: viewModel).tag(TabType.settings)
                 }
             }
-            HStack {
-                if let choosenHouse = viewModel.house?.id {
-                    HouseMenu(isMenuShown: $isMenuShown, choosenHouse: choosenHouse, houses: viewModel.housePreview, onChangeHouse: viewModel.onChangeHouse)
-                        .padding()
-                }
-                Spacer()
+            
+            ZStack {
+                Capsule()
+                    .fill(.white)
+                    .shadow(color: .gray.opacity(0.4), radius: 20, x: 0, y: 20)
+                    .padding()
+                
+                CustomTabView(selectedTab: $viewModel.selectedTab)
             }
-            .padding(.horizontal, 10)
-            .padding(.top)
+            .frame(height: 90, alignment: .center)
+            .padding(.horizontal, 30)
+            .padding(.bottom, 15)
             
             if viewModel.addDeviceViewIsOpen {
                 ZStack(alignment: .center) {
                     VisualEffectView(effect: UIBlurEffect(style: .dark))
                         .onTapGesture {
-                            viewModel.onPressAdddevice.send()
+                            viewModel.onPressAddDevice.send()
                         }
                         .ignoresSafeArea()
                     
@@ -78,50 +72,14 @@ struct RootTabView: View {
                 viewModel.onTapDevice.send(nil)
             }
         }
-    }
-    
-    func makeTopView() -> some View {
-        ZStack(alignment: .bottom) {
-            if let choosenHouse = viewModel.house?.name {
-                Text(choosenHouse)
-                    .font(.title2)
-                    .fontWeight(.medium)
-                    .foregroundColor(Color("Navy"))
-                
-            }
-            HStack(alignment: .bottom) {
-                Spacer()
-                HStack {
-                    if let user = viewModel.user {
-                        Text(user.name)
-                            .foregroundColor(Color("Navy"))
-                        
-                        if !user.imageUrl.isEmpty {
-                            UrlImageView(urlString: user.imageUrl)
-                                .clipShape(Circle())
-                                .frame(width: 40, height: 40)
-                        } else {
-                            Image(systemName: "person.circle.fill")
-                                .font(.system(size: 25))
-                                .foregroundColor(Color("Navy"))
-                        }
-                    }
-                }
-            }
-        }
+        .ignoresSafeArea()
     }
     
     func setMainView(viewModel: MainMenuViewModel) -> some View {
         return MainMenuView(viewModel: viewModel)
-            .tabItem {
-                Label(NSLocalizedString("HOUSE", comment: "TapBar"), systemImage: "house")
-            }
     }
     
     func setSettingsView(viewModel: SettingsViewModel) -> some View {
         SettingsView(viewModel: viewModel)
-            .tabItem {
-                Label(NSLocalizedString("SETTINGS", comment: "TapBar"), systemImage: "person")
-            }
     }
 }

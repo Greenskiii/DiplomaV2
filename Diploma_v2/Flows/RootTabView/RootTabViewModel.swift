@@ -8,9 +8,18 @@
 import SwiftUI
 import Combine
 
-enum TabType {
+enum TabType: CaseIterable {
     case main
     case settings
+    
+    var icon: String {
+        switch self {
+        case .main:
+            return "house.fill"
+        case .settings:
+            return "gearshape.fill"
+        }
+    }
 }
 
 class RootTabViewModel: ObservableObject {
@@ -35,9 +44,8 @@ class RootTabViewModel: ObservableObject {
     var onGoToScannerScreen: PassthroughSubject<Void, Never>
     private(set) lazy var onTapDevice = PassthroughSubject<Device?, Never>()
     private(set) lazy var onSaveNewDeviceId = PassthroughSubject<String, Never>()
-    private(set) lazy var onPressAdddevice = PassthroughSubject<Void, Never>()
+    private(set) lazy var onPressAddDevice = PassthroughSubject<Void, Never>()
     private(set) lazy var onCloseDeviceDetail = PassthroughSubject<Void, Never>()
-    private(set) lazy var onChangeHouse = PassthroughSubject<String, Never>()
     
     var deviceDetailsViewModel: DeviceDetailsViewModel? {
         if let device = self.choosenDevice,
@@ -69,7 +77,7 @@ class RootTabViewModel: ObservableObject {
         self.mainMenuViewModel = MainMenuViewModel(
             dataManager: self.dataManager,
             authManager: self.authManager,
-            onPressAdddevice: self.onPressAdddevice,
+            onPressAddDevice: self.onPressAddDevice,
             onTapDevice: self.onTapDevice
         )
         
@@ -122,7 +130,7 @@ class RootTabViewModel: ObservableObject {
             }
             .store(in: &subscriptions)
         
-        onPressAdddevice
+        onPressAddDevice
             .sink { [weak self] _ in
                 self?.addDeviceViewIsOpen.toggle()
             }
@@ -144,13 +152,6 @@ class RootTabViewModel: ObservableObject {
                 self?.deviceDetailIsOpen = false
             }
             .store(in: &subscriptions)
-        
-        onChangeHouse
-            .sink { [weak self] houseId in
-                self?.dataManager.choosenRoomId = "Favorite"
-                self?.dataManager.onChangeHouse.send(houseId)
-            }
-            .store(in: &subscriptions)
     }
     
     func startTimerForError() {
@@ -166,17 +167,5 @@ class RootTabViewModel: ObservableObject {
                 }
             }
         }
-    }
-    
-    func addToFavorite(device: Device) {
-        guard let favoriteRoomIndex = house?.rooms.firstIndex(where: { $0.id == "Favorite" }),
-              let house = house
-        else {
-            return
-        }
-        if let deviceIndex = house.rooms[favoriteRoomIndex].devices.firstIndex(where: { $0.id == device.id }) {
-            self.house?.rooms[favoriteRoomIndex].devices.remove(at: deviceIndex)
-        }
-        self.dataManager.addToFavorite(deviceId: device.id)
     }
 }
