@@ -15,7 +15,7 @@ final class SettingsViewModel: ObservableObject {
     
     var oldName = ""
     var oldEmail = ""
-    
+    @Published var user: User? = nil
     @Published var house: House? = nil
     @Published var housePreview: [HousePreview] = []
     @Published var name = ""
@@ -31,21 +31,23 @@ final class SettingsViewModel: ObservableObject {
     @Published var deleteRoom = false
     @Published var loadViewShown = false
     @Published var passwordAlertIsShown = false
-    
+    @Published var isMenuShown = false
+
     var settingViewPublisher: AnyPublisher<SettingViews, Never> {
         $settingView.eraseToAnyPublisher()
     }
     
-    var logout = PassthroughSubject<Void, Never>()
-    var onAddHouse = PassthroughSubject<String, Never>()
-    var onDeleteHouse = PassthroughSubject<String, Never>()
-    var onDeleteRoom = PassthroughSubject<String, Never>()
-    var onAddRoom = PassthroughSubject<String, Never>()
-    var onGoToRoomsSettings = PassthroughSubject<String, Never>()
-    var onSaveUserInfo = PassthroughSubject<Void, Never>()
-    var onCancelUserInfoChanges = PassthroughSubject<Void, Never>()
-    var onChangePassword = PassthroughSubject<Void, Never>()
-    
+    private(set) lazy var logout = PassthroughSubject<Void, Never>()
+    private(set) lazy var onAddHouse = PassthroughSubject<String, Never>()
+    private(set) lazy var onDeleteHouse = PassthroughSubject<String, Never>()
+    private(set) lazy var onDeleteRoom = PassthroughSubject<String, Never>()
+    private(set) lazy var onAddRoom = PassthroughSubject<String, Never>()
+    private(set) lazy var onGoToRoomsSettings = PassthroughSubject<String, Never>()
+    private(set) lazy var onSaveUserInfo = PassthroughSubject<Void, Never>()
+    private(set) lazy var onCancelUserInfoChanges = PassthroughSubject<Void, Never>()
+    private(set) lazy var onChangePassword = PassthroughSubject<Void, Never>()
+    private(set) lazy var onChangeHouse = PassthroughSubject<String, Never>()
+
     init(
         authManager: AuthManager,
         dataManager: DataManager,
@@ -60,6 +62,10 @@ final class SettingsViewModel: ObservableObject {
         
         dataManager.$housePreview
             .assign(to: \.housePreview, on: self)
+            .store(in: &subscriptions)
+        
+        authManager.$user
+            .assign(to: \.user, on: self)
             .store(in: &subscriptions)
         
         self.settingViewPublisher
@@ -167,6 +173,13 @@ final class SettingsViewModel: ObservableObject {
                 }
             }
             .store(in: &self.subscriptions)
+        
+        onChangeHouse
+            .sink { [weak self] houseId in
+                self?.dataManager.choosenRoomId = "Favorite"
+                self?.dataManager.onChangeHouse.send(houseId)
+            }
+            .store(in: &subscriptions)
         
         if let user = authManager.getUserInfo() {
             self.oldName = user.name

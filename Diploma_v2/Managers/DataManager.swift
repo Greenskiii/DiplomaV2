@@ -21,7 +21,7 @@ final class DataManager {
     @Published public var house: House? = nil
     @Published public var housePreview: [HousePreview] = []
     @Published public var newDeviceId: String = ""
-    @Published var choosenRoomId = "Favorite"
+    @Published var choosenRoomId = ""
     
     private(set) lazy var onChangeHouse = PassthroughSubject<String, Never>()
     private(set) lazy var onChangeNewDeviceId = PassthroughSubject<String, Never>()
@@ -102,7 +102,6 @@ extension DataManager {
             switch result {
             case .success(let house):
                 self.house = house
-                self.house?.rooms.append(Room(id: "Favorite", name: "Favorite"))
                 if house.roomsLinkPath.isEmpty {
                     completion()
                 }
@@ -125,12 +124,12 @@ extension DataManager {
         firestoreManager.get(docId: roomId, collection: .room) { (result: Result<Room, FirestoreManagerError>) in
             switch result {
             case .success(let room):
-                if room.name == "Favorite" {
+                if self.choosenRoomId.isEmpty {
                     self.choosenRoomId = room.id
-                    self.house?.rooms.insert(room, at: 0)
-                } else {
-                    self.house?.rooms.append(room)
                 }
+                
+                self.house?.rooms.append(room)
+                
                 self.setDevices(for: room.id) {
                     completion()
                 }
@@ -151,10 +150,7 @@ extension DataManager {
             let roomId = String.randomString(length: 20)
             
             var roomsId = house.rooms.compactMap { room in
-                if room.id != "Favorite" {
-                    return room.id
-                }
-                return nil
+                return room.id
             }
             roomsId.append(roomId)
             
@@ -289,28 +285,6 @@ extension DataManager {
         }
     }
     
-    public func addToFavorite(deviceId: String) {
-        guard let house = self.house,
-              let favoriteRoomIndex = house.rooms.firstIndex(where: { $0.id == "Favorite" }) else {
-            return
-        }
-        
-        if let roomIndex = house.rooms.firstIndex(where: { $0.devicesId.contains(deviceId) }),
-           let deviceIndex = house.rooms[roomIndex].devices.firstIndex(where: { $0.id == deviceId }) {
-            self.house?.rooms[roomIndex].devices[deviceIndex].isFavorite.toggle()
-            
-            if let device = self.house?.rooms[roomIndex].devices[deviceIndex] {
-                if device.isFavorite {
-                    self.house?.rooms[favoriteRoomIndex].devices.append(device)
-                } else if let favoriteDeviceIndex = self.house?.rooms[favoriteRoomIndex].devices.firstIndex(where: { $0.id == deviceId }) {
-                    self.house?.rooms[favoriteRoomIndex].devices.remove(at: favoriteDeviceIndex)
-                }
-            }
-            self.realtimeDatabseManager.changeIsFavoriteValue(deviceId: deviceId,
-                                                              isFavorite: self.house?.rooms[roomIndex].devices[deviceIndex].isFavorite ?? false)
-        }
-    }
-    
     public func deleteDevice(with id: String,
                              houseId: String,
                              roomId: String,
@@ -364,10 +338,7 @@ extension DataManager {
         }
         
         let roomsId = house.rooms.compactMap { room in
-            if room.id != id && room.id != "Favorite" {
-                return room.id
-            }
-            return nil
+            return room.id
         }
         
         self.firestoreManager.add(data: ["name": house.name,"rooms": roomsId], documentId: house.id, collection: .house) { _ in
@@ -414,8 +385,6 @@ extension DataManager {
                 }
             }
         }
-        
-        
     }
 }
 
@@ -452,8 +421,6 @@ extension DataManager {
             
             if self?.house?.rooms[roomIndex].devices.first(where: { $0.id == device.id }) == nil {
                 self?.house?.rooms[roomIndex].devices.append(device)
-            } else if let deviceIndex = self?.house?.rooms[roomIndex].devices.firstIndex(where: { $0.id == device.id }) {
-                self?.house?.rooms[roomIndex].devices[deviceIndex].values = device.values
             }
             
             if house.rooms[roomIndex].previewValues.isEmpty {
@@ -463,12 +430,11 @@ extension DataManager {
                 self?.house?.rooms[roomIndex].previewValues = device.previewValues
             }
             
-            if device.isFavorite,
-               let favoriteRoomIndex = house.rooms.firstIndex(where: { $0.id == "Favorite" }) {
-                if self?.house?.rooms[favoriteRoomIndex].devices.first(where: { $0.id == device.id }) == nil {
-                    self?.house?.rooms[favoriteRoomIndex].devices.append(device)
-                } else if let deviceIndex = self?.house?.rooms[favoriteRoomIndex].devices.firstIndex(where: { $0.id == device.id }) {
-                    self?.house?.rooms[favoriteRoomIndex].devices[deviceIndex].values = device.values
+            device.values.forEach { value in
+                if self?.house?.rooms[roomIndex].values.first(where: { $0.name == value.name }) == nil {
+                    self?.house?.rooms[roomIndex].values.append(value)
+                } else if let valueIndex = self?.house?.rooms[roomIndex].values.firstIndex(where: { $0.deviceId == value.deviceId && $0.name == value.name }) {
+                    self?.house?.rooms[roomIndex].values[valueIndex] = value
                 }
             }
             completion()

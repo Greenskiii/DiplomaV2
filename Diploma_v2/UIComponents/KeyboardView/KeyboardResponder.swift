@@ -33,6 +33,8 @@ final class KeyboardResponder: ObservableObject {
     }
     
     @objc func keyBoardWillHide(notification: Notification) {
-        currentHeight = 0
+        Task { @MainActor in
+            currentHeight = 0
+        }
     }
 }

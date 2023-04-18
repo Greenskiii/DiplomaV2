@@ -10,40 +10,62 @@ import Combine
 
 struct MainMenuView: View {
     @ObservedObject var viewModel: MainMenuViewModel
-
+    
     var body: some View {
         GeometryReader { geometry in
             ZStack(alignment: .top) {
-                Color("TropicalBlue")
+                Rectangle()
+                    .fill(
+                        LinearGradient(
+                            gradient: Gradient(colors: [Color("LightGray"), Color("TropicalBlue")]),
+                            startPoint: .top,
+                            endPoint: .bottom
+                        )
+                    )
                     .ignoresSafeArea()
-
+                
                 VStack {
+                    makeTopView()
+                        .padding(.horizontal)
+                        .padding(.top)
                     if let house = viewModel.house {
                         makeRoomPreviewView(for: house)
-                        if let room = viewModel.shownRoom {
-                            makeDevicesGrid(for: room)
-                                .frame(minHeight: geometry.size.height * 0.75)
-                                .padding(.horizontal)
-                                .padding(.bottom, geometry.size.height * 0.12)
-                        } else {
-                            VStack {
-                                Spacer()
-                                Image(systemName: "house")
-                                    .font(.system(size: 150))
-                                    .padding(.bottom)
-                                Text(NSLocalizedString("SELECT_ROOM", comment: "Main Menu"))
-                                    .fontWeight(.bold)
-                                Spacer()
+                        if let room = house.rooms.first(where: { $0.id == viewModel.choosenRoomId }) {
+                        ScrollView(.vertical) {
+                            DevicesView(
+                                devices: room.devices,
+                                onPressAddDevice: viewModel.onPressAddDevice,
+                                onTapDevice: viewModel.onTapDevice
+                            )
+                            .frame(height: geometry.size.height * 0.2)
+                            .padding(.horizontal)
+                            .padding(.top, 4)
+                            
+                                ValuesGridView(values: room.values.chunked(into: 3))
+                                        .padding()
                             }
-                            .foregroundColor(.gray)
                         }
                     }
                 }
+                HStack {
+                    if let choosenHouse = viewModel.house?.id {
+                        HouseMenu(
+                            isMenuShown: $viewModel.isMenuShown,
+                            choosenHouse: choosenHouse,
+                            houses: viewModel.housePreview,
+                            onChangeHouse: viewModel.onChangeHouse
+                        )
+                            .padding()
+                    }
+                    Spacer()
+                }
+                .padding(.horizontal, 10)
+                .padding(.top)
             }
             .edgesIgnoringSafeArea(.bottom)
         }
     }
-
+    
     func makeTopView() -> some View {
         ZStack(alignment: .bottom) {
             if let choosenHouse = viewModel.house?.name {
@@ -51,7 +73,7 @@ struct MainMenuView: View {
                     .font(.title2)
                     .fontWeight(.medium)
                     .foregroundColor(Color("Navy"))
-
+                
             }
             HStack(alignment: .bottom) {
                 Spacer()
@@ -79,9 +101,12 @@ struct MainMenuView: View {
         ScrollView(.horizontal, showsIndicators: false) {
             HStack {
                 ForEach(house.rooms, id: \.self) { room in
-                    RoomPreviewCard(room: room, isSelected: room.id == viewModel.choosenRoomId)
+                    RoomPreviewCard(
+                        room: room,
+                        isSelected: room.id == viewModel.choosenRoomId
+                    )
                         .frame(minWidth: 150)
-                        .padding(.bottom)
+                        .padding(.vertical, 4)
                         .onTapGesture {
                             withAnimation {
                                 viewModel.onChooseRoom.send(room.id)
@@ -92,53 +117,12 @@ struct MainMenuView: View {
             .padding(.horizontal)
         }
     }
+}
 
-    func makeDevicesGrid(for room: Room) -> some View {
-        ZStack(alignment: .bottom) {
-            RoundedRectangle(cornerRadius: 16)
-                .foregroundColor(.white)
-                .shadow(color: .gray, radius: 3, x: 2, y: 2)
-
-                if room.devices.isEmpty {
-                    VStack {
-                        Spacer()
-                        Image(systemName: "externaldrive.badge.wifi")
-                            .foregroundColor(.gray)
-                            .font(.system(size: 100))
-                            .padding()
-
-                        Text(NSLocalizedString(room.name == "Favorite" ? "NO_DEVICES_FAVORITE" : "NO_DEVICES", comment: "Main Menu") )
-                            .foregroundColor(.gray)
-                            .multilineTextAlignment(.center)
-                        Spacer()
-                    }
-                } else {
-                    DevicesGridView(
-                        devices: room.devices,
-                        isFavoriteRoom: room.id == "Favorite",
-                        onTapDevice: viewModel.onTapDevice,
-                        onTapFavorite: viewModel.onTapFavorite
-                    )
-                        .padding(.bottom)
-                        .animation(.easeInOut(duration: 1))
-                }
-            
-            if room.name != "Favorite" {
-                Button {
-                    viewModel.onPressAdddevice.send()
-                } label: {
-                    ZStack {
-                        RoundedRectangle(cornerRadius: 8)
-                            .foregroundColor(Color("Navy"))
-                        
-                        Image(systemName: "plus")
-                            .font(.system(size: 30))
-                            .foregroundColor(.white)
-                    }
-                    .padding()
-                    .frame(height: 70)
-                }
-            }
+extension Array {
+    func chunked(into size: Int) -> [[Element]] {
+        return stride(from: 0, to: count, by: size).map {
+            Array(self[$0 ..< Swift.min($0 + size, count)])
         }
     }
 }

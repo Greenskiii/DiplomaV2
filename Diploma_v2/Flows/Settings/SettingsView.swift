@@ -13,10 +13,17 @@ struct SettingsView: View {
     var body: some View {
         KeyboardView {
             GeometryReader { geometry in
-                ZStack {
-                    Color("TropicalBlue")
+                ZStack(alignment: .top) {
+                    Rectangle()
+                        .fill(
+                            LinearGradient(gradient: Gradient(colors: [Color("LightGray"), Color("TropicalBlue")]),
+                                           startPoint: .top,
+                                           endPoint: .bottom)
+                        )
                         .ignoresSafeArea()
                     VStack {
+                        makeTopView()
+                            .padding(.top)
                         HStack {
                             Text(NSLocalizedString("SETTINGS", comment: "Settings"))
                                 .font(.title)
@@ -74,10 +81,20 @@ struct SettingsView: View {
                         .frame(minHeight: geometry.size.height * 0.75)
                     }
                     .padding(.horizontal)
+                    
+                    HStack {
+                        if let choosenHouse = viewModel.house?.id {
+                            HouseMenu(isMenuShown: $viewModel.isMenuShown, choosenHouse: choosenHouse, houses: viewModel.housePreview, onChangeHouse: viewModel.onChangeHouse)
+                                .padding()
+                        }
+                        Spacer()
+                    }
+                    .padding(.horizontal, 10)
+                    .padding(.top)
+                    
                     LoadingView()
                         .frame(width: 155, height: 175)
                         .isHidden(!viewModel.loadViewShown)
-                    
                 }
                 .alert(isPresented: $viewModel.showingLogoutAlert) {
                     Alert(
@@ -239,4 +256,36 @@ struct SettingsView: View {
             }
         }
     }
+    
+    func makeTopView() -> some View {
+        ZStack(alignment: .bottom) {
+            if let choosenHouse = viewModel.house?.name {
+                Text(choosenHouse)
+                    .font(.title2)
+                    .fontWeight(.medium)
+                    .foregroundColor(Color("Navy"))
+                
+            }
+            HStack(alignment: .bottom) {
+                Spacer()
+                HStack {
+                    if let user = viewModel.user {
+                        Text(user.name)
+                            .foregroundColor(Color("Navy"))
+                        
+                        if !user.imageUrl.isEmpty {
+                            UrlImageView(urlString: user.imageUrl)
+                                .clipShape(Circle())
+                                .frame(width: 40, height: 40)
+                        } else {
+                            Image(systemName: "person.circle.fill")
+                                .font(.system(size: 25))
+                                .foregroundColor(Color("Navy"))
+                        }
+                    }
+                }
+            }
+        }
+    }
+
 }

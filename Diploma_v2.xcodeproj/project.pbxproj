@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		07B4B010461FFC62091EB16A /* Pods_Diploma_v2.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 09DA504D158DE61EA7BDDB3B /* Pods_Diploma_v2.framework */; };
+		B802BA5229EED00B001B6C15 /* CustomTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B802BA5129EED00B001B6C15 /* CustomTabView.swift */; };
+		B802BA5429EED033001B6C15 /* TabButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = B802BA5329EED033001B6C15 /* TabButton.swift */; };
 		B834A93B297745F200AC8F09 /* AuthorizationModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B834A93A297745F200AC8F09 /* AuthorizationModel.swift */; };
 		B834A93D29784A2E00AC8F09 /* ErrorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B834A93C29784A2E00AC8F09 /* ErrorView.swift */; };
 		B834A94329785D0000AC8F09 /* AppCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = B834A94229785D0000AC8F09 /* AppCoordinator.swift */; };
@@ -36,6 +38,8 @@
 		B877ACAC29E7151200E97EA1 /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = B877ACAB29E7151200E97EA1 /* Settings.swift */; };
 		B877ACB029E71DCF00E97EA1 /* LoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B877ACAF29E71DCF00E97EA1 /* LoadingView.swift */; };
 		B877ACB229E723E400E97EA1 /* UIApplication.endEditing.swift in Sources */ = {isa = PBXBuildFile; fileRef = B877ACB129E723E400E97EA1 /* UIApplication.endEditing.swift */; };
+		B877ACB429E9300A00E97EA1 /* DevicesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B877ACB329E9300A00E97EA1 /* DevicesView.swift */; };
+		B877ACB629E940E200E97EA1 /* ValuesGridView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B877ACB529E940E200E97EA1 /* ValuesGridView.swift */; };
 		B87BE75629D3513900CECC5A /* FirestoreModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B87BE75529D3513900CECC5A /* FirestoreModel.swift */; };
 		B87BE75829D3519200CECC5A /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = B87BE75729D3519200CECC5A /* User.swift */; };
 		B87BE75A29D351C600CECC5A /* House.swift in Sources */ = {isa = PBXBuildFile; fileRef = B87BE75929D351C600CECC5A /* House.swift */; };
@@ -68,7 +72,6 @@
 		B894BA6B29A935D400C4BB22 /* ScannerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B894BA6A29A935D400C4BB22 /* ScannerViewController.swift */; };
 		B8A4CF5D29C900D8009E9BC5 /* Diploma_v2Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8A4CF5C29C900D8009E9BC5 /* Diploma_v2Tests.swift */; };
 		B8AC98F1298D3D6500C40B84 /* RoomPreviewCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8AC98F0298D3D6500C40B84 /* RoomPreviewCard.swift */; };
-		B8AC98F3298D3D9400C40B84 /* DeviceCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8AC98F2298D3D9400C40B84 /* DeviceCard.swift */; };
 		B8C5CADD2979ED10009ED632 /* ForgotPasswordView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8C5CADC2979ED10009ED632 /* ForgotPasswordView.swift */; };
 		B8C5CADF2979F032009ED632 /* ForgotPasswordViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8C5CADE2979F032009ED632 /* ForgotPasswordViewModel.swift */; };
 		B8CDA92229E054EA00C5502D /* TextFieldAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8CDA92129E054EA00C5502D /* TextFieldAlert.swift */; };
@@ -89,7 +92,6 @@
 		B8CE2DB82982C622007FFA2E /* MainMenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8CE2DB02982C622007FFA2E /* MainMenuViewController.swift */; };
 		B8CE2DB92982C622007FFA2E /* MainMenuCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8CE2DB12982C622007FFA2E /* MainMenuCoordinator.swift */; };
 		B8CE2DBE2982C69D007FFA2E /* DataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8CE2DBD2982C69D007FFA2E /* DataManager.swift */; };
-		B8CE2DCF29845D9B007FFA2E /* DevicesGridView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8CE2DCE29845D9B007FFA2E /* DevicesGridView.swift */; };
 		B8D2303F29CA22E800EB1973 /* HouseMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8D2303E29CA22E800EB1973 /* HouseMenu.swift */; };
 		B8F9016129CCEB8F00DE3797 /* FirestoreManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8F9016029CCEB8F00DE3797 /* FirestoreManager.swift */; };
 /* End PBXBuildFile section */
@@ -107,6 +109,8 @@
 /* Begin PBXFileReference section */
 		09DA504D158DE61EA7BDDB3B /* Pods_Diploma_v2.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Diploma_v2.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		1DF3547ACC526E5CD2624627 /* Pods-Diploma_v2.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Diploma_v2.release.xcconfig"; path = "Target Support Files/Pods-Diploma_v2/Pods-Diploma_v2.release.xcconfig"; sourceTree = "<group>"; };
+		B802BA5129EED00B001B6C15 /* CustomTabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTabView.swift; sourceTree = "<group>"; };
+		B802BA5329EED033001B6C15 /* TabButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabButton.swift; sourceTree = "<group>"; };
 		B834A93029760AA000AC8F09 /* Diploma-v2-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "Diploma-v2-Info.plist"; sourceTree = SOURCE_ROOT; };
 		B834A93A297745F200AC8F09 /* AuthorizationModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthorizationModel.swift; sourceTree = "<group>"; };
 		B834A93C29784A2E00AC8F09 /* ErrorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorView.swift; sourceTree = "<group>"; };
@@ -138,6 +142,8 @@
 		B877ACAB29E7151200E97EA1 /* Settings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Settings.swift; sourceTree = "<group>"; };
 		B877ACAF29E71DCF00E97EA1 /* LoadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingView.swift; sourceTree = "<group>"; };
 		B877ACB129E723E400E97EA1 /* UIApplication.endEditing.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIApplication.endEditing.swift; sourceTree = "<group>"; };
+		B877ACB329E9300A00E97EA1 /* DevicesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DevicesView.swift; sourceTree = "<group>"; };
+		B877ACB529E940E200E97EA1 /* ValuesGridView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ValuesGridView.swift; sourceTree = "<group>"; };
 		B87BE75529D3513900CECC5A /* FirestoreModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirestoreModel.swift; sourceTree = "<group>"; };
 		B87BE75729D3519200CECC5A /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		B87BE75929D351C600CECC5A /* House.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = House.swift; sourceTree = "<group>"; };
@@ -172,7 +178,6 @@
 		B8A4CF5A29C900D8009E9BC5 /* Diploma_v2Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Diploma_v2Tests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		B8A4CF5C29C900D8009E9BC5 /* Diploma_v2Tests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Diploma_v2Tests.swift; sourceTree = "<group>"; };
 		B8AC98F0298D3D6500C40B84 /* RoomPreviewCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoomPreviewCard.swift; sourceTree = "<group>"; };
-		B8AC98F2298D3D9400C40B84 /* DeviceCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceCard.swift; sourceTree = "<group>"; };
 		B8C5CADC2979ED10009ED632 /* ForgotPasswordView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForgotPasswordView.swift; sourceTree = "<group>"; };
 		B8C5CADE2979F032009ED632 /* ForgotPasswordViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForgotPasswordViewModel.swift; sourceTree = "<group>"; };
 		B8CDA92129E054EA00C5502D /* TextFieldAlert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextFieldAlert.swift; sourceTree = "<group>"; };
@@ -193,7 +198,6 @@
 		B8CE2DB02982C622007FFA2E /* MainMenuViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainMenuViewController.swift; sourceTree = "<group>"; };
 		B8CE2DB12982C622007FFA2E /* MainMenuCoordinator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainMenuCoordinator.swift; sourceTree = "<group>"; };
 		B8CE2DBD2982C69D007FFA2E /* DataManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataManager.swift; sourceTree = "<group>"; };
-		B8CE2DCE29845D9B007FFA2E /* DevicesGridView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DevicesGridView.swift; sourceTree = "<group>"; };
 		B8D2303E29CA22E800EB1973 /* HouseMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HouseMenu.swift; sourceTree = "<group>"; };
 		B8F9016029CCEB8F00DE3797 /* FirestoreManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirestoreManager.swift; sourceTree = "<group>"; };
 		D19EA41FA2485D5F2659D2E9 /* Pods-Diploma_v2.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Diploma_v2.debug.xcconfig"; path = "Target Support Files/Pods-Diploma_v2/Pods-Diploma_v2.debug.xcconfig"; sourceTree = "<group>"; };
@@ -233,6 +237,15 @@
 				1DF3547ACC526E5CD2624627 /* Pods-Diploma_v2.release.xcconfig */,
 			);
 			path = Pods;
+			sourceTree = "<group>";
+		};
+		B802BA5029EECFE1001B6C15 /* CustomTabView */ = {
+			isa = PBXGroup;
+			children = (
+				B802BA5129EED00B001B6C15 /* CustomTabView.swift */,
+				B802BA5329EED033001B6C15 /* TabButton.swift */,
+			);
+			path = CustomTabView;
 			sourceTree = "<group>";
 		};
 		B834A94C2978889E00AC8F09 /* SystemFiles */ = {
@@ -486,6 +499,7 @@
 		B8CE2D9A2982C5F0007FFA2E /* UIComponents */ = {
 			isa = PBXGroup;
 			children = (
+				B802BA5029EECFE1001B6C15 /* CustomTabView */,
 				B877AC9F29E6C58200E97EA1 /* KeyboardView */,
 				B8CDA92329E057BB00C5502D /* TextFieldAlert */,
 				B874D184298BE10D0075910A /* ImageLoader */,
@@ -522,11 +536,11 @@
 		B8CE2DCD29845D77007FFA2E /* UI */ = {
 			isa = PBXGroup;
 			children = (
-				B8CE2DCE29845D9B007FFA2E /* DevicesGridView.swift */,
 				B8AC98F0298D3D6500C40B84 /* RoomPreviewCard.swift */,
-				B8AC98F2298D3D9400C40B84 /* DeviceCard.swift */,
 				B894BA5C29A8122800C4BB22 /* AddDeviceView.swift */,
 				B8D2303E29CA22E800EB1973 /* HouseMenu.swift */,
+				B877ACB329E9300A00E97EA1 /* DevicesView.swift */,
+				B877ACB529E940E200E97EA1 /* ValuesGridView.swift */,
 			);
 			path = UI;
 			sourceTree = "<group>";
@@ -682,6 +696,7 @@
 				B8CDA92729E0B96E00C5502D /* TextFieldAlertViewController.swift in Sources */,
 				B88AEEC229CB8069002FFE7B /* AccountSettingView.swift in Sources */,
 				B889C90029B6527200E6977B /* RootTabViewModel.swift in Sources */,
+				B877ACB429E9300A00E97EA1 /* DevicesView.swift in Sources */,
 				B8D2303F29CA22E800EB1973 /* HouseMenu.swift in Sources */,
 				B8CE2DB72982C622007FFA2E /* MainMenuViewModel.swift in Sources */,
 				B877ACA329E6C5AA00E97EA1 /* KeyboardResponder.swift in Sources */,
@@ -691,6 +706,7 @@
 				B8CE2DBE2982C69D007FFA2E /* DataManager.swift in Sources */,
 				B894BA6929A9333800C4BB22 /* QrCodeScannerView.swift in Sources */,
 				B889C8EF29B2622D00E6977B /* RootTabCoordinator.swift in Sources */,
+				B802BA5429EED033001B6C15 /* TabButton.swift in Sources */,
 				B874C99429757AEF00D6CC30 /* Coordinator.swift in Sources */,
 				B894BA6B29A935D400C4BB22 /* ScannerViewController.swift in Sources */,
 				B894BA6029A932C100C4BB22 /* ScannerViewModel.swift in Sources */,
@@ -710,10 +726,10 @@
 				B834A93B297745F200AC8F09 /* AuthorizationModel.swift in Sources */,
 				B889C8FA29B6119900E6977B /* SettingsView.swift in Sources */,
 				B8CDA92B29E0B9C400C5502D /* UITextField + extension.swift in Sources */,
+				B877ACB629E940E200E97EA1 /* ValuesGridView.swift in Sources */,
 				B8C5CADF2979F032009ED632 /* ForgotPasswordViewModel.swift in Sources */,
 				B877ACB029E71DCF00E97EA1 /* LoadingView.swift in Sources */,
 				B8CE2DA92982C5F1007FFA2E /* BackgroundGeometryReader.swift in Sources */,
-				B8CE2DCF29845D9B007FFA2E /* DevicesGridView.swift in Sources */,
 				B87BE75A29D351C600CECC5A /* House.swift in Sources */,
 				B834A94329785D0000AC8F09 /* AppCoordinator.swift in Sources */,
 				B8CE2DAB2982C5F1007FFA2E /* SecureTextField.swift in Sources */,
@@ -735,13 +751,13 @@
 				B8CE2DAA2982C5F1007FFA2E /* BottomSheetView.swift in Sources */,
 				B87BE75629D3513900CECC5A /* FirestoreModel.swift in Sources */,
 				B894BA6729A9331A00C4BB22 /* CameraPreview.swift in Sources */,
-				B8AC98F3298D3D9400C40B84 /* DeviceCard.swift in Sources */,
 				B889C8FE29B611B300E6977B /* SettingsViewModel.swift in Sources */,
 				B889C8EB29B260D100E6977B /* RootTabView.swift in Sources */,
 				B874C99E2975CB0800D6CC30 /* AuthManager.swift in Sources */,
 				B889C8F629B5F91100E6977B /* Device.swift in Sources */,
 				B8F9016129CCEB8F00DE3797 /* FirestoreManager.swift in Sources */,
 				B874D186298BE11E0075910A /* UrlImageModel.swift in Sources */,
+				B802BA5229EED00B001B6C15 /* CustomTabView.swift in Sources */,
 				B86F173929E18FC8008E064D /* ImageCache.swift in Sources */,
 				B8CE2DAC2982C5F1007FFA2E /* VisualEffectView.swift in Sources */,
 				B88DE1BF2992DFA200DD91AB /* DeviceDetailsViewModel.swift in Sources */,

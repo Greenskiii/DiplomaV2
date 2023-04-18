@@ -14,17 +14,18 @@ class MainMenuViewModel: ObservableObject {
     let dataManager: DataManager
     let authManager: AuthManager
     
-    @Published var user: User?
+    @Published var user: User? = nil
     @Published var house: House? = nil
     @Published var showErrorView: Bool = false
     @Published var housePreview: [HousePreview] = []
     @Published var choosenRoomId = "Favorite"
-    
+    @Published var isMenuShown = false
+
     var onTapDevice: PassthroughSubject<Device?, Never>
-    var onPressAdddevice: PassthroughSubject<Void, Never>
+    var onPressAddDevice: PassthroughSubject<Void, Never>
     private(set) lazy var onChooseRoom = PassthroughSubject<String, Never>()
-    private(set) lazy var onTapFavorite = PassthroughSubject<Device, Never>()
-    
+    private(set) lazy var onChangeHouse = PassthroughSubject<String, Never>()
+
     var shownRoom: Room? {
         guard let house = house else { return nil }
         return house.rooms.first(where: { $0.id == choosenRoomId })
@@ -33,14 +34,17 @@ class MainMenuViewModel: ObservableObject {
     init(
         dataManager: DataManager,
         authManager: AuthManager,
-        onPressAdddevice: PassthroughSubject<Void, Never>,
+        onPressAddDevice: PassthroughSubject<Void, Never>,
         onTapDevice: PassthroughSubject<Device?, Never>
     ) {
         self.dataManager = dataManager
         self.authManager = authManager
         self.onTapDevice = onTapDevice
-        self.onPressAdddevice = onPressAdddevice
-        self.user = authManager.getUserInfo()
+        self.onPressAddDevice = onPressAddDevice
+        
+        authManager.$user
+            .assign(to: \.user, on: self)
+            .store(in: &subscriptions)
         
         dataManager.$house
             .assign(to: \.house, on: self)
@@ -54,12 +58,6 @@ class MainMenuViewModel: ObservableObject {
             .assign(to: \.choosenRoomId, on: self)
             .store(in: &subscriptions)
         
-        onTapFavorite
-            .sink { [weak self] device in
-                self?.addToFavorite(device: device)
-            }
-            .store(in: &subscriptions)
-        
         onChooseRoom
             .sink { [weak self] id in
                 if self?.choosenRoomId == id {
@@ -69,17 +67,12 @@ class MainMenuViewModel: ObservableObject {
                 }
             }
             .store(in: &subscriptions)
-    }
-    
-    func addToFavorite(device: Device) {
-        guard let favoriteRoomIndex = house?.rooms.firstIndex(where: { $0.id == "Favorite" }),
-              let house = house
-        else {
-            return
-        }
-        if let deviceIndex = house.rooms[favoriteRoomIndex].devices.firstIndex(where: { $0.id == device.id }) {
-            self.house?.rooms[favoriteRoomIndex].devices.remove(at: deviceIndex)
-        }
-        self.dataManager.addToFavorite(deviceId: device.id)
+        
+        onChangeHouse
+            .sink { [weak self] houseId in
+                self?.dataManager.choosenRoomId = "Favorite"
+                self?.dataManager.onChangeHouse.send(houseId)
+            }
+            .store(in: &subscriptions)
     }
 }

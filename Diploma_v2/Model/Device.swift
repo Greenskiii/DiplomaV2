@@ -15,21 +15,18 @@ struct Device: Hashable {
     let room: String
     var values: [Value]
     var previewValues: [Value] = []
-    var isFavorite: Bool
     
     init(id: String,
          name: String,
          image: String,
          room: String,
-         values: [Value] = [],
-         isFavorite: Bool = false
+         values: [Value] = []
     ) {
         self.id = id
         self.name = name
         self.image = image
         self.room = room
         self.values = values
-        self.isFavorite = isFavorite
     }
     
     init?(snapshot: DataSnapshot) {
@@ -47,7 +44,7 @@ struct Device: Hashable {
         if let preview = dictionary["previewValues"] as? [String: Any] {
             preview.forEach { (key, value) in
                 if let data = value as? [String: Any],
-                   let deviceValue = Value(dictionary: data) {
+                   let deviceValue = Value(deviceId: id, dictionary: data) {
                     values.append(deviceValue)
                     previewValues.append(deviceValue)
                 }
@@ -56,7 +53,7 @@ struct Device: Hashable {
         if let valuesData = dictionary["values"] as? [String: Any] {
             valuesData.forEach { (key, value) in
                 if let data = value as? [String: Any],
-                   let deviceValue = Value(dictionary: data) {
+                   let deviceValue = Value(deviceId: id, dictionary: data) {
                     values.append(deviceValue)
                 }
             }
@@ -68,6 +65,5 @@ struct Device: Hashable {
         self.room = room
         self.values = values
         self.previewValues = previewValues
-        self.isFavorite = dictionary["isFavorite"] as? Bool ?? false
     }
 }
