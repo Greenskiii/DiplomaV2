@@ -10,6 +10,7 @@
 		07B4B010461FFC62091EB16A /* Pods_Diploma_v2.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 09DA504D158DE61EA7BDDB3B /* Pods_Diploma_v2.framework */; };
 		B802BA5229EED00B001B6C15 /* CustomTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B802BA5129EED00B001B6C15 /* CustomTabView.swift */; };
 		B802BA5429EED033001B6C15 /* TabButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = B802BA5329EED033001B6C15 /* TabButton.swift */; };
+		B802BA5729EFF899001B6C15 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B802BA5629EFF899001B6C15 /* SettingsViewController.swift */; };
 		B834A93B297745F200AC8F09 /* AuthorizationModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B834A93A297745F200AC8F09 /* AuthorizationModel.swift */; };
 		B834A93D29784A2E00AC8F09 /* ErrorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B834A93C29784A2E00AC8F09 /* ErrorView.swift */; };
 		B834A94329785D0000AC8F09 /* AppCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = B834A94229785D0000AC8F09 /* AppCoordinator.swift */; };
@@ -111,6 +112,7 @@
 		1DF3547ACC526E5CD2624627 /* Pods-Diploma_v2.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Diploma_v2.release.xcconfig"; path = "Target Support Files/Pods-Diploma_v2/Pods-Diploma_v2.release.xcconfig"; sourceTree = "<group>"; };
 		B802BA5129EED00B001B6C15 /* CustomTabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTabView.swift; sourceTree = "<group>"; };
 		B802BA5329EED033001B6C15 /* TabButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabButton.swift; sourceTree = "<group>"; };
+		B802BA5629EFF899001B6C15 /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		B834A93029760AA000AC8F09 /* Diploma-v2-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "Diploma-v2-Info.plist"; sourceTree = SOURCE_ROOT; };
 		B834A93A297745F200AC8F09 /* AuthorizationModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthorizationModel.swift; sourceTree = "<group>"; };
 		B834A93C29784A2E00AC8F09 /* ErrorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorView.swift; sourceTree = "<group>"; };
@@ -248,15 +250,29 @@
 			path = CustomTabView;
 			sourceTree = "<group>";
 		};
+		B802BA5529EED223001B6C15 /* House */ = {
+			isa = PBXGroup;
+			children = (
+				B889C8F529B5F91100E6977B /* Device.swift */,
+				B87BE75929D351C600CECC5A /* House.swift */,
+				B86F173329E18F60008E064D /* HousePreview.swift */,
+				B87BE75B29D351F300CECC5A /* Room.swift */,
+				B86F173629E18F77008E064D /* RoomPreview.swift */,
+				B86F173129E18F0D008E064D /* UserHouses.swift */,
+				B889C8F729B5F92200E6977B /* Value.swift */,
+			);
+			path = House;
+			sourceTree = "<group>";
+		};
 		B834A94C2978889E00AC8F09 /* SystemFiles */ = {
 			isa = PBXGroup;
 			children = (
-				B874C99829757CB800D6CC30 /* SceneDelegate.swift */,
 				B874C99529757C9E00D6CC30 /* AppDelegate.swift */,
-				B834A94429785DA000AC8F09 /* Main.storyboard */,
+				B874C99829757CB800D6CC30 /* SceneDelegate.swift */,
+				B877ACB129E723E400E97EA1 /* UIApplication.endEditing.swift */,
 				B874C99A29757ECF00D6CC30 /* GoogleService-Info.plist */,
 				B88AEECC29CB8846002FFE7B /* Localizable.strings */,
-				B877ACB129E723E400E97EA1 /* UIApplication.endEditing.swift */,
+				B834A94429785DA000AC8F09 /* Main.storyboard */,
 			);
 			path = SystemFiles;
 			sourceTree = "<group>";
@@ -277,9 +293,9 @@
 			children = (
 				B874C975296ED20D00D6CC30 /* Diploma_v2 */,
 				B8A4CF5B29C900D8009E9BC5 /* Diploma_v2Tests */,
-				B874C974296ED20D00D6CC30 /* Products */,
-				6117B5022985AE8D0034ADFD /* Pods */,
 				107A6E61F626166A3D08237B /* Frameworks */,
+				6117B5022985AE8D0034ADFD /* Pods */,
+				B874C974296ED20D00D6CC30 /* Products */,
 			);
 			sourceTree = "<group>";
 		};
@@ -295,15 +311,15 @@
 		B874C975296ED20D00D6CC30 /* Diploma_v2 */ = {
 			isa = PBXGroup;
 			children = (
+				B874C97A296ED20F00D6CC30 /* Assets.xcassets */,
+				B834A93029760AA000AC8F09 /* Diploma-v2-Info.plist */,
+				B834A95129788C4E00AC8F09 /* Diploma_v2.entitlements */,
 				B87BE75429D3512900CECC5A /* Model */,
 				B8CE2D9A2982C5F0007FFA2E /* UIComponents */,
-				B834A95129788C4E00AC8F09 /* Diploma_v2.entitlements */,
 				B874C988297579BA00D6CC30 /* Сoordinator */,
 				B834A94D297888CD00AC8F09 /* Managers */,
 				B834A94C2978889E00AC8F09 /* SystemFiles */,
-				B834A93029760AA000AC8F09 /* Diploma-v2-Info.plist */,
 				B874C984296ED48700D6CC30 /* Flows */,
-				B874C97A296ED20F00D6CC30 /* Assets.xcassets */,
 				B874C97C296ED20F00D6CC30 /* Preview Content */,
 			);
 			path = Diploma_v2;
@@ -320,12 +336,12 @@
 		B874C984296ED48700D6CC30 /* Flows */ = {
 			isa = PBXGroup;
 			children = (
-				B889C8E929B260C500E6977B /* RootTabView */,
-				B894BA5E29A931A300C4BB22 /* QrScannerView */,
-				B88DE1B52992DEC100DD91AB /* DeviceDetails */,
-				B874C987296ED4D000D6CC30 /* Settings */,
-				B874C986296ED4B500D6CC30 /* MainMenu */,
 				B874C985296ED49900D6CC30 /* Authorization */,
+				B88DE1B52992DEC100DD91AB /* DeviceDetails */,
+				B874C986296ED4B500D6CC30 /* MainMenu */,
+				B894BA5E29A931A300C4BB22 /* QrScannerView */,
+				B889C8E929B260C500E6977B /* RootTabView */,
+				B874C987296ED4D000D6CC30 /* Settings */,
 			);
 			path = Flows;
 			sourceTree = "<group>";
@@ -333,12 +349,12 @@
 		B874C985296ED49900D6CC30 /* Authorization */ = {
 			isa = PBXGroup;
 			children = (
-				B8C5CAE0297AE6C1009ED632 /* ForgotPasswordView */,
-				B874C98D29757A3A00D6CC30 /* AuthorizationViewController.swift */,
-				B874C98F29757AA100D6CC30 /* AuthorizationView.swift */,
-				B834A93A297745F200AC8F09 /* AuthorizationModel.swift */,
-				B834A93C29784A2E00AC8F09 /* ErrorView.swift */,
 				B834A94629785EEE00AC8F09 /* AuthorizationCoordinator.swift */,
+				B834A93A297745F200AC8F09 /* AuthorizationModel.swift */,
+				B874C98F29757AA100D6CC30 /* AuthorizationView.swift */,
+				B874C98D29757A3A00D6CC30 /* AuthorizationViewController.swift */,
+				B834A93C29784A2E00AC8F09 /* ErrorView.swift */,
+				B8C5CAE0297AE6C1009ED632 /* ForgotPasswordView */,
 			);
 			path = Authorization;
 			sourceTree = "<group>";
@@ -346,11 +362,11 @@
 		B874C986296ED4B500D6CC30 /* MainMenu */ = {
 			isa = PBXGroup;
 			children = (
-				B8CE2DCD29845D77007FFA2E /* UI */,
 				B8CE2DB12982C622007FFA2E /* MainMenuCoordinator.swift */,
-				B8CE2DAF2982C622007FFA2E /* MainMenuViewModel.swift */,
 				B8CE2DAD2982C622007FFA2E /* MainMenuView.swift */,
 				B8CE2DB02982C622007FFA2E /* MainMenuViewController.swift */,
+				B8CE2DAF2982C622007FFA2E /* MainMenuViewModel.swift */,
+				B8CE2DCD29845D77007FFA2E /* UI */,
 			);
 			path = MainMenu;
 			sourceTree = "<group>";
@@ -358,9 +374,10 @@
 		B874C987296ED4D000D6CC30 /* Settings */ = {
 			isa = PBXGroup;
 			children = (
-				B88AEEBC29CB7CE4002FFE7B /* UI */,
 				B889C8F929B6119900E6977B /* SettingsView.swift */,
+				B802BA5629EFF899001B6C15 /* SettingsViewController.swift */,
 				B889C8FD29B611B300E6977B /* SettingsViewModel.swift */,
+				B88AEEBC29CB7CE4002FFE7B /* UI */,
 			);
 			path = Settings;
 			sourceTree = "<group>";
@@ -368,8 +385,8 @@
 		B874C988297579BA00D6CC30 /* Сoordinator */ = {
 			isa = PBXGroup;
 			children = (
-				B874C99329757AEF00D6CC30 /* Coordinator.swift */,
 				B834A94229785D0000AC8F09 /* AppCoordinator.swift */,
+				B874C99329757AEF00D6CC30 /* Coordinator.swift */,
 			);
 			path = "Сoordinator";
 			sourceTree = "<group>";
@@ -377,9 +394,9 @@
 		B874D184298BE10D0075910A /* ImageLoader */ = {
 			isa = PBXGroup;
 			children = (
+				B86F173829E18FC8008E064D /* ImageCache.swift */,
 				B874D185298BE11E0075910A /* UrlImageModel.swift */,
 				B874D187298BE13D0075910A /* UrlImageView.swift */,
-				B86F173829E18FC8008E064D /* ImageCache.swift */,
 			);
 			path = ImageLoader;
 			sourceTree = "<group>";
@@ -387,8 +404,8 @@
 		B877AC9F29E6C58200E97EA1 /* KeyboardView */ = {
 			isa = PBXGroup;
 			children = (
-				B877ACA029E6C58D00E97EA1 /* KeyboardView.swift */,
 				B877ACA229E6C5AA00E97EA1 /* KeyboardResponder.swift */,
+				B877ACA029E6C58D00E97EA1 /* KeyboardView.swift */,
 			);
 			path = KeyboardView;
 			sourceTree = "<group>";
@@ -396,10 +413,10 @@
 		B877ACA429E714B700E97EA1 /* Settings */ = {
 			isa = PBXGroup;
 			children = (
-				B877ACA529E714C800E97EA1 /* SettingViews.swift */,
-				B877ACA729E714EE00E97EA1 /* SettingProtocol.swift */,
 				B877ACA929E714FF00E97EA1 /* AccountSettings.swift */,
+				B877ACA729E714EE00E97EA1 /* SettingProtocol.swift */,
 				B877ACAB29E7151200E97EA1 /* Settings.swift */,
+				B877ACA529E714C800E97EA1 /* SettingViews.swift */,
 			);
 			path = Settings;
 			sourceTree = "<group>";
@@ -407,16 +424,10 @@
 		B87BE75429D3512900CECC5A /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				B877ACA429E714B700E97EA1 /* Settings */,
-				B889C8F729B5F92200E6977B /* Value.swift */,
-				B889C8F529B5F91100E6977B /* Device.swift */,
 				B87BE75529D3513900CECC5A /* FirestoreModel.swift */,
 				B87BE75729D3519200CECC5A /* User.swift */,
-				B87BE75929D351C600CECC5A /* House.swift */,
-				B87BE75B29D351F300CECC5A /* Room.swift */,
-				B86F173129E18F0D008E064D /* UserHouses.swift */,
-				B86F173329E18F60008E064D /* HousePreview.swift */,
-				B86F173629E18F77008E064D /* RoomPreview.swift */,
+				B802BA5529EED223001B6C15 /* House */,
+				B877ACA429E714B700E97EA1 /* Settings */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -424,9 +435,9 @@
 		B889C8E929B260C500E6977B /* RootTabView */ = {
 			isa = PBXGroup;
 			children = (
+				B889C8EE29B2622D00E6977B /* RootTabCoordinator.swift */,
 				B889C8EA29B260D100E6977B /* RootTabView.swift */,
 				B889C8EC29B2620F00E6977B /* RootTabViewController.swift */,
-				B889C8EE29B2622D00E6977B /* RootTabCoordinator.swift */,
 				B889C8FF29B6527200E6977B /* RootTabViewModel.swift */,
 			);
 			path = RootTabView;
@@ -435,11 +446,11 @@
 		B88AEEBC29CB7CE4002FFE7B /* UI */ = {
 			isa = PBXGroup;
 			children = (
-				B88AEEBD29CB7CFE002FFE7B /* MainSettingView.swift */,
-				B88AEEBF29CB7D2B002FFE7B /* SettingsText.swift */,
 				B88AEEC129CB8069002FFE7B /* AccountSettingView.swift */,
 				B88AEEC629CB842D002FFE7B /* HousesSettingsView.swift */,
+				B88AEEBD29CB7CFE002FFE7B /* MainSettingView.swift */,
 				B8CDA92429E08C9E00C5502D /* RoomsSettingView.swift */,
+				B88AEEBF29CB7D2B002FFE7B /* SettingsText.swift */,
 			);
 			path = UI;
 			sourceTree = "<group>";
@@ -448,8 +459,8 @@
 			isa = PBXGroup;
 			children = (
 				B88DE1B62992DF0100DD91AB /* DeviceDetailsCoordinator.swift */,
-				B88DE1B82992DF2A00DD91AB /* DeviceDetailsViewController.swift */,
 				B88DE1BA2992DF7000DD91AB /* DeviceDetailsView.swift */,
+				B88DE1B82992DF2A00DD91AB /* DeviceDetailsViewController.swift */,
 				B88DE1BE2992DFA200DD91AB /* DeviceDetailsViewModel.swift */,
 			);
 			path = DeviceDetails;
@@ -458,12 +469,12 @@
 		B894BA5E29A931A300C4BB22 /* QrScannerView */ = {
 			isa = PBXGroup;
 			children = (
-				B894BA5F29A932C100C4BB22 /* ScannerViewModel.swift */,
-				B894BA6129A932D800C4BB22 /* ScannerView.swift */,
-				B894BA6329A932F700C4BB22 /* QrCodeCameraDelegate.swift */,
 				B894BA6629A9331A00C4BB22 /* CameraPreview.swift */,
+				B894BA6329A932F700C4BB22 /* QrCodeCameraDelegate.swift */,
 				B894BA6829A9333800C4BB22 /* QrCodeScannerView.swift */,
+				B894BA6129A932D800C4BB22 /* ScannerView.swift */,
 				B894BA6A29A935D400C4BB22 /* ScannerViewController.swift */,
+				B894BA5F29A932C100C4BB22 /* ScannerViewModel.swift */,
 			);
 			path = QrScannerView;
 			sourceTree = "<group>";
@@ -499,16 +510,16 @@
 		B8CE2D9A2982C5F0007FFA2E /* UIComponents */ = {
 			isa = PBXGroup;
 			children = (
-				B802BA5029EECFE1001B6C15 /* CustomTabView */,
-				B877AC9F29E6C58200E97EA1 /* KeyboardView */,
-				B8CDA92329E057BB00C5502D /* TextFieldAlert */,
-				B874D184298BE10D0075910A /* ImageLoader */,
-				B8CE2D9B2982C5F0007FFA2E /* SegmentedPicker */,
-				B8CE2DA12982C5F0007FFA2E /* BottomSheet */,
-				B8CE2DA32982C5F0007FFA2E /* SecureTextField.swift */,
-				B8CE2DA42982C5F0007FFA2E /* VisualEffectView.swift */,
-				B889C8F329B5F67D00E6977B /* View.isHiden.swift */,
 				B877ACAF29E71DCF00E97EA1 /* LoadingView.swift */,
+				B8CE2DA32982C5F0007FFA2E /* SecureTextField.swift */,
+				B889C8F329B5F67D00E6977B /* View.isHiden.swift */,
+				B8CE2DA42982C5F0007FFA2E /* VisualEffectView.swift */,
+				B8CE2DA12982C5F0007FFA2E /* BottomSheet */,
+				B802BA5029EECFE1001B6C15 /* CustomTabView */,
+				B874D184298BE10D0075910A /* ImageLoader */,
+				B877AC9F29E6C58200E97EA1 /* KeyboardView */,
+				B8CE2D9B2982C5F0007FFA2E /* SegmentedPicker */,
+				B8CDA92329E057BB00C5502D /* TextFieldAlert */,
 			);
 			path = UIComponents;
 			sourceTree = "<group>";
@@ -516,11 +527,11 @@
 		B8CE2D9B2982C5F0007FFA2E /* SegmentedPicker */ = {
 			isa = PBXGroup;
 			children = (
-				B8CE2D9C2982C5F0007FFA2E /* SizeAwareViewModifier.swift */,
-				B8CE2D9D2982C5F0007FFA2E /* SegmentedPicker.swift */,
-				B8CE2D9E2982C5F0007FFA2E /* View.eraseToAnyView.swift */,
-				B8CE2D9F2982C5F0007FFA2E /* SizePreferenceKey.swift */,
 				B8CE2DA02982C5F0007FFA2E /* BackgroundGeometryReader.swift */,
+				B8CE2D9D2982C5F0007FFA2E /* SegmentedPicker.swift */,
+				B8CE2D9C2982C5F0007FFA2E /* SizeAwareViewModifier.swift */,
+				B8CE2D9F2982C5F0007FFA2E /* SizePreferenceKey.swift */,
+				B8CE2D9E2982C5F0007FFA2E /* View.eraseToAnyView.swift */,
 			);
 			path = SegmentedPicker;
 			sourceTree = "<group>";
@@ -536,10 +547,10 @@
 		B8CE2DCD29845D77007FFA2E /* UI */ = {
 			isa = PBXGroup;
 			children = (
-				B8AC98F0298D3D6500C40B84 /* RoomPreviewCard.swift */,
 				B894BA5C29A8122800C4BB22 /* AddDeviceView.swift */,
-				B8D2303E29CA22E800EB1973 /* HouseMenu.swift */,
 				B877ACB329E9300A00E97EA1 /* DevicesView.swift */,
+				B8D2303E29CA22E800EB1973 /* HouseMenu.swift */,
+				B8AC98F0298D3D6500C40B84 /* RoomPreviewCard.swift */,
 				B877ACB529E940E200E97EA1 /* ValuesGridView.swift */,
 			);
 			path = UI;
@@ -719,6 +730,7 @@
 				B8CDA92929E0B99700C5502D /* TextFieldWrapper.swift in Sources */,
 				B889C8F829B5F92200E6977B /* Value.swift in Sources */,
 				B8CE2DA82982C5F1007FFA2E /* SizePreferenceKey.swift in Sources */,
+				B802BA5729EFF899001B6C15 /* SettingsViewController.swift in Sources */,
 				B889C8ED29B2620F00E6977B /* RootTabViewController.swift in Sources */,
 				B8CE2DB82982C622007FFA2E /* MainMenuViewController.swift in Sources */,
 				B86F173429E18F60008E064D /* HousePreview.swift in Sources */,

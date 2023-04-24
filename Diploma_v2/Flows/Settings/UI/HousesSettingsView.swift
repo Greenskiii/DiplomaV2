@@ -9,6 +9,13 @@ import SwiftUI
 import Combine
 
 struct HousesSettingsView: View {
+    private enum Constants {
+        enum AddHouseButton {
+            static let cornerRadius: CGFloat = 8
+            static let height: CGFloat = 70
+        }
+    }
+    
     @State var editMode = false
     @Binding var settingView: SettingViews
     @Binding var deleteHouse: Bool
@@ -81,7 +88,7 @@ struct HousesSettingsView: View {
                     }
                 } label: {
                     ZStack {
-                        RoundedRectangle(cornerRadius: 8)
+                        RoundedRectangle(cornerRadius: Constants.AddHouseButton.cornerRadius)
                             .foregroundColor(Color("Navy"))
                         
                         Text("Add house")
@@ -89,7 +96,7 @@ struct HousesSettingsView: View {
                             .foregroundColor(.white)
                     }
                     .padding()
-                    .frame(height: 70)
+                    .frame(height: Constants.AddHouseButton.height)
                 }
             }
         }

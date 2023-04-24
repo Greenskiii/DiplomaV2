@@ -8,7 +8,6 @@
 import SwiftUI
 
 struct TextFieldWrapper<PresentingView: View>: View {
-    
     @Binding var isPresented: Bool
     let presentingView: PresentingView
     let content: () -> TextFieldAlert

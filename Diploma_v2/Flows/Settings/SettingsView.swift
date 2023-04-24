@@ -8,6 +8,19 @@
 import SwiftUI
 
 struct SettingsView: View {
+    private enum Constants {
+        static let cornerRadius: CGFloat = 16
+        static let loadingViewHeight: CGFloat = 175
+        static let loadingViewWidth: CGFloat = 155
+        static let horizontalPadding: CGFloat = 10
+        
+        enum TopView {
+            static let imageHeight: CGFloat = 40
+            static let imageWidth: CGFloat = 40
+            static let font: Font = .system(size: 25)
+        }
+    }
+    
     @ObservedObject var viewModel: SettingsViewModel
     
     var body: some View {
@@ -34,7 +47,7 @@ struct SettingsView: View {
                         .padding()
                         
                         ZStack {
-                            RoundedRectangle(cornerRadius: 16)
+                            RoundedRectangle(cornerRadius: Constants.cornerRadius)
                                 .foregroundColor(.white)
                                 .shadow(color: .gray, radius: 3, x: 2, y: 2)
                             ScrollView {
@@ -78,7 +91,8 @@ struct SettingsView: View {
                                 }
                             }
                         }
-                        .frame(minHeight: geometry.size.height * 0.75)
+                        .frame(minHeight: geometry.size.height * 0.7)
+                        .padding(.bottom)
                     }
                     .padding(.horizontal)
                     
@@ -89,11 +103,12 @@ struct SettingsView: View {
                         }
                         Spacer()
                     }
-                    .padding(.horizontal, 10)
+                    .padding(.horizontal, Constants.horizontalPadding)
                     .padding(.top)
                     
                     LoadingView()
-                        .frame(width: 155, height: 175)
+                        .frame(width: Constants.loadingViewWidth,
+                               height: Constants.loadingViewHeight)
                         .isHidden(!viewModel.loadViewShown)
                 }
                 .alert(isPresented: $viewModel.showingLogoutAlert) {
@@ -276,10 +291,11 @@ struct SettingsView: View {
                         if !user.imageUrl.isEmpty {
                             UrlImageView(urlString: user.imageUrl)
                                 .clipShape(Circle())
-                                .frame(width: 40, height: 40)
+                                .frame(width: Constants.TopView.imageWidth,
+                                       height: Constants.TopView.imageHeight)
                         } else {
                             Image(systemName: "person.circle.fill")
-                                .font(.system(size: 25))
+                                .font(Constants.TopView.font)
                                 .foregroundColor(Color("Navy"))
                         }
                     }
@@ -287,5 +303,4 @@ struct SettingsView: View {
             }
         }
     }
-
 }

@@ -9,11 +9,11 @@ import SwiftUI
 
 struct SizeAwareViewModifier: ViewModifier {
     @Binding private var viewSize: CGSize
-
+    
     init(viewSize: Binding<CGSize>) {
         self._viewSize = viewSize
     }
-
+    
     func body(content: Content) -> some View {
         content
             .background(BackgroundGeometryReader())

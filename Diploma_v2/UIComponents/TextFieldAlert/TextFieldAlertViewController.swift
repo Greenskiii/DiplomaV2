@@ -9,7 +9,6 @@ import UIKit
 import Combine
 
 public final class TextFieldAlertViewController: UIViewController {
-    
     private let alert: TextFieldAlert
     private var cancellables = Set<AnyCancellable>()
     

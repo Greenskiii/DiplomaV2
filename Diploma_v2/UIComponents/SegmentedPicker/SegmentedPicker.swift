@@ -8,19 +8,21 @@
 import SwiftUI
 
 struct SegmentedPicker: View {
-    private static let ActiveSegmentColor: Color = Color(.tertiarySystemBackground)
-    private static let BackgroundColor: Color = Color(.secondarySystemBackground)
-    private static let ShadowColor: Color = Color.black.opacity(0.2)
-    private static let TextColor: Color = Color.black
-    private static let SelectedTextColor: Color = Color.white
-    private static let TextFont: Font = .system(size: 12)
-    
-    private static let SegmentCornerRadius: CGFloat = 12
-    private static let ShadowRadius: CGFloat = 4
-    private static let SegmentXPadding: CGFloat = 16
-    private static let SegmentYPadding: CGFloat = 8
-    private static let PickerPadding: CGFloat = 4
-    private static let AnimationDuration: Double = 0.3
+    private enum Constants {
+        static let activeSegmentColor: Color = Color(.tertiarySystemBackground)
+        static let backgroundColor: Color = Color(.secondarySystemBackground)
+        static let shadowColor: Color = Color.gray
+        static let textColor: Color = Color.black
+        static let selectedTextColor: Color = Color.white
+        static let textFont: Font = .system(size: 12)
+        
+        static let segmentCornerRadius: CGFloat = 12
+        static let shadowRadius: CGFloat = 4
+        static let segmentXPadding: CGFloat = 16
+        static let segmentYPadding: CGFloat = 8
+        static let pickerPadding: CGFloat = 4
+        static let animationDuration: Double = 0.3
+    }
     
     @State private var segmentSize: CGSize = .zero
     @Binding private var selection: Int
@@ -30,12 +32,12 @@ struct SegmentedPicker: View {
     private var activeSegmentView: AnyView {
         let isInitialized: Bool = segmentSize != .zero
         if !isInitialized { return EmptyView().eraseToAnyView() }
-        return RoundedRectangle(cornerRadius: SegmentedPicker.SegmentCornerRadius)
+        return RoundedRectangle(cornerRadius: Constants.segmentCornerRadius)
             .foregroundColor(Color("BlueShark"))
-            .shadow(color: SegmentedPicker.ShadowColor, radius: SegmentedPicker.ShadowRadius)
+            .shadow(color: Constants.shadowColor, radius: Constants.shadowRadius)
             .frame(width: self.segmentSize.width, height: self.segmentSize.height)
             .offset(x: self.computeActiveSegmentHorizontalOffset(), y: 0)
-            .animation(Animation.linear(duration: SegmentedPicker.AnimationDuration))
+            .animation(Animation.linear(duration: Constants.animationDuration))
             .eraseToAnyView()
     }
     
@@ -53,13 +55,13 @@ struct SegmentedPicker: View {
                 }
             }
         }
-        .padding(SegmentedPicker.PickerPadding)
-        .background(SegmentedPicker.BackgroundColor)
-        .clipShape(RoundedRectangle(cornerRadius: SegmentedPicker.SegmentCornerRadius))
+        .padding(Constants.pickerPadding)
+        .background(Constants.backgroundColor)
+        .clipShape(RoundedRectangle(cornerRadius: Constants.segmentCornerRadius))
     }
     
     private func computeActiveSegmentHorizontalOffset() -> CGFloat {
-        CGFloat(self.selection) * (self.segmentSize.width + SegmentedPicker.SegmentXPadding / 2)
+        CGFloat(self.selection) * (self.segmentSize.width + Constants.segmentXPadding / 2)
     }
     
     private func getSegmentView(for index: Int) -> some View {
@@ -68,10 +70,10 @@ struct SegmentedPicker: View {
         }
         let isSelected = self.selection == index
         return Text(self.items[index])
-            .foregroundColor(isSelected ? SegmentedPicker.SelectedTextColor: SegmentedPicker.TextColor)
+            .foregroundColor(isSelected ? Constants.selectedTextColor: Constants.textColor)
             .lineLimit(1)
-            .padding(.vertical, SegmentedPicker.SegmentYPadding)
-            .padding(.horizontal, SegmentedPicker.SegmentXPadding)
+            .padding(.vertical, Constants.segmentYPadding)
+            .padding(.horizontal, Constants.segmentXPadding)
             .frame(minWidth: 0, maxWidth: .infinity)
             .modifier(SizeAwareViewModifier(viewSize: self.$segmentSize))
             .onTapGesture { self.onItemTap(index: index) }

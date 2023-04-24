@@ -9,6 +9,12 @@ import SwiftUI
 import Combine
 
 struct RoomsSettingView: View {
+    private enum Constants {
+        enum EditButton {
+            static let height: CGFloat = 70
+        }
+    }
+    
     @State var editMode = false
     @Binding var settingView: SettingViews
     @Binding var deleteRoom: Bool
@@ -91,7 +97,7 @@ struct RoomsSettingView: View {
                             .foregroundColor(.white)
                     }
                     .padding()
-                    .frame(height: 70)
+                    .frame(height: Constants.EditButton.height)
                 }
             }
         }

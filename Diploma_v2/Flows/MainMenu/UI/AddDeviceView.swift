@@ -9,17 +9,22 @@ import SwiftUI
 import Combine
 
 struct AddDeviceView: View {
+    private enum Constants {
+        static let cornerRadius: CGFloat = 16
+        static let qrCodeButtonPadding: CGFloat = 8
+    }
+    
     @Binding var deviceId: String
     var onGoToScannerScreen: PassthroughSubject<Void, Never>
     var onSaveNewDeviceId: PassthroughSubject<String, Never>
     
     var body: some View {
         ZStack {
-            RoundedRectangle(cornerRadius: 16)
+            RoundedRectangle(cornerRadius: Constants.cornerRadius)
                 .foregroundColor(.white)
-            RoundedRectangle(cornerRadius: 16)
+            RoundedRectangle(cornerRadius: Constants.cornerRadius)
                 .stroke()
-                .foregroundColor(.gray)
+                .foregroundColor(Color("LightGray 1"))
             
             VStack {
                 ZStack(alignment: .trailing) {
@@ -29,7 +34,7 @@ struct AddDeviceView: View {
                         onGoToScannerScreen.send()
                     } label: {
                         Image(systemName: "qrcode.viewfinder")
-                            .padding(.trailing, 8)
+                            .padding(.trailing, Constants.qrCodeButtonPadding)
                             .foregroundColor(.gray)
                     }
                 }
@@ -41,7 +46,11 @@ struct AddDeviceView: View {
                     Text(NSLocalizedString("ADD_DEVICE", comment: "Action"))
                         .foregroundColor(.white)
                         .padding()
-                        .background(RoundedRectangle(cornerRadius: 16).fill(Color("BlueShark")))
+                        .background(
+                            RoundedRectangle(cornerRadius: Constants.cornerRadius)
+                                .fill(Color("BlueShark"))
+                        )
+                        .padding(.top)
                 }
             }
         }

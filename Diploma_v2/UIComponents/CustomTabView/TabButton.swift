@@ -8,6 +8,12 @@
 import SwiftUI
 
 struct TabButton: View {
+    private enum Constants {
+        static let imageFont: Font = .system(size: 25, weight: .semibold, design: .rounded)
+        static let imageScale: CGFloat = 0.8
+        static let shadowRadius: CGFloat = 1
+    }
+    
     let tab: TabType
     @Binding var selectedTab: TabType
     var namespace: Namespace.ID
@@ -21,16 +27,21 @@ struct TabButton: View {
             ZStack {
                 if isSelected {
                     Circle()
-                        .shadow(radius: 1)
+                        .shadow(radius: Constants.shadowRadius)
                         .matchedGeometryEffect(id: "Selected Tab", in: namespace)
                         .animation(.spring(), value: selectedTab)
+                        .foregroundColor(Color("Royalblue"))
                 }
                 
                 Image(systemName: tab.icon)
-                    .font(.system(size: 25, weight: .semibold, design: .rounded))
+                    .font(Constants.imageFont)
                     .foregroundColor(isSelected ? .init(white: 0.9) : .gray)
-                    .scaleEffect(isSelected ? 1 : 0.8)
-                    .animation(isSelected ? .spring(response: 0.5, dampingFraction: 0.3, blendDuration: 1) : .spring(), value: selectedTab)
+                    .scaleEffect(isSelected ? 1 : Constants.imageScale)
+                    .animation(
+                        isSelected ? .spring(response: 0.5, dampingFraction: 0.3, blendDuration: 1)
+                                   : .spring(),
+                        value: selectedTab
+                    )
             }
         }
     }
