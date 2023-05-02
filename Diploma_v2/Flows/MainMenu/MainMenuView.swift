@@ -93,6 +93,8 @@ struct MainMenuView: View {
                 HStack {
                     if let user = viewModel.user {
                         Text(user.name)
+                            .font(.title3)
+                            .fontWeight(.regular)
                         
                         if !user.imageUrl.isEmpty {
                             UrlImageView(urlString: user.imageUrl)

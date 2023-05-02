@@ -70,7 +70,7 @@ class MainMenuViewModel: ObservableObject {
         
         onChangeHouse
             .sink { [weak self] houseId in
-                self?.dataManager.choosenRoomId = "Favorite"
+                self?.dataManager.choosenRoomId = ""
                 self?.dataManager.onChangeHouse.send(houseId)
             }
             .store(in: &subscriptions)

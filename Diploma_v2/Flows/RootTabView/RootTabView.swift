@@ -35,11 +35,13 @@ struct RootTabView: View {
             
             TabView(selection: $viewModel.selectedTab) {
                 if let viewModel = viewModel.mainMenuViewModel {
-                    setMainView(viewModel: viewModel).tag(TabType.main)
+                    setMainView(viewModel: viewModel)
+                        .tag(TabType.main)
                 }
                 
                 if let viewModel = viewModel.settingsViewModel {
-                    setSettingsView(viewModel: viewModel).tag(TabType.settings)
+                    setSettingsView(viewModel: viewModel)
+                        .tag(TabType.settings)
                 }
             }
             

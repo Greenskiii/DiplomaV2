@@ -106,10 +106,12 @@ struct SettingsView: View {
                     .padding(.horizontal, Constants.horizontalPadding)
                     .padding(.top)
                     
-                    LoadingView()
-                        .frame(width: Constants.loadingViewWidth,
-                               height: Constants.loadingViewHeight)
-                        .isHidden(!viewModel.loadViewShown)
+                    VStack {
+                        Spacer()
+                        LoadingView()
+                        Spacer()
+                    }
+                    .isHidden(!viewModel.loadViewShown)
                 }
                 .alert(isPresented: $viewModel.showingLogoutAlert) {
                     Alert(
@@ -287,6 +289,8 @@ struct SettingsView: View {
                     if let user = viewModel.user {
                         Text(user.name)
                             .foregroundColor(Color("Navy"))
+                            .font(.title3)
+                            .fontWeight(.regular)
                         
                         if !user.imageUrl.isEmpty {
                             UrlImageView(urlString: user.imageUrl)
