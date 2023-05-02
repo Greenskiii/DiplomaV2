@@ -135,10 +135,6 @@ extension DataManager {
                 }
                 
                 self.house?.rooms.append(room)
-                
-//                if room.devicesId.isEmpty {
-//                    completion()
-//                }
                 self.setDevices(for: room.id) {
                     completion()
                 }
@@ -219,41 +215,8 @@ extension DataManager {
             }
         }
     }
-    // MARK: - FCMToken
-    //    public func removeFCMToken() {
-    //        collection?.document("devicesId").getDocument { (document, error) in
-    //            if var devicesId = document?.data()?["ids"] as? [String],
-    //               let fcmToken = UserDefaults.standard.string(forKey: "fcmToken"),
-    //               let index = devicesId.firstIndex(where: { $0 == fcmToken }) {
-    //
-    //                devicesId.remove(at: index)
-    //                self.collection?.document("devicesId").updateData(["ids": devicesId]) { error in
-    //                    if let error = error {
-    //                        print(error.localizedDescription)
-    //                    }
-    //                }
-    //            }
-    //        }
-    //    }
-    //
-    //    public func checkFCMToken() {
-    //        collection?.document("devicesId").getDocument { (document, error) in
-    //            if var devicesId = document?.data()?["ids"] as? [String],
-    //               let fcmToken = UserDefaults.standard.string(forKey: "fcmToken"),
-    //               !devicesId.contains(fcmToken) {
-    //
-    //                devicesId.append(fcmToken)
-    //                self.collection?.document("devicesId").updateData(["ids": devicesId]) { error in
-    //                    if let error = error {
-    //                        print(error.localizedDescription)
-    //                    }
-    //                }
-    //            }
-    //        }
-    //    }
     
     // MARK: - Post Request
-    
     public func addDevice(roomId: String,
                           deviceId: String,
                           completion: @escaping (_ success: DataManagerResult) -> Void) {
@@ -415,7 +378,7 @@ extension DataManager {
             return
         }
         
-        self.realtimeDatabseManager.getDevice(path: deviceId) { [weak self] device in
+        self.realtimeDatabseManager.observeDevice(path: deviceId) { [weak self] device in
             
             if self?.house?.rooms[roomIndex].devices.first(where: { $0.id == device.id }) == nil {
                 self?.house?.rooms[roomIndex].devices.append(device)

@@ -114,7 +114,6 @@ final class SettingsViewModel: ObservableObject {
         
         self.logout
             .sink { [weak self]_ in
-                //                self?.dataManager.removeFCMToken()
                 self?.authManager.logOut()
                 onGoToAuthScreen.send()
             }

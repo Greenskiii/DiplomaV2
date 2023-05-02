@@ -13,8 +13,9 @@ class AppCoordinator: Coordinator {
     @AppStorage("log_status") var logStatus = false
     
     var subscriptions = Set<AnyCancellable>()
-    var dataManager = DataManager()
-    var authManager = AuthManager()
+    let dataManager = DataManager()
+    let authManager = AuthManager()
+
     var parentCoordinator: Coordinator?
     var children: [Coordinator] = []
     var viewController: UIViewController

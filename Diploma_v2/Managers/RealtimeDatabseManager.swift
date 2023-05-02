@@ -16,7 +16,7 @@ final class RealtimeDatabseManager {
         return ref
     }()
     
-    func getDevice(path: String,
+    func observeDevice(path: String,
                    completion:  @escaping (Device) -> Void) {
         guard let database = databasePath?.child(path) else {
             return
