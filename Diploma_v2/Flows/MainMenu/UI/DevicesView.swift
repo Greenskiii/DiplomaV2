@@ -31,9 +31,9 @@ struct DevicesView: View {
             
             VStack(alignment: .leading) {
                 VStack(alignment: .leading) {
-                    Text("Connect device")
+                    Text(NSLocalizedString("CONNECT_DEVICE", comment: "Settings"))
                         .font(.title2)
-                    Text("Connect new device with this app")
+                    Text(NSLocalizedString("CONNECT_DEVICE_INFO", comment: "Settings"))
                 }
                 .foregroundColor(.white)
                 .padding(.horizontal)

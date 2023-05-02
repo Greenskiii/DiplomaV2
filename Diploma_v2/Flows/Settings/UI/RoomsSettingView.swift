@@ -35,7 +35,7 @@ struct RoomsSettingView: View {
                         .foregroundColor(Color("Navy"))
                         .font(.title2)
                 }
-                Text("Rooms")
+                Text(NSLocalizedString("ROOMS", comment: "Settings"))
                     .font(.title2)
                     .fontWeight(.medium)
                     .foregroundColor(Color("Navy"))
@@ -92,7 +92,7 @@ struct RoomsSettingView: View {
                         RoundedRectangle(cornerRadius: 8)
                             .foregroundColor(Color("Navy"))
                         
-                        Text("Add Room")
+                        Text(NSLocalizedString("ADD_ROOM", comment: "Settings"))
                             .font(.title3)
                             .foregroundColor(.white)
                     }

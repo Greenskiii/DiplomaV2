@@ -22,6 +22,11 @@
 "HOUSES" = "Houses";
 "LOGOUT" = "Logout";
 "LOGOUT_QUESTION" = "Are you sure you want to logout?";
+"ADD_HOUSE" = "Add house";
+"ROOMS" = "Rooms";
+"ADD_ROOM" = "Add Room";
+"CONNECT_DEVICE" = "Connect device";
+"CONNECT_DEVICE_INFO" = "Connect new device with this app";
 
 /* Account Settings */
 "CHANGE_PASSWORD" = "Change password";

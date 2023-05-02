@@ -36,7 +36,7 @@ struct HousesSettingsView: View {
                         .foregroundColor(Color("Navy"))
                         .font(.title2)
                 }
-                Text("Houses")
+                Text(NSLocalizedString("HOUSES", comment: "Settings"))
                     .font(.title2)
                     .fontWeight(.medium)
                     .foregroundColor(Color("Navy"))
@@ -91,7 +91,7 @@ struct HousesSettingsView: View {
                         RoundedRectangle(cornerRadius: Constants.AddHouseButton.cornerRadius)
                             .foregroundColor(Color("Navy"))
                         
-                        Text("Add house")
+                        Text(NSLocalizedString("ADD_HOUSE", comment: "Settings"))
                             .font(.title3)
                             .foregroundColor(.white)
                     }

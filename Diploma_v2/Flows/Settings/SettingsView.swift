@@ -256,13 +256,13 @@ struct SettingsView: View {
                         Button {
                             viewModel.onSaveUserInfo.send()
                         } label: {
-                            Text("Save")
+                            Text(NSLocalizedString("SAVE", comment: "Action"))
                         }
                         Spacer()
                         Button {
                             viewModel.onCancelUserInfoChanges.send()
                         } label: {
-                            Text("Cancel")
+                            Text(NSLocalizedString("CANCEL", comment: "Action"))
                         }
                     }
                     .padding(.horizontal)
