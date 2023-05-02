@@ -8,6 +8,26 @@
 import SwiftUI
 
 struct RootTabView: View {
+    private enum Constants {
+        enum TapBar {
+            static let height: CGFloat = 90
+            static let horizontalPadding: CGFloat = 30
+            static let bottomPadding: CGFloat = 15
+        }
+        
+        enum AddDeviceView {
+            static let height: CGFloat = 150
+        }
+        
+        enum ErrorView {
+            static let height: CGFloat = 225
+            static let width: CGFloat = 225
+        }
+        enum BottomSheetView {
+            static let height: CGFloat = 550
+        }
+    }
+    
     @ObservedObject var viewModel: RootTabViewModel
     
     var body: some View {
@@ -15,51 +35,51 @@ struct RootTabView: View {
             
             TabView(selection: $viewModel.selectedTab) {
                 if let viewModel = viewModel.mainMenuViewModel {
-                    setMainView(viewModel: viewModel).tag(TabType.main)
+                    setMainView(viewModel: viewModel)
+                        .tag(TabType.main)
                 }
                 
                 if let viewModel = viewModel.settingsViewModel {
-                    setSettingsView(viewModel: viewModel).tag(TabType.settings)
+                    setSettingsView(viewModel: viewModel)
+                        .tag(TabType.settings)
                 }
             }
             
             ZStack {
                 Capsule()
                     .fill(.white)
-                    .shadow(color: .gray.opacity(0.4), radius: 20, x: 0, y: 20)
+                    .shadow(color: .gray, radius: 3, x: 2, y: 2)
                     .padding()
                 
                 CustomTabView(selectedTab: $viewModel.selectedTab)
             }
-            .frame(height: 90, alignment: .center)
-            .padding(.horizontal, 30)
-            .padding(.bottom, 15)
+            .frame(height: Constants.TapBar.height, alignment: .center)
+            .padding(.horizontal, Constants.TapBar.horizontalPadding)
+            .padding(.bottom, Constants.TapBar.bottomPadding)
             
-            if viewModel.addDeviceViewIsOpen {
-                ZStack(alignment: .center) {
-                    VisualEffectView(effect: UIBlurEffect(style: .dark))
-                        .onTapGesture {
+            ZStack(alignment: .center) {
+                VisualEffectView(effect: UIBlurEffect(style: .light))
+                    .onTapGesture {
+                        withAnimation {
                             viewModel.onPressAddDevice.send()
                         }
-                        .ignoresSafeArea()
-                    
-                    AddDeviceView(
-                        deviceId: $viewModel.newDeviceId,
-                        onGoToScannerScreen: viewModel.onGoToScannerScreen,
-                        onSaveNewDeviceId: viewModel.onSaveNewDeviceId
-                    )
-                    .frame(height: 150)
-                    .padding()
-                }
+                    }
+                    .ignoresSafeArea()
+                
+                AddDeviceView(
+                    deviceId: $viewModel.newDeviceId,
+                    onGoToScannerScreen: viewModel.onGoToScannerScreen,
+                    onSaveNewDeviceId: viewModel.onSaveNewDeviceId
+                )
+                .frame(height: Constants.AddDeviceView.height)
+                .padding()
             }
-            if viewModel.showErrorView {
-                ErrorView(errorText: viewModel.errorText)
-                    .frame(width: 225, height: 255)
-                    .foregroundColor(.black)
-                    .animation(.easeInOut(duration: 1), value: viewModel.showErrorView)
-            }
+            .zIndex(.infinity)
+            .transition(.opacity)
+            .isHidden(!viewModel.addDeviceViewIsOpen)
             
-            BottomSheetView(maxHeight: 550, isOpen: $viewModel.deviceDetailIsOpen) {
+            BottomSheetView(maxHeight: Constants.BottomSheetView.height,
+                            isOpen: $viewModel.deviceDetailIsOpen) {
                 if viewModel.deviceDetailIsOpen,
                    let deviceDetailsViewModel = viewModel.deviceDetailsViewModel {
                     DeviceDetailsView(viewModel: deviceDetailsViewModel)
@@ -71,6 +91,26 @@ struct RootTabView: View {
             .onDisappear {
                 viewModel.onTapDevice.send(nil)
             }
+            
+            VStack(alignment: .center) {
+                Spacer()
+                ErrorView(errorText: viewModel.errorText)
+                    .frame(width: Constants.ErrorView.width,
+                           height: Constants.ErrorView.height)
+                    .foregroundColor(.black)
+                Spacer()
+            }
+            .transition(.opacity)
+            .isHidden(!viewModel.showErrorView)
+            
+            VStack(alignment: .center) {
+                Spacer()
+                LoadingView()
+                    .foregroundColor(.black)
+                Spacer()
+            }
+            .transition(.opacity)
+            .isHidden(!viewModel.loadViewShown)
         }
         .ignoresSafeArea()
     }

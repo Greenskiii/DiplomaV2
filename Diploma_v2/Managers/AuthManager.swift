@@ -16,19 +16,34 @@ import GoogleSignIn
 
 final class AuthManager: NSObject, ObservableObject {
     @AppStorage("log_status") var logStatus = false
-    
     @Published var nonce: String = ""
     @Published var auth: Bool = false
     @Published var user: User? = nil
     
+    let fcmTokenManager = FCMTokenManager()
     let firebaseAuth = Auth.auth()
     var subscriptions = Set<AnyCancellable>()
+    
+    var userPublisher: AnyPublisher<User?, Never> {
+        $user.eraseToAnyPublisher()
+    }
     
     override init() {
         super.init()
         if let user = self.getUserInfo() {
             self.user = user
+            UserDefaults.standard.set(user.uid, forKey: "userUid")
         }
+        
+        userPublisher.sink { user in
+            guard let uid = UserDefaults.standard.string(forKey: "userUid") else { return }
+            if user == nil {
+                self.fcmTokenManager.removeFCMToken(userUid: uid)
+            } else {
+                self.fcmTokenManager.checkFCMToken(userUid: uid)
+            }
+        }
+        .store(in: &subscriptions)
     }
     
     func loginWithApple() {
@@ -102,6 +117,7 @@ final class AuthManager: NSObject, ObservableObject {
         do {
             try firebaseAuth.signOut()
             logStatus = false
+            self.user = nil
         } catch let signOutError as NSError {
             print("Error signing out: %@", signOutError)
         }

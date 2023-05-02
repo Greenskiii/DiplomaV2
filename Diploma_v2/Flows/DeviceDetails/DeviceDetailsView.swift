@@ -9,12 +9,29 @@ import SwiftUI
 import Combine
 
 struct DeviceDetailsView: View {
-    @ObservedObject var viewModel: DeviceDetailsViewModel
+    private enum Constants {
+        static let backgroundColor: String = "TropicalBlue"
+        static let height: CGFloat = 50
+        
+        enum DeviceInfoView {
+            static let imageHeight: CGFloat = 150
+            static let imageWidth: CGFloat = 150
+            static let valueImageHeight: CGFloat = 12
+            static let valueImageWidth: CGFloat = 12
+        }
+        
+        enum DeviceLocationView {
+            static let cornerRadius: CGFloat = 16
+            static let checkmarkFont: Font = .system(size: 10)
+        }
+    }
     
+    @ObservedObject var viewModel: DeviceDetailsViewModel
     @State var isChaned: Bool = false
+    
     var body: some View {
         ZStack {
-            Color("TropicalBlue")
+            Color(Constants.backgroundColor)
             VStack {
                 createEditButtons()
                     .padding(.horizontal)
@@ -62,7 +79,8 @@ struct DeviceDetailsView: View {
     private func createDeviceInfoView() -> some View {
         VStack {
             UrlImageView(urlString: viewModel.device.image)
-                .frame(width: 150, height: 150)
+                .frame(width: Constants.DeviceInfoView.imageWidth,
+                       height: Constants.DeviceInfoView.imageHeight)
             Text(viewModel.device.name)
                 .font(.title)
             Text("id:\(viewModel.device.id)")
@@ -71,7 +89,8 @@ struct DeviceDetailsView: View {
                 ForEach(viewModel.device.values, id: \.self) { value in
                     VStack {
                         Image(systemName: value.imageSystemName)
-                            .frame(width: 12, height: 12)
+                            .frame(width: Constants.DeviceInfoView.valueImageWidth,
+                                   height: Constants.DeviceInfoView.valueImageHeight)
                         Text(value.value)
                     }
                     .padding()
@@ -92,14 +111,14 @@ struct DeviceDetailsView: View {
                             Spacer()
                             if viewModel.selectedHouseId == house.id {
                                 Image(systemName: "checkmark")
-                                    .font(.system(size: 10))
+                                    .font(Constants.DeviceLocationView.checkmarkFont)
                             }
                         }
                     }
                 }
             } label: {
                 ZStack(alignment: .leading) {
-                    RoundedRectangle(cornerRadius: 16)
+                    RoundedRectangle(cornerRadius: Constants.DeviceLocationView.cornerRadius)
                         .foregroundColor(.white)
                         .shadow(color: .gray, radius: 3, x: 2, y: 2)
                     if let house = viewModel.housePreview.first(where: { $0.id == viewModel.selectedHouseId }) {
@@ -108,9 +127,8 @@ struct DeviceDetailsView: View {
                             .padding()
                     }
                 }
-                .frame(height: 50)
-                .padding(.horizontal)
-                .padding(.top)
+                .frame(height: Constants.height)
+                .padding([.horizontal, .top])
             }
             
             Menu {
@@ -123,14 +141,14 @@ struct DeviceDetailsView: View {
                             Spacer()
                             if viewModel.selectedRoomId == room.id {
                                 Image(systemName: "checkmark")
-                                    .font(.system(size: 10))
+                                    .font(Constants.DeviceLocationView.checkmarkFont)
                             }
                         }
                     }
                 }
             } label: {
                 ZStack(alignment: .leading) {
-                    RoundedRectangle(cornerRadius: 16)
+                    RoundedRectangle(cornerRadius: Constants.DeviceLocationView.cornerRadius)
                         .foregroundColor(.white)
                         .shadow(color: .gray, radius: 3, x: 2, y: 2)
                     if let room = viewModel.rooms.first(where: { $0.id == viewModel.selectedRoomId }) {
@@ -143,11 +161,9 @@ struct DeviceDetailsView: View {
                             .padding()
                     }
                 }
-                .frame(height: 50)
+                .frame(height: Constants.height)
                 .padding()
             }
         }
     }
 }
-
-

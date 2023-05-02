@@ -9,6 +9,12 @@ import SwiftUI
 import Combine
 
 struct RoomsSettingView: View {
+    private enum Constants {
+        enum EditButton {
+            static let height: CGFloat = 70
+        }
+    }
+    
     @State var editMode = false
     @Binding var settingView: SettingViews
     @Binding var deleteRoom: Bool
@@ -29,7 +35,7 @@ struct RoomsSettingView: View {
                         .foregroundColor(Color("Navy"))
                         .font(.title2)
                 }
-                Text("Rooms")
+                Text(NSLocalizedString("ROOMS", comment: "Settings"))
                     .font(.title2)
                     .fontWeight(.medium)
                     .foregroundColor(Color("Navy"))
@@ -86,12 +92,12 @@ struct RoomsSettingView: View {
                         RoundedRectangle(cornerRadius: 8)
                             .foregroundColor(Color("Navy"))
                         
-                        Text("Add Room")
+                        Text(NSLocalizedString("ADD_ROOM", comment: "Settings"))
                             .font(.title3)
                             .foregroundColor(.white)
                     }
                     .padding()
-                    .frame(height: 70)
+                    .frame(height: Constants.EditButton.height)
                 }
             }
         }

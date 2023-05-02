@@ -10,3 +10,10 @@ import FirebaseFirestore
 protocol FirestoreModel {
     init?(id: String, snapshot: DocumentSnapshot)
 }
+
+struct Devices: FirestoreModel {
+    var ids: [String]
+    init?(id: String, snapshot: DocumentSnapshot) {
+        self.ids = snapshot.data()?["ids"] as? [String] ?? []
+    }
+}

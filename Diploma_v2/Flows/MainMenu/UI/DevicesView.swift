@@ -9,27 +9,37 @@ import SwiftUI
 import Combine
 
 struct DevicesView: View {
+    private enum Constants {
+        static let cornerRadius: CGFloat = 16
+        static let buttonsSpacer: CGFloat = 16
+        static let imageFont: Font = .system(size: 20)
+        static let buttonHeight: CGFloat = 50
+        static let buttonPadding: CGFloat = 3
+        static let buttonAspectRatio: CGFloat = 1
+        static let scrollViewPadding: CGFloat = 6
+    }
+    
     let devices: [Device]
     var onPressAddDevice: PassthroughSubject<Void, Never>
     var onTapDevice: PassthroughSubject<Device?, Never>
     
     var body: some View {
         ZStack {
-            RoundedRectangle(cornerRadius: 16)
+            RoundedRectangle(cornerRadius: Constants.cornerRadius)
                 .foregroundColor(Color("LightBlueShark"))
                 .shadow(color: .gray, radius: 3, x: 2, y: 2)
             
             VStack(alignment: .leading) {
                 VStack(alignment: .leading) {
-                    Text("Connect device")
+                    Text(NSLocalizedString("CONNECT_DEVICE", comment: "Settings"))
                         .font(.title2)
-                    Text("Connect new device with this app")
+                    Text(NSLocalizedString("CONNECT_DEVICE_INFO", comment: "Settings"))
                 }
                 .foregroundColor(.white)
                 .padding(.horizontal)
                 
                 ScrollView(.horizontal, showsIndicators: false) {
-                    HStack(spacing: 16) {
+                    HStack(spacing: Constants.buttonsSpacer) {
                         ForEach(devices, id: \.self) { device in
                             makeDeviceCard(device: device)
                                 .onTapGesture {
@@ -40,35 +50,35 @@ struct DevicesView: View {
                         Button {
                             onPressAddDevice.send()
                         } label: {
-                            ZStack {
-                                RoundedRectangle(cornerRadius: 16)
-                                    .foregroundColor(.white)
-                                    .shadow(color: .gray, radius: 3, x: 2, y: 2)
-                                
-                                Image(systemName: "plus")
-                            }
-                            .aspectRatio(1, contentMode: .fit)
-                            .frame(height: 50)
+                            Image(systemName: "plus")
+                                .font(Constants.imageFont)
+                                .padding()
+                                .background(
+                                    RoundedRectangle(cornerRadius: Constants.cornerRadius)
+                                        .foregroundColor(.white)
+                                        .shadow(color: .gray, radius: 3, x: 2, y: 2)
+                                )
+                                .aspectRatio(Constants.buttonAspectRatio, contentMode: .fit)
+                                .frame(height: Constants.buttonHeight)
                         }
                     }
                     .padding(.horizontal)
-                    .padding(.vertical, 3)
+                    .padding(.vertical, Constants.buttonPadding)
                 }
             }
-            .padding(.vertical, 6)
+            .padding(.vertical, Constants.scrollViewPadding)
         }
     }
     
     func makeDeviceCard(device: Device) -> some View {
-        ZStack {
-            RoundedRectangle(cornerRadius: 16)
-                .foregroundColor(Color("TropicalBlue"))
-                .shadow(color: .gray, radius: 3, x: 2, y: 2)
-            
-            UrlImageView(urlString: device.image)
-                .padding(3)
-        }
-        .aspectRatio(1, contentMode: .fit)
-        .frame(height: 50)
+        UrlImageView(urlString: device.image)
+            .padding(Constants.buttonPadding)
+            .background(
+                RoundedRectangle(cornerRadius: Constants.cornerRadius)
+                    .foregroundColor(.white)
+                    .shadow(color: .gray, radius: 3, x: 2, y: 2)
+            )
+            .aspectRatio(Constants.buttonAspectRatio, contentMode: .fit)
+            .frame(height: Constants.buttonHeight)
     }
 }

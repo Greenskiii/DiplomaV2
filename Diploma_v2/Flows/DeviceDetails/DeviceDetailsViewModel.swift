@@ -8,7 +8,7 @@
 import SwiftUI
 import Combine
 
-class DeviceDetailsViewModel: ObservableObject {
+final class DeviceDetailsViewModel: ObservableObject {
     var subscriptions = Set<AnyCancellable>()
     
     @Published var selectedHouseId: String
@@ -21,11 +21,11 @@ class DeviceDetailsViewModel: ObservableObject {
     let oldHouse: String
     let oldRoom: String
     
-    private(set) lazy var onChangeHouse = PassthroughSubject<String, Never>()
-    private(set) lazy var onChangeRoom = PassthroughSubject<String, Never>()
-    private(set) lazy var onCancelChanges = PassthroughSubject<Void, Never>()
-    private(set) lazy var onDeleteDevice = PassthroughSubject<Void, Never>()
-    private(set) lazy var onSaveChanges = PassthroughSubject<Void, Never>()
+    private(set) var onChangeHouse = PassthroughSubject<String, Never>()
+    private(set) var onChangeRoom = PassthroughSubject<String, Never>()
+    private(set) var onCancelChanges = PassthroughSubject<Void, Never>()
+    private(set) var onDeleteDevice = PassthroughSubject<Void, Never>()
+    private(set) var onSaveChanges = PassthroughSubject<Void, Never>()
     
     var editViewIsShow: Bool {
         return selectedHouseId != oldHouse || selectedRoomId != oldRoom
@@ -86,9 +86,10 @@ class DeviceDetailsViewModel: ObservableObject {
         onSaveChanges
             .sink { [weak self] _ in
                 guard let self = self else { return }
+                onCloseDeviceDetail.send()
+                
                 self.dataManager.deleteDevice(with: device.id, houseId: self.oldHouse, roomId: self.oldRoom) {
                     self.dataManager.addDevice(roomId: self.selectedRoomId, deviceId: self.device.id) { success in
-                        onCloseDeviceDetail.send()
                     }
                 }
             }

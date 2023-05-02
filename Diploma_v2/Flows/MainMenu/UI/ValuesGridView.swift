@@ -8,12 +8,20 @@
 import SwiftUI
 
 struct ValuesGridView: View {
+    private enum Constants {
+        static let spacing: CGFloat = 25
+        static let imageFont: Font = .system(size: 22)
+        static let imagePadding: CGFloat = 12
+        static let cornerRadius: CGFloat = 16
+        static let circleWidth: CGFloat = 5
+    }
+    
     let values: [[Value]]
     
     var body: some View {
         VStack {
             ForEach(values, id: \.self) { values1 in
-                HStack(spacing: 25) {
+                HStack(spacing: Constants.spacing) {
                     ForEach(values1, id: \.self) { value in
                         if values1.count == 3 && value != values1.last {
                             makeValueCard(value: value)
@@ -34,13 +42,14 @@ struct ValuesGridView: View {
     func makeThirdValueCard(value: Value) -> some View {
         ZStack(alignment: .topTrailing) {
             HStack {
-                    ZStack {
-                        Image(systemName: value.imageSystemName)
-                            .font(.system(size: 22))
-                            .foregroundColor(Color("Royalblue"))
-                            .padding(12)
-                            .background(Circle().foregroundColor(Color("LightGray")))
-                    }
+                Image(systemName: value.imageSystemName)
+                    .font(Constants.imageFont)
+                    .foregroundColor(Color("Royalblue"))
+                    .padding(Constants.imagePadding)
+                    .background(
+                        Circle()
+                            .foregroundColor(Color("LightGray"))
+                    )
                 Text(value.name)
                     .font(.headline)
                     .padding(.leading)
@@ -50,16 +59,16 @@ struct ValuesGridView: View {
                 Spacer()
             }
             .padding()
-
+            
             Circle()
                 .foregroundColor(value.valueState.color)
-                .frame(width: 5)
+                .frame(width: Constants.circleWidth)
                 .padding()
         }
         .background(
-            RoundedRectangle(cornerRadius: 16)
-            .foregroundColor(Color.white)
-            .shadow(color: .gray, radius: 3, x: 2, y: 2)
+            RoundedRectangle(cornerRadius: Constants.cornerRadius)
+                .foregroundColor(Color.white)
+                .shadow(color: .gray, radius: 3, x: 2, y: 2)
         )
         .foregroundColor(Color("Royalblue"))
         .padding(.bottom)
@@ -67,16 +76,16 @@ struct ValuesGridView: View {
     
     func makeValueCard(value: Value) -> some View {
         ZStack(alignment: .topTrailing) {
-                        RoundedRectangle(cornerRadius: 16)
-                            .foregroundColor(Color.white)
-                            .shadow(color: .gray, radius: 3, x: 2, y: 2)
             HStack {
                 VStack(alignment: .leading) {
                     Image(systemName: value.imageSystemName)
-                        .font(.system(size: 22))
+                        .font(Constants.imageFont)
                         .foregroundColor(Color("Royalblue"))
-                        .padding(12)
-                        .background(Circle().foregroundColor(Color("LightGray")))
+                        .padding(Constants.imagePadding)
+                        .background(
+                            Circle()
+                                .foregroundColor(Color("LightGray"))
+                        )
                     
                     Text(value.name)
                         .font(.headline)
@@ -85,14 +94,18 @@ struct ValuesGridView: View {
                         .font(.title2)
                         .fontWeight(.bold)
                 }
-                .padding(.vertical)
-                .padding(.leading)
+                .padding([.vertical, .leading])
                 Spacer()
             }
-
+            .background(
+                RoundedRectangle(cornerRadius: Constants.cornerRadius)
+                    .foregroundColor(Color.white)
+                    .shadow(color: .gray, radius: 3, x: 2, y: 2)
+            )
+            
             Circle()
                 .foregroundColor(value.valueState.color)
-                .frame(width: 5)
+                .frame(width: Constants.circleWidth)
                 .padding()
         }
         .foregroundColor(Color("Royalblue"))

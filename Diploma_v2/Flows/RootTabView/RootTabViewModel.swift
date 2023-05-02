@@ -20,6 +20,15 @@ enum TabType: CaseIterable {
             return "gearshape.fill"
         }
     }
+    
+    func pageOrderNumber() -> Int {
+        switch self {
+        case .main:
+            return 0
+        case .settings:
+            return 1
+        }
+    }
 }
 
 class RootTabViewModel: ObservableObject {
@@ -32,20 +41,21 @@ class RootTabViewModel: ObservableObject {
     
     @Published var selectedTab = TabType.main
     @Published var house: House? = nil
-    @Published var addDeviceViewIsOpen: Bool = false
     @Published var newDeviceId = ""
+    @Published var addDeviceViewIsOpen: Bool = false
     @Published var showErrorView: Bool = false
+    @Published var loadViewShown: Bool = false
+    @Published var deviceDetailIsOpen = false
     @Published var errorText: String = ""
     @Published var choosenDevice: Device?
-    @Published var deviceDetailIsOpen = false
     @Published var housePreview: [HousePreview] = []
     @Published var user: User? = nil
     
-    var onGoToScannerScreen: PassthroughSubject<Void, Never>
-    private(set) lazy var onTapDevice = PassthroughSubject<Device?, Never>()
-    private(set) lazy var onSaveNewDeviceId = PassthroughSubject<String, Never>()
-    private(set) lazy var onPressAddDevice = PassthroughSubject<Void, Never>()
-    private(set) lazy var onCloseDeviceDetail = PassthroughSubject<Void, Never>()
+    private(set) var onGoToScannerScreen: PassthroughSubject<Void, Never>
+    private(set) var onTapDevice = PassthroughSubject<Device?, Never>()
+    private(set) var onSaveNewDeviceId = PassthroughSubject<String, Never>()
+    private(set) var onPressAddDevice = PassthroughSubject<Void, Never>()
+    private(set) var onCloseDeviceDetail = PassthroughSubject<Void, Never>()
     
     var deviceDetailsViewModel: DeviceDetailsViewModel? {
         if let device = self.choosenDevice,
@@ -112,19 +122,27 @@ class RootTabViewModel: ObservableObject {
                         switch completion {
                         case .notFoundId:
                             self?.errorText = NSLocalizedString("ID_ERROR", comment: "Error")
-                            self?.showErrorView = true
+                            withAnimation {
+                                self?.showErrorView = true
+                            }
                             self?.startTimerForError()
                         case .error:
                             self?.errorText = NSLocalizedString("BASE_ERROR", comment: "Error")
-                            self?.showErrorView = true
+                            withAnimation {
+                                self?.showErrorView = true
+                            }
                             self?.startTimerForError()
                         case .success:
-                            self?.addDeviceViewIsOpen = false
+                            withAnimation {
+                                self?.addDeviceViewIsOpen = false
+                            }
                         }
                     }
                 } else {
                     self?.errorText = NSLocalizedString("EMPTY_ID_ERROR", comment: "Error")
-                    self?.showErrorView = true
+                    withAnimation {
+                        self?.showErrorView = true
+                    }
                     self?.startTimerForError()
                 }
             }
@@ -132,7 +150,9 @@ class RootTabViewModel: ObservableObject {
         
         onPressAddDevice
             .sink { [weak self] _ in
-                self?.addDeviceViewIsOpen.toggle()
+                withAnimation {
+                    self?.addDeviceViewIsOpen.toggle()
+                }
             }
             .store(in: &subscriptions)
         
@@ -163,7 +183,9 @@ class RootTabViewModel: ObservableObject {
                 DispatchQueue.main.async() {
                     [weak self] in
                     guard let self = self else { return }
-                    self.showErrorView = false
+                    withAnimation {
+                        self.showErrorView = false
+                    }
                 }
             }
         }

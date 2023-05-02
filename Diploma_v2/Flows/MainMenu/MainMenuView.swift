@@ -9,6 +9,21 @@ import SwiftUI
 import Combine
 
 struct MainMenuView: View {
+    private enum Constants {
+        enum HouseMenu {
+            static let horizontalPadding: CGFloat = 10
+        }
+        enum TopView {
+            static let urlImageHeight: CGFloat = 40
+            static let urlImageWidth: CGFloat = 40
+            static let font: Font = .system(size: 25)
+        }
+        enum RoomPreviewView {
+            static let minWidth: CGFloat = 150
+            static let padding: CGFloat = 4
+        }
+    }
+    
     @ObservedObject var viewModel: MainMenuViewModel
     
     var body: some View {
@@ -26,8 +41,8 @@ struct MainMenuView: View {
                 
                 VStack {
                     makeTopView()
-                        .padding(.horizontal)
-                        .padding(.top)
+                        .padding([.horizontal, .top])
+
                     if let house = viewModel.house {
                         makeRoomPreviewView(for: house)
                         if let room = house.rooms.first(where: { $0.id == viewModel.choosenRoomId }) {
@@ -59,7 +74,7 @@ struct MainMenuView: View {
                     }
                     Spacer()
                 }
-                .padding(.horizontal, 10)
+                .padding(.horizontal, Constants.HouseMenu.horizontalPadding)
                 .padding(.top)
             }
             .edgesIgnoringSafeArea(.bottom)
@@ -72,29 +87,29 @@ struct MainMenuView: View {
                 Text(choosenHouse)
                     .font(.title2)
                     .fontWeight(.medium)
-                    .foregroundColor(Color("Navy"))
-                
             }
             HStack(alignment: .bottom) {
                 Spacer()
                 HStack {
                     if let user = viewModel.user {
                         Text(user.name)
-                            .foregroundColor(Color("Navy"))
+                            .font(.title3)
+                            .fontWeight(.regular)
                         
                         if !user.imageUrl.isEmpty {
                             UrlImageView(urlString: user.imageUrl)
                                 .clipShape(Circle())
-                                .frame(width: 40, height: 40)
+                                .frame(width: Constants.TopView.urlImageWidth,
+                                       height: Constants.TopView.urlImageHeight)
                         } else {
                             Image(systemName: "person.circle.fill")
-                                .font(.system(size: 25))
-                                .foregroundColor(Color("Navy"))
+                                .font(Constants.TopView.font)
                         }
                     }
                 }
             }
         }
+        .foregroundColor(Color("Navy"))
     }
     
     func makeRoomPreviewView(for house: House) -> some View {
@@ -105,8 +120,8 @@ struct MainMenuView: View {
                         room: room,
                         isSelected: room.id == viewModel.choosenRoomId
                     )
-                        .frame(minWidth: 150)
-                        .padding(.vertical, 4)
+                    .frame(minWidth: Constants.RoomPreviewView.minWidth)
+                    .padding(.vertical, Constants.RoomPreviewView.padding)
                         .onTapGesture {
                             withAnimation {
                                 viewModel.onChooseRoom.send(room.id)

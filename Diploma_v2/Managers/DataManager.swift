@@ -12,6 +12,12 @@ import FirebaseAuth
 import SwiftUI
 import Combine
 
+enum DataManagerResult {
+    case notFoundId
+    case error
+    case success
+}
+
 final class DataManager {
     private var subscriptions = Set<AnyCancellable>()
     private let firestoreManager = FirestoreManager()
@@ -23,8 +29,8 @@ final class DataManager {
     @Published public var newDeviceId: String = ""
     @Published var choosenRoomId = ""
     
-    private(set) lazy var onChangeHouse = PassthroughSubject<String, Never>()
-    private(set) lazy var onChangeNewDeviceId = PassthroughSubject<String, Never>()
+    var onChangeHouse = PassthroughSubject<String, Never>()
+    var onChangeNewDeviceId = PassthroughSubject<String, Never>()
     
     init() {
         if let user = authManager.getUserInfo() {
@@ -129,7 +135,6 @@ extension DataManager {
                 }
                 
                 self.house?.rooms.append(room)
-                
                 self.setDevices(for: room.id) {
                     completion()
                 }
@@ -210,41 +215,8 @@ extension DataManager {
             }
         }
     }
-    // MARK: - FCMToken
-    //    public func removeFCMToken() {
-    //        collection?.document("devicesId").getDocument { (document, error) in
-    //            if var devicesId = document?.data()?["ids"] as? [String],
-    //               let fcmToken = UserDefaults.standard.string(forKey: "fcmToken"),
-    //               let index = devicesId.firstIndex(where: { $0 == fcmToken }) {
-    //
-    //                devicesId.remove(at: index)
-    //                self.collection?.document("devicesId").updateData(["ids": devicesId]) { error in
-    //                    if let error = error {
-    //                        print(error.localizedDescription)
-    //                    }
-    //                }
-    //            }
-    //        }
-    //    }
-    //
-    //    public func checkFCMToken() {
-    //        collection?.document("devicesId").getDocument { (document, error) in
-    //            if var devicesId = document?.data()?["ids"] as? [String],
-    //               let fcmToken = UserDefaults.standard.string(forKey: "fcmToken"),
-    //               !devicesId.contains(fcmToken) {
-    //
-    //                devicesId.append(fcmToken)
-    //                self.collection?.document("devicesId").updateData(["ids": devicesId]) { error in
-    //                    if let error = error {
-    //                        print(error.localizedDescription)
-    //                    }
-    //                }
-    //            }
-    //        }
-    //    }
     
     // MARK: - Post Request
-    
     public func addDevice(roomId: String,
                           deviceId: String,
                           completion: @escaping (_ success: DataManagerResult) -> Void) {
@@ -269,6 +241,7 @@ extension DataManager {
                         if let roomIndex = self.house?.rooms.firstIndex(where: { $0.id == roomId }) {
                             self.house?.rooms[roomIndex].devicesId = devices
                             if !house.rooms[roomIndex].devices.contains(where: { $0.id == deviceId }) {
+                                
                                 self.setDevice(deviceId: deviceId, roomId: roomId) {
                                     completion(DataManagerResult.success)
                                 }
@@ -289,10 +262,6 @@ extension DataManager {
                              houseId: String,
                              roomId: String,
                              completion: @escaping () -> Void) {
-        guard let house = self.house else {
-            return
-        }
-        
         self.firestoreManager.get(docId: roomId, collection: .room) { (result: Result<Room, FirestoreManagerError>) in
             switch result {
             case .success(let room):
@@ -304,20 +273,11 @@ extension DataManager {
                 self.firestoreManager.update(data: ["devices": devicesId], documentId: roomId, collection: .room) { result in
                     switch result {
                     case .success:
-                        guard house.id == houseId,
-                              let roomIndex = house.rooms.firstIndex(where: { $0.id == roomId }),
-                              let deviceIndex = house.rooms[roomIndex].devices.firstIndex(where: { $0.id == id }),
-                              let deviceIdIndex = house.rooms[roomIndex].devicesId.firstIndex(where: { $0 == id }) else {
-                            return
+                        if let id = self.house?.id {
+                            self.setHouse(with: id) {
+                                completion()
+                            }
                         }
-                        if self.house?.rooms[roomIndex].previewDeviceId == id {
-                            self.house?.rooms[roomIndex].previewDeviceId = nil
-                            self.house?.rooms[roomIndex].previewValues = []
-                        }
-                        self.realtimeDatabseManager.setDefaultValues(for: id)
-                        self.house?.rooms[roomIndex].devices.remove(at: deviceIndex)
-                        self.house?.rooms[roomIndex].devicesId.remove(at: deviceIdIndex)
-                        completion()
                     case .failure(let error):
                         print(error)
                     }
@@ -414,10 +374,11 @@ extension DataManager {
                    completion: @escaping () -> Void) {
         guard let house = self.house,
               let roomIndex = self.house?.rooms.firstIndex(where: { $0.id == roomId }) else {
+            completion()
             return
         }
         
-        self.realtimeDatabseManager.getDevice(path: deviceId) { [weak self] device in
+        self.realtimeDatabseManager.observeDevice(path: deviceId) { [weak self] device in
             
             if self?.house?.rooms[roomIndex].devices.first(where: { $0.id == device.id }) == nil {
                 self?.house?.rooms[roomIndex].devices.append(device)
@@ -440,12 +401,6 @@ extension DataManager {
             completion()
         }
     }
-}
-
-enum DataManagerResult {
-    case notFoundId
-    case error
-    case success
 }
 
 extension String {

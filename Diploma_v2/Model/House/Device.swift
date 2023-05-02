@@ -58,7 +58,6 @@ struct Device: Hashable {
                 }
             }
         }
-        
         self.id = id
         self.name = name
         self.image = image

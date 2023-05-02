@@ -8,6 +8,15 @@
 import SwiftUI
 
 struct ScannerView: View {
+    private enum Constants {
+        enum TorchButton {
+            static let font: Font = .system(size: 28)
+            static let cornerRadius: CGFloat = 16
+            static let width: CGFloat = 50
+            static let height: CGFloat = 50
+        }
+    }
+    
     @ObservedObject var viewModel: ScannerViewModel
     
     var body: some View {
@@ -23,8 +32,9 @@ struct ScannerView: View {
                     Button {
                         viewModel.onGoBack.send()
                     } label: {
-                        Text(NSLocalizedString("BACK", comment: "Action"))
-                            .padding()
+                        Image(systemName: "chevron.backward.circle")
+                            .foregroundColor(Color("Navy"))
+                            .font(.title2)
                     }
                     Spacer()
                 }
@@ -35,13 +45,14 @@ struct ScannerView: View {
                     viewModel.torchIsOn.toggle()
                 } label: {
                     ZStack {
-                        RoundedRectangle(cornerRadius: 16)
+                        RoundedRectangle(cornerRadius: Constants.TorchButton.cornerRadius)
                             .foregroundColor(.gray)
                         Image(systemName: viewModel.torchIsOn ? "flashlight.on.fill" :"flashlight.off.fill")
                             .foregroundColor(.white)
-                            .font(.system(size: 28))
+                            .font(Constants.TorchButton.font)
                     }
-                    .frame(width: 50, height: 50)
+                    .frame(width: Constants.TorchButton.width,
+                           height: Constants.TorchButton.height)
                     .padding()
                 }
             }

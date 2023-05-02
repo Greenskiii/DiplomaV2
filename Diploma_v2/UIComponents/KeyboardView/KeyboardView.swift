@@ -19,7 +19,11 @@ struct KeyboardView<Content, ToolBar> : View where Content : View, ToolBar: View
                 Color("TropicalBlue")
                     .ignoresSafeArea()
                 content()
-                    .padding(.bottom, (keyboard.currentHeight == 0) ? geometry.size.height * 0.12 : toolbarFrame.height)
+                    .padding(
+                        .bottom,
+                        keyboard.currentHeight == 0 ? geometry.size.height * 0.12
+                                                    : toolbarFrame.height
+                    )
                 VStack {
                     Spacer()
                     toolBar()
@@ -33,7 +37,5 @@ struct KeyboardView<Content, ToolBar> : View where Content : View, ToolBar: View
             .edgesIgnoringSafeArea(.bottom)
             .animation(.easeOut)
         }
-
-        
     }
 }

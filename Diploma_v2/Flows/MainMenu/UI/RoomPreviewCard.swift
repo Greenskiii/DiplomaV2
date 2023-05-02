@@ -8,6 +8,15 @@
 import SwiftUI
 
 struct RoomPreviewCard: View {
+    private enum Constants {
+        static let cornerRadius: CGFloat = 16
+        static let height: CGFloat = 55
+        static let imageHeight: CGFloat = 15
+        static let imageWidth: CGFloat = 10
+        static let previewValueOffset: CGFloat = -5
+        static let textOffset: CGFloat = 5
+    }
+    
     let room: Room
     let isSelected: Bool
     
@@ -27,28 +36,28 @@ struct RoomPreviewCard: View {
     
     var body: some View {
         ZStack {
-            RoundedRectangle(cornerRadius: 16)
+            RoundedRectangle(cornerRadius: Constants.cornerRadius)
                 .foregroundColor(isSelected ? Color("LightBlueShark") : Color("TropicalBlue"))
                 .shadow(color: .gray, radius: 3, x: 2, y: 2)
-                .frame(height: 55)
+                .frame(height: Constants.height)
             
             VStack(alignment: .leading) {
                 Text(room.name)
-                    .offset(y: previewValue.isEmpty ? 0 : 5)
+                    .offset(y: previewValue.isEmpty ? 0 : Constants.textOffset)
                     .padding(.horizontal)
                 
-                if !previewValue.isEmpty && room.name != "Favorite" {
+                if !previewValue.isEmpty {
                     HStack {
                         Spacer()
                         ForEach(previewValue, id: \.self) { value in
                             Image(systemName: value.imageSystemName)
                                 .resizable()
-                                .frame(width: 10, height: 15)
+                                .frame(width: Constants.imageWidth, height: Constants.imageHeight)
                             Text(value.value)
                             Spacer()
                         }
                     }
-                    .offset(y: -5)
+                    .offset(y: Constants.previewValueOffset)
                 }
             }
             .foregroundColor(.white)
