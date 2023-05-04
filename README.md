@@ -15,6 +15,5 @@ notifications when the sensor threshold is raised,
 localization into two languages (English and Ukrainian)
 
 Needs to be completed:
-change device card UI,
-make animation on the main menu,
+add Onboarding flow
 add Unit tests
