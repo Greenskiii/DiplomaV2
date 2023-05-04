@@ -11,8 +11,8 @@ struct RoomPreviewCard: View {
     private enum Constants {
         static let cornerRadius: CGFloat = 16
         static let height: CGFloat = 55
-        static let imageHeight: CGFloat = 15
-        static let imageWidth: CGFloat = 10
+        static let imageHeight: CGFloat = 20
+        static let imageWidth: CGFloat = 20
         static let previewValueOffset: CGFloat = -5
         static let textOffset: CGFloat = 5
     }
@@ -50,7 +50,7 @@ struct RoomPreviewCard: View {
                     HStack {
                         Spacer()
                         ForEach(previewValue, id: \.self) { value in
-                            Image(systemName: value.imageSystemName)
+                            Image(value.imageSystemName)
                                 .resizable()
                                 .frame(width: Constants.imageWidth, height: Constants.imageHeight)
                             Text(value.value)

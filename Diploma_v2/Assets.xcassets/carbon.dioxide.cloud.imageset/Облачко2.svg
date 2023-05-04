@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="_Слой_4" data-name="Слой 4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 37.2 30.2">
+  <defs>
+    <style>
+      .cls-1, .cls-2 {
+        stroke: #fff;
+        stroke-miterlimit: 10;
+        stroke-width: 2.6px;
+      }
+
+      .cls-1, .cls-3, .cls-4 {
+        fill: #fff;
+      }
+
+      .cls-2 {
+        fill: none;
+      }
+
+      .cls-3 {
+        font-family: Bahnschrift-SemiBold, Bahnschrift;
+        font-size: 10.0px;
+        font-variation-settings: 'wght' 600, 'wdth' 100;
+        font-weight: 600;
+      }
+
+      .cls-4 {
+        font-family: Bahnschrift-Bold, Bahnschrift;
+        font-size: 8px;
+        font-variation-settings: 'wght' 700, 'wdth' 100;
+        font-weight: 700;
+      }
+
+      .cls-5 {
+        letter-spacing: -.02em;
+      }
+    </style>
+  </defs>
+  <path class="cls-2" d="M36.1,21.1c0,4.42-3.81,8-8.5,8H8.1c-3.31,0-6-2.69-6-6,0-2.67,1.75-4.93,4.15-5.71-.1-.58-.15-1.18-.15-1.79,0-5.8,4.7-10.5,10.5-10.5,4.95,0,9.1,3.42,10.21,8.03,.26-.02,.52-.03,.79-.03,4.69,0,8.5,3.58,8.5,8Z"/>
+  <path class="cls-2" d="M28.1,29.1h-.5"/>
+  <circle class="cls-2" cx="2.1" cy="13.1" r="1"/>
+  <circle class="cls-1" cx="24.6" cy="2.6" r="1.5"/>
+  <circle class="cls-1" cx="31.1" cy="7.1" r="2"/>
+  <text class="cls-3" transform="translate(9.67 24.47)"><tspan class="cls-5" x="0" y="0">C</tspan><tspan x="7.43" y="0">O</tspan></text>
+  <text class="cls-4" transform="translate(25.13 25.71)"><tspan x="0" y="0">2</tspan></text>
+</svg>

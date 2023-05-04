@@ -10,12 +10,11 @@ import SwiftUI
 struct ValuesGridView: View {
     private enum Constants {
         static let spacing: CGFloat = 25
-        static let imageFont: Font = .system(size: 22)
+        static let imageHeight: CGFloat = 30
         static let imagePadding: CGFloat = 12
         static let cornerRadius: CGFloat = 16
         static let circleWidth: CGFloat = 5
     }
-    
     let values: [[Value]]
     
     var body: some View {
@@ -42,9 +41,10 @@ struct ValuesGridView: View {
     func makeThirdValueCard(value: Value) -> some View {
         ZStack(alignment: .topTrailing) {
             HStack {
-                Image(systemName: value.imageSystemName)
-                    .font(Constants.imageFont)
-                    .foregroundColor(Color("Royalblue"))
+                Image(value.imageSystemName)
+                    .resizable()
+                    .frame(width: Constants.imageHeight, height: Constants.imageHeight)
+                    .colorMultiply(Color("Royalblue"))
                     .padding(Constants.imagePadding)
                     .background(
                         Circle()
@@ -58,7 +58,7 @@ struct ValuesGridView: View {
                     .fontWeight(.bold)
                 Spacer()
             }
-            .padding()
+            .padding([.vertical, .leading])
             
             Circle()
                 .foregroundColor(value.valueState.color)
@@ -78,9 +78,10 @@ struct ValuesGridView: View {
         ZStack(alignment: .topTrailing) {
             HStack {
                 VStack(alignment: .leading) {
-                    Image(systemName: value.imageSystemName)
-                        .font(Constants.imageFont)
-                        .foregroundColor(Color("Royalblue"))
+                    Image(value.imageSystemName)
+                        .resizable()
+                        .frame(width: Constants.imageHeight, height: Constants.imageHeight)
+                        .colorMultiply(Color("Royalblue"))
                         .padding(Constants.imagePadding)
                         .background(
                             Circle()

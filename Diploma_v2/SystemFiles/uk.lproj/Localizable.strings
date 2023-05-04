@@ -27,9 +27,13 @@
 "ADD_ROOM" = "Додати кімнату";
 "CONNECT_DEVICE" = "Підключіть пристрій";
 "CONNECT_DEVICE_INFO" = "Підключіть новий пристрій";
+"DELETE_ACTION" = "Ви впевнені, що хочете видалити?";
+"WRITE_NEW_HOUSE" = "Напишіть назву будинку";
+"WRITE_NEW_ROOM" = "Напишіть назву кімнати";
 
 /* Account Settings */
 "CHANGE_PASSWORD" = "Змінити пароль";
+"WRITE_NEW_PASSWORD" = "Напишіть новий пароль";
 
 /* Action */
 "DELETE" = "Видалити";
@@ -39,6 +43,9 @@
 "YES" = "Так";
 "ADD_DEVICE" = "Додати пристрій";
 "SEND" = "Надіслати";
+"ADD" = "Додати";
+"ADD_HOUSE" = "Додати будинок";
+"ADD_ROOM" = "Додати кімнату";
 
 /* Device View */
 "SELECT_ROOM" = "Виберіть кімнату";

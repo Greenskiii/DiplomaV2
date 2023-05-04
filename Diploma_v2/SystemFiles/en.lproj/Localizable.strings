@@ -27,9 +27,13 @@
 "ADD_ROOM" = "Add Room";
 "CONNECT_DEVICE" = "Connect device";
 "CONNECT_DEVICE_INFO" = "Connect new device with this app";
+"DELETE_ACTION" = "Are you sure you want to delete?";
+"WRITE_NEW_HOUSE" = "Write the name of the house";
+"WRITE_NEW_ROOM" = "Write the name of the room";
 
 /* Account Settings */
 "CHANGE_PASSWORD" = "Change password";
+"WRITE_NEW_PASSWORD" = "Write a new password";
 
 /* Action */
 "DELETE" = "Delete";
@@ -39,6 +43,9 @@
 "YES" = "Yes";
 "ADD_DEVICE" = "Add device";
 "SEND" = "Send";
+"ADD" = "Add";
+"ADD_HOUSE" = "Add House";
+"ADD_ROOM" = "Add Room";
 
 /* Device View */
 "SELECT_ROOM" = "Select the room";

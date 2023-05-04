@@ -126,19 +126,19 @@ struct SettingsView: View {
                     )
                 }
                 .textFieldAlert(
-                    title: "Delete",
-                    message: "Are you sure you want to delete?",
+                    title: NSLocalizedString("DELETE", comment: "Action"),
+                    message: NSLocalizedString("DELETE_ACTION", comment: "Action"),
                     textFields: [],
                     actions: [
                         .init(
-                            title: "Cancel",
+                            title: NSLocalizedString("CANCEL", comment: "Action"),
                             closure: { _ in
                                 viewModel.deleteHouse = false
                                 viewModel.choosenHouseId = ""
                             }
                         ),
                         .init(
-                            title: "Yes",
+                            title: NSLocalizedString("YES", comment: "Action"),
                             closure: { _ in
                                 viewModel.onDeleteRoom.send(viewModel.choosenHouseId)
                                 viewModel.choosenHouseId = ""
@@ -148,18 +148,18 @@ struct SettingsView: View {
                     isPresented: $viewModel.deleteRoom
                 )
                 .textFieldAlert(
-                    title: "Delete",
-                    message: "Are you sure you want to delete?",
+                    title: NSLocalizedString("DELETE", comment: "Action"),
+                    message: NSLocalizedString("DELETE_ACTION", comment: "Action"),
                     textFields: [],
                     actions: [
                         .init(
-                            title: "Cancel",
+                            title: NSLocalizedString("CANCEL", comment: "Action"),
                             closure: { _ in
                                 viewModel.choosenHouseId = ""
                             }
                         ),
                         .init(
-                            title: "Add",
+                            title: NSLocalizedString("ADD", comment: "Action"),
                             closure: { _ in
                                 if !viewModel.choosenHouseId.isEmpty {
                                     viewModel.onAddHouse.send(viewModel.choosenHouseId)
@@ -171,22 +171,22 @@ struct SettingsView: View {
                     isPresented: $viewModel.addHouse
                 )
                 .textFieldAlert(
-                    title: "Add House",
+                    title: NSLocalizedString("ADD_HOUSE", comment: "Action"),
                     textFields: [
                         .init(
                             text: $viewModel.choosenHouseId,
-                            placeholder: "Write the name of the house"
+                            placeholder: NSLocalizedString("WRITE_NEW_HOUSE", comment: "Settings")
                         )
                     ],
                     actions: [
                         .init(
-                            title: "Cancel",
+                            title: NSLocalizedString("CANCEL", comment: "Action"),
                             closure: { _ in
                                 viewModel.choosenHouseId = ""
                             }
                         ),
                         .init(
-                            title: "Add",
+                            title: NSLocalizedString("ADD", comment: "Action"),
                             closure: { _ in
                                 if !viewModel.choosenHouseId.isEmpty {
                                     viewModel.onAddHouse.send(viewModel.choosenHouseId)
@@ -198,22 +198,22 @@ struct SettingsView: View {
                     isPresented: $viewModel.addHouse
                 )
                 .textFieldAlert(
-                    title: "Add Room",
+                    title: NSLocalizedString("ADD_ROOM", comment: "Action"),
                     textFields: [
                         .init(
                             text: $viewModel.choosenHouseId,
-                            placeholder: "Write the name of the room"
+                            placeholder: NSLocalizedString("WRITE_NEW_ROOM", comment: "Settings")
                         )
                     ],
                     actions: [
                         .init(
-                            title: "Cancel",
+                            title: NSLocalizedString("CANCEL", comment: "Action"),
                             closure: { _ in
                                 viewModel.choosenHouseId = ""
                             }
                         ),
                         .init(
-                            title: "Add",
+                            title: NSLocalizedString("ADD", comment: "Action"),
                             closure: { _ in
                                 if !viewModel.choosenHouseId.isEmpty {
                                     viewModel.onAddRoom.send(viewModel.choosenHouseId)
@@ -225,23 +225,23 @@ struct SettingsView: View {
                     isPresented: $viewModel.addRoom
                 )
                 .textFieldAlert(
-                    title: "Change Password",
+                    title: NSLocalizedString("CHANGE_PASSWORD", comment: "Account Settings"),
                     textFields: [
                         .init(
                             text: $viewModel.newPassword,
-                            placeholder: "Write a new password"
+                            placeholder: NSLocalizedString("WRITE_NEW_PASSWORD", comment: "Account Settings")
                         )
                     ],
                     actions: [
                         .init(
-                            title: "Cancel",
+                            title: NSLocalizedString("CANCEL", comment: "Action"),
                             closure: { _ in
                                 viewModel.newPassword = ""
                                 viewModel.passwordAlertIsShown = false
                             }
                         ),
                         .init(
-                            title: "Save",
+                            title: NSLocalizedString("SAVE", comment: "Action"),
                             closure: { _ in
                                 viewModel.onChangePassword.send()
                             }
