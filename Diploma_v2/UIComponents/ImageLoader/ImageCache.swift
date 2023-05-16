@@ -5,7 +5,6 @@
 //  Created by Алексей Даневич on 08.04.2023.
 //
 
-import Foundation
 import UIKit
 
 class ImageCache {

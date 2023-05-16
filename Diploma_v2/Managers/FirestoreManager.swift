@@ -1,5 +1,5 @@
 //
-//  DataManager1.swift
+//  FirestoreManager.swift
 //  Diploma_v2
 //
 //  Created by Алексей Даневич on 23.03.2023.

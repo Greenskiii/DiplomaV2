@@ -95,7 +95,7 @@ class AppCoordinator: Coordinator {
             )
         )
         
-        let coordinator = MainMenuCoordinator(viewController: viewController, parentCoordinator: self)
+        let coordinator = ScannerScreenCoordinator(viewController: viewController, parentCoordinator: self)
         children.append(coordinator)
         navigationController?.viewControllers.append(viewController)
     }

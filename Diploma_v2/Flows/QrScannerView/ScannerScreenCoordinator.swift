@@ -1,5 +1,5 @@
 //
-//  MainMenuCoordinator.swift
+//  ScannerScreenCoordinator.swift
 //  Diploma_v2
 //
 //  Created by Алексей Даневич on 18.01.2023.
@@ -7,7 +7,7 @@
 
 import UIKit
 
-class MainMenuCoordinator: Coordinator {
+class ScannerScreenCoordinator: Coordinator {
     var parentCoordinator: Coordinator?
     var children: [Coordinator] = []
     var viewController: UIViewController

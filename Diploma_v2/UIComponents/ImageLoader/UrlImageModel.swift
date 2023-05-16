@@ -5,7 +5,6 @@
 //  Created by Алексей Даневич on 02.02.2023.
 //
 
-import Foundation
 import SwiftUI
 
 class UrlImageModel: ObservableObject {

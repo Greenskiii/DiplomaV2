@@ -10,7 +10,6 @@
 		07B4B010461FFC62091EB16A /* Pods_Diploma_v2.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 09DA504D158DE61EA7BDDB3B /* Pods_Diploma_v2.framework */; };
 		B802BA5229EED00B001B6C15 /* CustomTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B802BA5129EED00B001B6C15 /* CustomTabView.swift */; };
 		B802BA5429EED033001B6C15 /* TabButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = B802BA5329EED033001B6C15 /* TabButton.swift */; };
-		B802BA5729EFF899001B6C15 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B802BA5629EFF899001B6C15 /* SettingsViewController.swift */; };
 		B8340C182A0125AE0030B826 /* FCMTokenManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8340C172A0125AE0030B826 /* FCMTokenManager.swift */; };
 		B834A93B297745F200AC8F09 /* AuthorizationModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B834A93A297745F200AC8F09 /* AuthorizationModel.swift */; };
 		B834A93D29784A2E00AC8F09 /* ErrorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B834A93C29784A2E00AC8F09 /* ErrorView.swift */; };
@@ -73,6 +72,7 @@
 		B894BA6929A9333800C4BB22 /* QrCodeScannerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B894BA6829A9333800C4BB22 /* QrCodeScannerView.swift */; };
 		B894BA6B29A935D400C4BB22 /* ScannerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B894BA6A29A935D400C4BB22 /* ScannerViewController.swift */; };
 		B8A4CF5D29C900D8009E9BC5 /* Diploma_v2Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8A4CF5C29C900D8009E9BC5 /* Diploma_v2Tests.swift */; };
+		B8AB6FE32A1295B60089F1BC /* Devices.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8AB6FE22A1295B60089F1BC /* Devices.swift */; };
 		B8AC98F1298D3D6500C40B84 /* RoomPreviewCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8AC98F0298D3D6500C40B84 /* RoomPreviewCard.swift */; };
 		B8C5CADD2979ED10009ED632 /* ForgotPasswordView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8C5CADC2979ED10009ED632 /* ForgotPasswordView.swift */; };
 		B8C5CADF2979F032009ED632 /* ForgotPasswordViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8C5CADE2979F032009ED632 /* ForgotPasswordViewModel.swift */; };
@@ -91,8 +91,7 @@
 		B8CE2DAC2982C5F1007FFA2E /* VisualEffectView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8CE2DA42982C5F0007FFA2E /* VisualEffectView.swift */; };
 		B8CE2DB52982C622007FFA2E /* MainMenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8CE2DAD2982C622007FFA2E /* MainMenuView.swift */; };
 		B8CE2DB72982C622007FFA2E /* MainMenuViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8CE2DAF2982C622007FFA2E /* MainMenuViewModel.swift */; };
-		B8CE2DB82982C622007FFA2E /* MainMenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8CE2DB02982C622007FFA2E /* MainMenuViewController.swift */; };
-		B8CE2DB92982C622007FFA2E /* MainMenuCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8CE2DB12982C622007FFA2E /* MainMenuCoordinator.swift */; };
+		B8CE2DB92982C622007FFA2E /* ScannerScreenCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8CE2DB12982C622007FFA2E /* ScannerScreenCoordinator.swift */; };
 		B8CE2DBE2982C69D007FFA2E /* DataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8CE2DBD2982C69D007FFA2E /* DataManager.swift */; };
 		B8D2303F29CA22E800EB1973 /* HouseMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8D2303E29CA22E800EB1973 /* HouseMenu.swift */; };
 		B8F9016129CCEB8F00DE3797 /* FirestoreManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8F9016029CCEB8F00DE3797 /* FirestoreManager.swift */; };
@@ -113,7 +112,6 @@
 		1DF3547ACC526E5CD2624627 /* Pods-Diploma_v2.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Diploma_v2.release.xcconfig"; path = "Target Support Files/Pods-Diploma_v2/Pods-Diploma_v2.release.xcconfig"; sourceTree = "<group>"; };
 		B802BA5129EED00B001B6C15 /* CustomTabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTabView.swift; sourceTree = "<group>"; };
 		B802BA5329EED033001B6C15 /* TabButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabButton.swift; sourceTree = "<group>"; };
-		B802BA5629EFF899001B6C15 /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		B8340C172A0125AE0030B826 /* FCMTokenManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FCMTokenManager.swift; sourceTree = "<group>"; };
 		B834A93029760AA000AC8F09 /* Diploma-v2-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "Diploma-v2-Info.plist"; sourceTree = SOURCE_ROOT; };
 		B834A93A297745F200AC8F09 /* AuthorizationModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthorizationModel.swift; sourceTree = "<group>"; };
@@ -181,6 +179,7 @@
 		B894BA6A29A935D400C4BB22 /* ScannerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScannerViewController.swift; sourceTree = "<group>"; };
 		B8A4CF5A29C900D8009E9BC5 /* Diploma_v2Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Diploma_v2Tests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		B8A4CF5C29C900D8009E9BC5 /* Diploma_v2Tests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Diploma_v2Tests.swift; sourceTree = "<group>"; };
+		B8AB6FE22A1295B60089F1BC /* Devices.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Devices.swift; sourceTree = "<group>"; };
 		B8AC98F0298D3D6500C40B84 /* RoomPreviewCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoomPreviewCard.swift; sourceTree = "<group>"; };
 		B8C5CADC2979ED10009ED632 /* ForgotPasswordView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForgotPasswordView.swift; sourceTree = "<group>"; };
 		B8C5CADE2979F032009ED632 /* ForgotPasswordViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForgotPasswordViewModel.swift; sourceTree = "<group>"; };
@@ -199,8 +198,7 @@
 		B8CE2DA42982C5F0007FFA2E /* VisualEffectView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VisualEffectView.swift; sourceTree = "<group>"; };
 		B8CE2DAD2982C622007FFA2E /* MainMenuView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainMenuView.swift; sourceTree = "<group>"; };
 		B8CE2DAF2982C622007FFA2E /* MainMenuViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainMenuViewModel.swift; sourceTree = "<group>"; };
-		B8CE2DB02982C622007FFA2E /* MainMenuViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainMenuViewController.swift; sourceTree = "<group>"; };
-		B8CE2DB12982C622007FFA2E /* MainMenuCoordinator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainMenuCoordinator.swift; sourceTree = "<group>"; };
+		B8CE2DB12982C622007FFA2E /* ScannerScreenCoordinator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScannerScreenCoordinator.swift; sourceTree = "<group>"; };
 		B8CE2DBD2982C69D007FFA2E /* DataManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataManager.swift; sourceTree = "<group>"; };
 		B8D2303E29CA22E800EB1973 /* HouseMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HouseMenu.swift; sourceTree = "<group>"; };
 		B8F9016029CCEB8F00DE3797 /* FirestoreManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirestoreManager.swift; sourceTree = "<group>"; };
@@ -262,6 +260,7 @@
 				B86F173629E18F77008E064D /* RoomPreview.swift */,
 				B86F173129E18F0D008E064D /* UserHouses.swift */,
 				B889C8F729B5F92200E6977B /* Value.swift */,
+				B8AB6FE22A1295B60089F1BC /* Devices.swift */,
 			);
 			path = House;
 			sourceTree = "<group>";
@@ -365,9 +364,7 @@
 		B874C986296ED4B500D6CC30 /* MainMenu */ = {
 			isa = PBXGroup;
 			children = (
-				B8CE2DB12982C622007FFA2E /* MainMenuCoordinator.swift */,
 				B8CE2DAD2982C622007FFA2E /* MainMenuView.swift */,
-				B8CE2DB02982C622007FFA2E /* MainMenuViewController.swift */,
 				B8CE2DAF2982C622007FFA2E /* MainMenuViewModel.swift */,
 				B8CE2DCD29845D77007FFA2E /* UI */,
 			);
@@ -378,7 +375,6 @@
 			isa = PBXGroup;
 			children = (
 				B889C8F929B6119900E6977B /* SettingsView.swift */,
-				B802BA5629EFF899001B6C15 /* SettingsViewController.swift */,
 				B889C8FD29B611B300E6977B /* SettingsViewModel.swift */,
 				B88AEEBC29CB7CE4002FFE7B /* UI */,
 			);
@@ -472,9 +468,9 @@
 		B894BA5E29A931A300C4BB22 /* QrScannerView */ = {
 			isa = PBXGroup;
 			children = (
-				B894BA6629A9331A00C4BB22 /* CameraPreview.swift */,
+				B8F817232A06FD1000B3E7BF /* UI */,
+				B8CE2DB12982C622007FFA2E /* ScannerScreenCoordinator.swift */,
 				B894BA6329A932F700C4BB22 /* QrCodeCameraDelegate.swift */,
-				B894BA6829A9333800C4BB22 /* QrCodeScannerView.swift */,
 				B894BA6129A932D800C4BB22 /* ScannerView.swift */,
 				B894BA6A29A935D400C4BB22 /* ScannerViewController.swift */,
 				B894BA5F29A932C100C4BB22 /* ScannerViewModel.swift */,
@@ -555,6 +551,15 @@
 				B8D2303E29CA22E800EB1973 /* HouseMenu.swift */,
 				B8AC98F0298D3D6500C40B84 /* RoomPreviewCard.swift */,
 				B877ACB529E940E200E97EA1 /* ValuesGridView.swift */,
+			);
+			path = UI;
+			sourceTree = "<group>";
+		};
+		B8F817232A06FD1000B3E7BF /* UI */ = {
+			isa = PBXGroup;
+			children = (
+				B894BA6829A9333800C4BB22 /* QrCodeScannerView.swift */,
+				B894BA6629A9331A00C4BB22 /* CameraPreview.swift */,
 			);
 			path = UI;
 			sourceTree = "<group>";
@@ -733,9 +738,7 @@
 				B8CDA92929E0B99700C5502D /* TextFieldWrapper.swift in Sources */,
 				B889C8F829B5F92200E6977B /* Value.swift in Sources */,
 				B8CE2DA82982C5F1007FFA2E /* SizePreferenceKey.swift in Sources */,
-				B802BA5729EFF899001B6C15 /* SettingsViewController.swift in Sources */,
 				B889C8ED29B2620F00E6977B /* RootTabViewController.swift in Sources */,
-				B8CE2DB82982C622007FFA2E /* MainMenuViewController.swift in Sources */,
 				B86F173429E18F60008E064D /* HousePreview.swift in Sources */,
 				B86F173229E18F0D008E064D /* UserHouses.swift in Sources */,
 				B834A93B297745F200AC8F09 /* AuthorizationModel.swift in Sources */,
@@ -747,6 +750,7 @@
 				B8CE2DA92982C5F1007FFA2E /* BackgroundGeometryReader.swift in Sources */,
 				B8340C182A0125AE0030B826 /* FCMTokenManager.swift in Sources */,
 				B87BE75A29D351C600CECC5A /* House.swift in Sources */,
+				B8AB6FE32A1295B60089F1BC /* Devices.swift in Sources */,
 				B834A94329785D0000AC8F09 /* AppCoordinator.swift in Sources */,
 				B8CE2DAB2982C5F1007FFA2E /* SecureTextField.swift in Sources */,
 				B8CE2DB52982C622007FFA2E /* MainMenuView.swift in Sources */,
@@ -786,7 +790,7 @@
 				B8AC98F1298D3D6500C40B84 /* RoomPreviewCard.swift in Sources */,
 				B834A94729785EEE00AC8F09 /* AuthorizationCoordinator.swift in Sources */,
 				B88AEEC729CB842D002FFE7B /* HousesSettingsView.swift in Sources */,
-				B8CE2DB92982C622007FFA2E /* MainMenuCoordinator.swift in Sources */,
+				B8CE2DB92982C622007FFA2E /* ScannerScreenCoordinator.swift in Sources */,
 				B8CE2DA52982C5F0007FFA2E /* SizeAwareViewModifier.swift in Sources */,
 				B8CE2DA72982C5F0007FFA2E /* View.eraseToAnyView.swift in Sources */,
 			);
